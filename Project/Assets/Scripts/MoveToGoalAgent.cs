@@ -2,64 +2,66 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class MoveToGoalAgent : Agent
+namespace Assets.Scripts
 {
-    [SerializeField] private Transform targetTransform;
-    [SerializeField] private float moveSpeed;
-
-    public override void OnEpisodeBegin()
+    public class MoveToGoalAgent : Agent
     {
-        while (true)
+        [SerializeField] private Transform _targetTransform;
+        [SerializeField] private float _moveSpeed;
+
+        public override void OnEpisodeBegin()
         {
-            var playerPosition = new Vector3(Random.Range(-12.6f, -7f), 0f, Random.Range(-6f, 0.8f));
-            var goalPosition = new Vector3(Random.Range(-12.5f, -7f), 0f, Random.Range(-6f, 0.5f));
-
-            if ((playerPosition - goalPosition).sqrMagnitude > 2.5f)
+            while (true)
             {
-                transform.localPosition = playerPosition;
-                targetTransform.localPosition = goalPosition;
+                var playerPosition = new Vector3(Random.Range(-12.6f, -7f), 0f, Random.Range(-6f, 0.8f));
+                var goalPosition = new Vector3(Random.Range(-12.5f, -7f), 0f, Random.Range(-6f, 0.5f));
+
+                if ((playerPosition - goalPosition).sqrMagnitude > 2.5f)
+                {
+                    transform.localPosition = playerPosition;
+                    _targetTransform.localPosition = goalPosition;
+                }
+                else
+                {
+                    continue;
+                }
+
+                break;
             }
-            else
-            {
-                continue;
+        }
+
+        public override void CollectObservations(VectorSensor sensor)
+        {
+            sensor.AddObservation(transform.localPosition);
+            sensor.AddObservation(_targetTransform.localPosition);
+        }
+
+        public override void OnActionReceived(ActionBuffers actions)
+        {
+            var moveX = actions.ContinuousActions[0];
+            var moveZ = actions.ContinuousActions[1];
+
+            transform.localPosition += new Vector3(moveX, 0, moveZ) * Time.deltaTime * _moveSpeed;
+        }
+
+        public override void Heuristic(in ActionBuffers actionsOut)
+        {
+            var continuousActions = actionsOut.ContinuousActions;
+            continuousActions[0] = Input.GetAxisRaw("Horizontal");
+            continuousActions[1] = Input.GetAxisRaw("Vertical");
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag($"Finish")) {
+                SetReward(+1f);
+                EndEpisode();
             }
-
-            break;
-        }
-    }
-
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetTransform.localPosition);
-    }
-
-    public override void OnActionReceived(ActionBuffers actions)
-    {
-        var moveX = actions.ContinuousActions[0];
-        var moveZ = actions.ContinuousActions[1];
-
-        transform.localPosition += new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed;
-    }
-
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        var continuousActions = actionsOut.ContinuousActions;
-        continuousActions[0] = Input.GetAxisRaw("Horizontal");
-        continuousActions[1] = Input.GetAxisRaw("Vertical");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag($"Finish")) {
-            SetReward(+1f);
-            EndEpisode();
-        }
-        if (other.CompareTag($"Respawn")) {
-            SetReward(-1f);
-            EndEpisode();
+            if (other.CompareTag($"Respawn")) {
+                SetReward(-1f);
+                EndEpisode();
+            }
         }
     }
 }
