@@ -5,6 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - goal
+  - agent
+  - ground
+  - block
+  - wall
+  - switchOff
+  - pyramid
+  - stone
+  - switchOn
   layers:
   - Default
   - TransparentFX
