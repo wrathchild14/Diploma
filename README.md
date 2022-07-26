@@ -1,2 +1,3 @@
-# DiplomaTesting
- Just playing around, but keeping my project
+# Dimploma Thesis
+
+Title: Computer game with different AI approaches
