@@ -1,0 +1,413 @@
+\documentclass[a4paper, 12pt]{book}
+
+\usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
+\usepackage[slovene,english]{babel}    % naloži, med drugim, slovenske delilne vzorce
+\usepackage[pdftex]{graphicx}  % omogoča vlaganje slik različnih formatov
+\usepackage{fancyhdr}          % poskrbi, na primer, za glave strani
+\usepackage{amssymb}           % dodatni simboli
+\usepackage{amsmath}           % eqref, npr.
+%\usepackage{hyperxmp}
+\usepackage[hyphens]{url}  % dodal Solina
+\usepackage{comment}       % dodal Solina
+
+\usepackage[pdftex, colorlinks=true,
+						citecolor=black, filecolor=black, 
+						linkcolor=black, urlcolor=black,
+						pagebackref=false, 
+						pdfproducer={LaTeX}, pdfcreator={LaTeX}, hidelinks]{hyperref}
+
+\usepackage{color}      
+\usepackage{soul} 
+\usepackage[numbers]{natbib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	DIPLOMA INFO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newcommand{\fixspacing}{\vspace{0pt plus 1filll}\mbox{}}
+
+\newcommand{\ttitle}{Različni pristopi umetne inteligence v video igrah}
+\newcommand{\ttitleEn}{Different Artificial intelligence approaches in video games}
+\newcommand{\tsubject}{\ttitle}
+\newcommand{\tsubjectEn}{\ttitleEn}
+\newcommand{\tauthor}{Jovan Prodanov}
+\newcommand{\tkeywords}{računalniška igra, umetna inteligenca, računalnik, pristopi}
+\newcommand{\tkeywordsEn}{computer game, artificial intelligence, computer, approaches}
+
+\usepackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	HYPERREF SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{pdftitle={\ttitle}}
+\hypersetup{pdfsubject=\ttitleEn}
+\hypersetup{pdfauthor={\tauthor, jp6957@student.uni-lj.si}}
+\hypersetup{pdfkeywords=\tkeywordsEn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGE SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\addtolength{\marginparwidth}{-20pt} % robovi za tisk
+\addtolength{\oddsidemargin}{40pt}
+\addtolength{\evensidemargin}{-40pt}
+
+\renewcommand{\baselinestretch}{1.3} % ustrezen razmik med vrsticami
+\setlength{\headheight}{15pt}        % potreben prostor na vrhu
+\renewcommand{\chaptermark}[1]
+{\markboth{\MakeUppercase{\thechapter.\ #1}}{}} \renewcommand{\sectionmark}[1]
+{\markright{\MakeUppercase{\thesection.\ #1}}} \renewcommand{\headrulewidth}{0.5pt} \renewcommand{\footrulewidth}{0pt}
+\fancyhf{}
+\fancyhead[LE,RO]{\sl \thepage} 
+%\fancyhead[LO]{\sl \rightmark} \fancyhead[RE]{\sl \leftmark}
+\fancyhead[RE]{\sc \tauthor}              % dodal Solina
+\fancyhead[LO]{\sc Diplomska naloga}     % dodal Solina
+
+\newcommand{\BibTeX}{{\sc Bib}\TeX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\newcommand{\autfont}{\Large}
+\newcommand{\titfont}{\LARGE\bf}
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
+\setcounter{tocdepth}{1}	      % globina kazala
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONSTRUCTORS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+% \newtheorem{izrek}{Izrek}[chapter]
+% \newtheorem{trditev}{Trditev}[izrek]
+% \newenvironment{dokaz}{\emph{Dokaz.}\ }{\hspace{\fill}{$\Box$}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PDF-A
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% define medatata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\def\Title{\ttitle}
+\def\Author{\tauthor, ales.jaklic@fri.uni-lj.si}
+\def\Subject{\ttitleEn}
+\def\Keywords{\tkeywordsEn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \convertDate converts D:20080419103507+02'00' to 2008-04-19T10:35:07+02:00
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\def\convertDate{%
+    \getYear
+}
+
+{\catcode`\D=12
+ \gdef\getYear D:#1#2#3#4{\edef\xYear{#1#2#3#4}\getMonth}
+}
+\def\getMonth#1#2{\edef\xMonth{#1#2}\getDay}
+\def\getDay#1#2{\edef\xDay{#1#2}\getHour}
+\def\getHour#1#2{\edef\xHour{#1#2}\getMin}
+\def\getMin#1#2{\edef\xMin{#1#2}\getSec}
+\def\getSec#1#2{\edef\xSec{#1#2}\getTZh}
+\def\getTZh +#1#2{\edef\xTZh{#1#2}\getTZm}
+\def\getTZm '#1#2'{%
+    \edef\xTZm{#1#2}%
+    \edef\convDate{\xYear-\xMonth-\xDay T\xHour:\xMin:\xSec+\xTZh:\xTZm}%
+}
+
+%\expandafter\convertDate\pdfcreationdate 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% get pdftex version string
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcount\countA
+\countA=\pdftexversion
+\advance \countA by -100
+\def\pdftexVersionStr{pdfTeX-1.\the\countA.\pdftexrevision}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% XMP data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\usepackage{xmpincl}
+%\includexmp{pdfa-1b}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% pdfInfo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\pdfinfo{%
+    /Title    (\ttitle)
+    /Author   (\tauthor, jp6957@student.uni-lj.si)
+    /Subject  (\ttitleEn)
+    /Keywords (\tkeywordsEn)
+    /ModDate  (\pdfcreationdate)
+    /Trapped  /False
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\selectlanguage{english}
+\frontmatter
+\setcounter{page}{1} %
+\renewcommand{\thepage}{}       % preprecimo težave s številkami strani v kazalu
+\newcommand{\sn}[1]{"`#1"'}                    % dodal Solina (slovenski narekovaji)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INTRO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \thispagestyle{empty}%
+   \begin{center}
+    {\large\sc Univerza v Ljubljani\\%
+      Fakulteta za računalništvo in informatiko}%
+    \vskip 10em%
+    {\autfont \tauthor\par}%
+    {\titfont \ttitle \par}%
+    {\vskip 2em \textsc{DIPLOMSKO DELO\\[2mm]
+    VISOKOŠOLSKI STROKOVNI ŠTUDIJSKI PROGRAM PRVE STOPNJE RAČUNALNIŠTVO IN INFORMATIKA}\par}%
+    \vfill\null%
+    {\large \textsc{Mentor}: doc.\ dr.  Aleš Jaklič\par}%
+    {\vskip 2em \large Ljubljana, 2022 \par}%
+\end{center}
+
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INTRO ENGLISH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \thispagestyle{empty}%
+   \begin{center}
+    {\large\sc University of Ljubljana\\%
+      Faculty of Computer and Information Science}%
+    \vskip 10em%
+    {\autfont \tauthor\par}%
+    {\titfont \ttitleEn \par}%
+    {\vskip 2em \textsc{Bachelor's Thesis\\[2mm]
+    UNIVERSITY STUDY PROGRAMME UNDERGRADUATE PROGRAMMES COMPUTER AND INFORMATION SCIENCE}\par}%
+    % Not sure if correct "University"
+    \vfill\null%
+    {\large \textsc{Mentor}: doc.\ dr.  Aleš Jaklič\par}%
+    {\vskip 2em \large Ljubljana, 2022 \par}%
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% copyright page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
+\vspace*{8cm}
+
+\noindent
+{\sc Copyright}. 
+Rezultati diplomske naloge so intelektualna lastnina avtorja in matične fakultete Univerze v Ljubljani.
+Za objavo in koriščenje rezultatov diplomske naloge je potrebno pisno privoljenje avtorja, fakultete ter mentorja.
+
+\begin{center}
+\mbox{}\vfill
+\emph{Besedilo je oblikovano z urejevalnikom besedil \LaTeX.}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% stran 3 med uvodnimi listi
+\thispagestyle{empty}
+\
+\vfill
+
+\bigskip
+\noindent\textbf{Kandidat:} \tauthor\\
+\noindent\textbf{Naslov:} \ttitle\\
+\noindent\textbf{Vrsta naloge:} Diplomska naloga na visokošolskem programu prve stopnje Računalništvo in informatika \\
+\noindent\textbf{Mentor:} doc. dr. Aleš Jaklič\\
+
+\bigskip
+\noindent\textbf{Opis:}\\
+Raziskovanje različnih načinov uporabe umetne inteligence v računalniški igri. Od osnovnih stanj do algoritmov strojnega učenja. Cilj je poskušati primerjati rezultate različnih metod in ugotoviti najboljše.\\
+Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega sistema, kamor ga je vnesel mentor. 
+V nekaj stavkih bo opisal, kaj pričakuje od kandidatovega diplomskega dela. 
+Kaj so cilji, kakšne metode naj uporabi, morda bo zapisal tudi ključno literaturo.
+
+\bigskip
+\noindent\textbf{Title:} \ttitleEn
+
+\bigskip
+\noindent\textbf{Description:}\\
+Researching different ways of how Artificial intelligence is used in a computer game. From basic state machines to machine learning algorithms. The goal is trying to compare results of different methods and figure out the best ones.
+
+
+\vfill
+
+\vspace{2cm}
+
+% prazna stran
+\clearemptydoublepage
+
+% zahvala
+\thispagestyle{empty}\mbox{}\vfill\null\it%
+\noindent
+Zelo sem hvaležen vsem, ki so mi pomagali priti tja, kjer sem.
+\rm\normalfont
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% posvetilo, če sama zahvala ne zadošča :-)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thispagestyle{empty}\mbox{}{\vskip0.20\textheight}\mbox{}\hfill\begin{minipage}{0.55\textwidth}%
+Za svoja draga družina.
+\normalfont\end{minipage}
+
+% prazna stran
+\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kazalo
+\pagestyle{empty}
+\def\thepage{}% preprecimo tezave s stevilkami strani v kazalu
+\tableofcontents{}
+
+
+% prazna stran
+\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% List of abbriviations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \chapter*{Seznam uporabljenih kratic}  % spremenil Solina, da predolge vrstice ne gredo preko desnega roba
+\chapter*{List of abbreviations used}  % spremenil Solina, da predolge vrstice ne gredo preko desnega roba
+
+\noindent\begin{tabular}{p{0.21\textwidth}|p{.4\textwidth}|p{.4\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
+    % {\bf kratica} & {\bf angleško} & {\bf slovensko} \\ \hline
+  {\bf Abbreviation} & {\bf English} & {\bf Slovenian} \\ \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  {\bf ML}      & machine learning                  & strojno učenje \\
+  {\bf FMS}     & finite state machine              & končni stroj \\
+  {\bf NN}      & neural network                    & nevronska mreža \\
+  {\bf CNN}     & convolutional neural network      & konvolucijska nevronska mreža \\
+  {\bf NPC}     & non-player character              & neigralski lik \\
+  {\bf CA}      & classification accuracy           & klasifikacijska točnost \\
+  {\bf NPC }    & non-player character              & neigralski lik \\
+  \dots         & \dots                             & \dots \\
+\end{tabular}
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% povzetek
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\addcontentsline{toc}{chapter}{Povzetek}
+\chapter*{Povzetek}
+
+\noindent\textbf{Naslov:} \ttitle
+\bigskip
+
+\noindent\textbf{Avtor:} \tauthor
+\bigskip
+
+%\noindent\textbf{Povzetek:} 
+\noindent 
+V diplomski nalogi bodo predstavljeni različni načini uporabe umetne inteligence v računalniških igrah s poudarkom na orodju, ki deep reinforcement learning.
+Ta diplomska naloga bo obravnavala načine ravnanja z umetno inteligenco v video igrah, kot so: FMS, mehka logika, skriptiranje, zbiranje, drevesa odločanja, vedenjska drevesa, nevronske mreže, genetski algoritmi.
+Raziskoval bom zgoraj omenjene načine, naredil primere in predstavil njihove rezultate.
+\bigskip
+
+\noindent\textbf{Ključne besede:} \tkeywords.
+% prazna stran
+\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\selectlanguage{english}
+\addcontentsline{toc}{chapter}{Abstract}
+\chapter*{Abstract}
+
+\noindent\textbf{Title:} \ttitleEn
+\bigskip
+
+\noindent\textbf{Author:} \tauthor
+\bigskip
+
+%\noindent\textbf{Abstract:} 
+\noindent 
+The thesis will present different ways of using artificial intelligence in computer games with an emphasis on a tool that uses deep reinforcement learning.
+This thesis will handle ways of handling AI in video games like: FMS, Fuzzy logic, Scripting, Flocking, Decision trees, Behavioural trees, Neural networks, Genetics Algorithm.
+I will research the above aforementioned ways, even make examples and present their results.
+\bigskip
+
+
+
+\noindent\textbf{Keywords:} \tkeywordsEn.
+\selectlanguage{english}
+% prazna stran
+\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+\setcounter{page}{1}
+\pagestyle{fancy}
+
+
+\chapter{Introduction}
+
+The AI problem in video games has been present for a long time, but as time goes on we are getting introduced new ways of solving it. But, game developers are still sticking to the old ways of doing things. % ew this is so cringe
+
+In this thesis we will dive deeper into of the AI in games and figure out what's in store for the future of AI in video games.
+
+In chapter \ref{ch1} we are going to get to know the problem and see how it came to be.
+Chapter \ref{ch2} will explain the present situation and I will present a different technology that can be used in chapter \ref{ch3} and conclude in chapter \ref{ch4}.
+
+
+\chapter{Background}
+\label{ch1}
+The question of game AI was present even in the first of games developed. By definition, in video games, AI is used to generate responsive, adaptive or intelligent behaviors primarily in NPCs similar to human-like intelligence \cite{AIwiki}. The ways of approaching it is incredibly vast, in this thesis we will only scratch the surface, but focus on the most interesting ones.
+
+
+\section{What is AI in games?}
+First, I should start with the term "video game", in definition it is an electronic game that involves interaction with a user interface or input device such as a joystick, controller, keyboard, or motion sensing device to generate visual feedback \cite{VideoGameWiki}. Then, the visual feedback is channeled to a displaying device, which can be observed. 
+
+So, now for quite some time, game developers are trying to invent techniques and methods for incorporating intelligence into these video games. But, this AI is a broad term, in video games, it can mean: animation control, steering, flocking, pathfinding, planning, procedural generation, tactical and strategic thinking, learning \cite{FuzzyAIGames}, to name a few. Often game AI can be mistaken for "true AI", which is to display human cognitive skills associated with human thinking, learning and problem-solving.
+
+Game AI adds another piece of the puzzle of defining AI and that is the illusion of intelligence. We would never want in a game an unbeatable ever-learning opponent, we would like a fun and easy experience, which isn't obviously stupid. Game AI in video games exists only to be fun and entertaining, so looking from this point, this is why the game developers are sticking to things that are predictable and working and aren't experimenting a whole lot, because who would want unexpected things happening in a game.
+
+\section{Illusion of intelligence}
+Now that the secret is out, game developers were and are inventing tricks and techniques to make the player believe that games have real intelligence \cite{IllusionOfIntelligece}. And instead of making the goal true intelligence, its the appearance of intelligence.
+
+\subsection{Why does it work?}
+The true reason why this illusion works is that players want to believe that there are glimmers of real human-like intelligence in their virtual worlds \cite{IllusionOfIntelligece}. Also, with their high expectations the players are easily forgiving.
+
+Another reason why it works is because of anthropomorphism, which is an attribution of human motivation, characteristics, or behavior to inanimate objects, animals, or natural phenomenon, and these can be related to a phenomenon in animation. There is a research that a preschool 91\% of the times picked a character that is not a human being \cite{AnthropomorphicCharacters}.
+
+As previously stated, expectations have a high influence. Because of the placebo effect, if players are expecting a highly intelligent game, their enjoyment will be higher. This is the same as if people think they are eating a more expensive food or a drink, they are more likely to enjoy it.
+
+\chapter{Current AI in games}
+\label{ch2}
+
+
+\chapter{ML-Agents}
+\label{ch3}
+
+
+\chapter{Conclusion}
+\label{ch4}
+
+
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Literature}
+\bibliography{literature}
+\bibliographystyle{plainnat}
+
+\end{document}

@@ -42,3 +42,21 @@ Unity, VS, python...
 Whice of the explained approaches was best and why.
 
 ### New AI challenges in games
+
+
+# Dimploma structure
+
+## Introduction
+
+## Background
+
+## Current AI
+- FMS
+- Fuzzy
+- ..
+
+## ML-Agents
+### Explanation how it works
+### Examples wtih code, pictures and reliability 
+
+## Results
