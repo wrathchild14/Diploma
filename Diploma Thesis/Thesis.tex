@@ -58,7 +58,7 @@
 \fancyhead[LE,RO]{\sl \thepage} 
 %\fancyhead[LO]{\sl \rightmark} \fancyhead[RE]{\sl \leftmark}
 \fancyhead[RE]{\sc \tauthor}              % dodal Solina
-\fancyhead[LO]{\sc Diplomska naloga}     % dodal Solina
+\fancyhead[LO]{\sc Bachelor's thesis}     % dodal Solina
 
 \newcommand{\BibTeX}{{\sc Bib}\TeX}
 
@@ -374,7 +374,6 @@ Chapter \ref{ch2} will explain the present situation and I will present a differ
 \label{ch1}
 The question of game AI was present even in the first of games developed. By definition, in video games, AI is used to generate responsive, adaptive or intelligent behaviors primarily in NPCs similar to human-like intelligence \cite{AIwiki}. The ways of approaching it is incredibly vast, in this thesis we will only scratch the surface, but focus on the most interesting ones.
 
-
 \section{What is AI in games?}
 First, I should start with the term "video game", in definition it is an electronic game that involves interaction with a user interface or input device such as a joystick, controller, keyboard, or motion sensing device to generate visual feedback \cite{VideoGameWiki}. Then, the visual feedback is channeled to a displaying device, which can be observed. 
 
@@ -388,13 +387,117 @@ Now that the secret is out, game developers were and are inventing tricks and te
 \subsection{Why does it work?}
 The true reason why this illusion works is that players want to believe that there are glimmers of real human-like intelligence in their virtual worlds \cite{IllusionOfIntelligece}. Also, with their high expectations the players are easily forgiving.
 
-Another reason why it works is because of anthropomorphism, which is an attribution of human motivation, characteristics, or behavior to inanimate objects, animals, or natural phenomenon, and these can be related to a phenomenon in animation. There is a research that a preschool 91\% of the times picked a character that is not a human being \cite{AnthropomorphicCharacters}.
+Another reason why it works is because of anthropomorphism, which is an attribution of human motivation, characteristics, or behavior to inanimate objects, animals, or natural phenomenon, and these can be related to a phenomenon in animation. There is a research that a preschool 91\% of the times picked a character that is not a human being 
+ \cite{AnthropomorphicCharacters}.
 
 As previously stated, expectations have a high influence. Because of the placebo effect, if players are expecting a highly intelligent game, their enjoyment will be higher. This is the same as if people think they are eating a more expensive food or a drink, they are more likely to enjoy it.
+
+\subsection{Selling it}
+The illusion of intelligence work when there is a certain level of quality to it, and that quality is helped by \cite{IllusionOfIntelligece}:
+\begin{itemize}
+    \item The AI should have \textbf{animation and dialog}. These things help it to interact with the world and player, as well as making it more alive and present.
+    \item Although animations help to achieve game AI, it should be done with quality. They should the smooth and human-like, instead of looking like a \textbf{robot}.
+    \item \textbf{Have a reason to exist}, AI characters shouldn't always wait for the player to approach, they should have their own purpose. As well as their own motives, because the game world would be their home and reality and they should have their own states in it.
+    \item The culmination of building a successful AI character would be for it to have its own \textbf{personality}. How the game developer leverages this powerful tool can complete change the feel of the game.
+\end{itemize}
+
+
+\section{Deterministic vs Non-deterministic}
+It is in close connection to game AI that there exists two type of games. In a deterministic game, the course of the game depends only on the players’ decisions, but in a non-deterministic game, there’s some factor of randomness involved \cite{DeepLearningGO}.
+
+For example, chess is a deterministic game, the outcome of the game is entirely based on the players' decisions. But, football is non-deterministic, the players can't reliably kick the ball exactly the same every time. In that sense, luck or randomness often makes the game more exciting, however too much randomness removes all influence of the player in game, which is rarely fun.
+
 
 \chapter{Current AI in games}
 \label{ch2}
 
+So, advanced techniques for game AI have been spotted more often, for examples, there have been usages of Bayesian networks and neural networks for real-time strategy games, as well as evolutionary algorithms \cite{FuzzyAIGames}. But, in those cases the game seems to orbit around that as the main focus of the game itself. In other words, advanced techniques for game AI currently need a game to be build around them. Then, there is the problem of evolutionary algorithms needing a high computational and memory power. Also, the last problem would be their non-determinism, that just brings more problems to the table and game developers are reluctant to ship a game that is not tested enough.
+
+In this chapter, we will focus more on the current techniques that are widely used, which finely sell the illusion of intelligence. Technologies I will use if I need to present examples are Unity for the game editor and game engine \cite{UnitySoftware}.
+
+\section{Finite State Machines}
+
+You want to create a side-scrolling platformer, and now you grab a pen and paper and start designing the flowchart. You draw a box for everything the hero can be doing: standing, jumping, ducking and diving. When some kind of input is given, for an example when a button is pressed, you draw an arrow to from that box, label it with the button, and connect it to the box it changes to \cite{GameProgrammingPattersFMS}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Images/state_FSM.png}
+\end{center}
+\caption{Finite State Machine}
+\label{pic1}
+\end{figure}
+
+Now that we successfully create a FSM, these came out of a computer science branch called automata theory, which includes the famous Turing machine. FSMs are the simplest of that bunch.
+
+\begin{itemize}
+    \item You have to have fixed set of states the machine can be in
+    \item The machine can be in one state at a time
+    \item Sequences of inputs or events are being sent to the machine
+    \item Each state has a set of transitions, each associated  with an input/event and pointing to a state
+\end{itemize}
+
+So, now that I've introduced FSMs, there is a catch. State machines help you untangle hairy code by forcing a very constrained structure on it. All you have is a fixed set of states, a single current state, and some hardcoded transitions \cite{GameProgrammingPattersFMS}. However, when wanting to create a more complex game AI, you have to work around these problems, I'll close this chapter by presenting some. 
+
+\subsection{Concurrent State Machines}
+
+Let's now equip our hero with a gun. If we want to play by the constraints of an FSM, we have to double our states: standing, standing with a gun, jumping, jumping with a gun etc. Its redundant, however we can add another state into a single machine, what the hero is doing and what he's carrying.
+
+\begin{verbatim}
+class Hero  {
+    private State _state;
+    private State _equipment;
+
+    private void HandleInput(Input input) {
+        _state.HandleInput(input);
+        _equipment.HandleInput(input);
+    }
+}
+\end{verbatim}
+
+\subsection{Hierarchical State Machines}
+
+We wouldn't want to duplicate code in all of our states. We could define a state "on ground" that handles ducking and jumping, standing, walking, running would then inherit from that one and add it to its own behaviour.
+
+Turns out this is a structure called hierarchical state machine, a state can have a superstate (making itself a substate). When an event comes in, if the substate doesn’t handle it, it rolls up the chain of superstates. In other words, it works just like overriding inherited methods \cite{GameProgrammingPattersFMS}.
+
+If the current state is on top of the stack, under that is its superstate and so on. So, if you dish out a state-specific behaviour, it starts on top of the stack and walks down until one of the superstates handles it, but if none do, its ignored.
+
+\subsection{Pushdown Automata}
+
+This is an extension to FSM, that uses the concept of stacks. The problem is with basic FSMs is that you don't have history of the previous states. You know of what state you \emph{are} currenly in, but no memory of what state you \emph{were}.
+
+So, if we had states standing and firing, if we were to transition in the firing state, we couldn't remember to go in our previous state, the standing state. For this problem, the pushdown automata structure is here to help.
+
+In vanilla FSM, you have a singe pointer to the current state, pushdown automata has a stack of them. In a FSM, transitioning into the new state replaces the previous one. Pushdown automata let's you do that, but it gives you two other choices \cite{GameProgrammingPattersFMS}:
+
+\begin{itemize}
+    \item You can push a new state on the stack, the "current" state is always on top of the stack, so this transitions to the new state, but it leaves the previous state directly under the stack instead of discrading.
+    \item You can pop the "current" state, in doing so, the state that is under it becomes the new "current" state.
+\end{itemize}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Images/state_pushdown.png}
+\end{center}
+\caption{The Pushdown Automata}
+\label{pic2}
+\end{figure}
+
+\section{Behavioural Trees}
+
+Even with extensions to FSMs, they are pretty limited. If tha aim is complex game AI, the previous chapter only whet our appetite.
+
+\section{Scripting}
+
+\section{Fuzzy Logic}
+
+\section{Flocking}
+
+\section{Trees}
+
+\section{Neural Networks?}
+
+\section{Genetics Algorithm}
 
 \chapter{ML-Agents}
 \label{ch3}
