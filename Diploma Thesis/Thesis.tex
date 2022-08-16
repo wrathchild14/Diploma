@@ -285,12 +285,12 @@ Za svoja draga družina.
   {\bf Abbreviation} & {\bf English} & {\bf Slovenian} \\ \hline
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
   {\bf ML}      & machine learning                  & strojno učenje \\
-  {\bf FMS}     & finite state machine              & končni stroj \\
+  {\bf FSM}     & finite state machine              & končni stroj \\
   {\bf NN}      & neural network                    & nevronska mreža \\
   {\bf CNN}     & convolutional neural network      & konvolucijska nevronska mreža \\
   {\bf NPC}     & non-player character              & neigralski lik \\
   {\bf CA}      & classification accuracy           & klasifikacijska točnost \\
-  {\bf NPC }    & non-player character              & neigralski lik \\
+  {\bf BF }     & behaviour trees                   & drevesa vedenja \\
   \dots         & \dots                             & \dots \\
 \end{tabular}
 
@@ -362,12 +362,12 @@ I will research the above aforementioned ways, even make examples and present th
 
 \chapter{Introduction}
 
-The AI problem in video games has been present for a long time, but as time goes on we are getting introduced new ways of solving it. But, game developers are still sticking to the old ways of doing things. % ew this is so cringe
+As soon as the first video game arrived, there was a wish, no, a need to create a more involving experience. So, game developers created game AI to let the player interact with the game on so many levels.
 
-In this thesis we will dive deeper into of the AI in games and figure out what's in store for the future of AI in video games.
+Creating an AI in video games comes with its own problems, in this thesis we will take our time to explain some techniques and their downfalls. We will also take a look into the future of the progression of game AI.
 
-In chapter \ref{ch1} we are going to get to know the problem and see how it came to be.
-Chapter \ref{ch2} will explain the present situation and I will present a different technology that can be used in chapter \ref{ch3} and conclude in chapter \ref{ch4}.
+
+In chapter \ref{ch1} we are going to get introduced with the problem and its intricacies. Chapter \ref{ch2} will take a tour through a number of techniques developers created through the times for solving game AI. But, in chapter \ref{ch3} I will present a "newer" experimental techniques and give out my conclusion in chapter \ref{ch4}.
 
 
 \chapter{Background}
@@ -421,7 +421,7 @@ You want to create a side-scrolling platformer, and now you grab a pen and paper
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{Images/state_FSM.png}
+\includegraphics[width=0.5\textwidth]{Images/state_FSM.png}
 \end{center}
 \caption{Finite State Machine}
 \label{pic1}
@@ -483,25 +483,81 @@ In vanilla FSM, you have a singe pointer to the current state, pushdown automata
 \label{pic2}
 \end{figure}
 
-\section{Behavioural Trees}
+\section{Behaviour Trees}
 
-Even with extensions to FSMs, they are pretty limited. If tha aim is complex game AI, the previous chapter only whet our appetite.
+Even with extensions to FSMs, they are pretty limited. If the aim is complex game AI, the previous chapter only whet our appetite.
 
-\section{Scripting}
+Behaviour trees (BTs) are a proven and established technique that game developers regularly use to build their AI. Not only do they give you a solid foundation to build upon, but it also gives you a lot of flexibility to include other techniques in a way that gives you full control over behavior and performance \cite{BehaviourTreeStarterPack}.
+
+So, a definiton for a BT would be, it describes a data structure starting from some root node and made up of behaviors, which are individual actions an NPC can perform. Each behavior can in turn have child behaviors, which gives the algorithm its tree-like qualities \cite{BehaviourSelectionAlgorithms}.
+
+\begin{figure}[h]
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{Images/behaviour_tree.png}
+\end{center}
+\caption{Behavior Tree}
+\label{pic3}
+\end{figure}
+
+Every behaviour has its own condition and an action. The algorithm starts at the root of the tree and at each levels examines the conditions of the behaviours. If a condition matches of a node, it executes the action. None of its siblings will be examined, but its children will. The algorithm is at as it follows:
+\begin{verbatim}
+    Make root node the current node
+    While current node exists
+        Run current node's condition
+        If condition returns true
+            Add node to execute list
+            Make node's child current node
+        Else
+            Make node's sibling current node
+    Run all behaviors on the execute list
+\end{verbatim}
+
+The real strenght of BTs is their simplicity \cite{BehaviourSelectionAlgorithms}. Since trees are stateless, the algorithm doesn't have to remember what behaviours were running and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
+
+But and now this is a big but, although BT algorithm is simple and powerful, its not always the best choice. The algorithm has to start at the root node every time a new behaviour is chosen, that means the running time is greatly impacted, in comparison to FSMs. Also, it deals with a lot of conditionals. Furthermore, memory is a problem as behaviours can loop with each other, however steps can be taken to deal with this problem.
+
+\section{Scripting, the good and the bad}
+
+Now we're about to talk the most controversial game AI that has existed. From it, it came the best game AI to ever be... and some of the worst. Of course, I am speaking of scripted AI.
+
+However, to have a successful scripted AI, one must not fear it. Like any weapon, the soldier must first learn how to use to, it be useful with it. There are coupe of ways to integrate scripting techniques into a game's architecture, but for the most part they compromise to two philosophies. Those rival points are "master" and "servant" ideologies \cite{ForbiddenScripting}, while both have their place, its very useful to consider which role scripts will play in a given game's implementation. 
+
+\subsection{Master and Servant ideologies}
+
+To start off, to be successful into making a scripted AI, it is important to understand how important is a working system in the overall architecture of the game. Not just how it interacts with the AI, but in total game systems. Without a good architecture, scripts can't be effective, produce huge amount of bugs, or even stop development.
+
+So the most viable technique for scripted AI would be the master and servant approach. The master script would take care of the high-level aspects of the game, while the servant script would control the overall activity of the agents, or just create some kind of effects \cite{ForbiddenScripting}.  
+
+\begin{itemize}
+    \item Master scripts work best in two scenarios. The first one would be if in game already exists AI, and the scripting would be the "glue" that combines this techniques into a powerful model for agent behaviour. Even in the other scenario when its only the scripting technique, it can produce good results for different decision-making and planning techniques.
+    \item Servant scripts are best effective when design requires a high degree in specificity in agent behaviour. So special case scenarios are created by the developers for each agent and this can have excellent results for ambient or "background" AI.
+\end{itemize}
+
+Games, would often tip themselves into one side or the other. It it dependant to a lot of circumstances: the experience of the developers, time and budget, the ratio of programmers to designers etc.
+
+
+There is a stigma justified by negativities of players not enjoying games with scripted AI, which show little depth or veriety to their AI. But, with proper coordination between design and technical concerns of the project, scripted AI could become a powerful tool with a lot of depth.
+
+Moreover, scripting should be used in combination with other techniques, due to over-reliance on scripts is why we get the shallow and unwanted AI. On an another page, developers must resist the urge to anticipate everything that a script might need to handle \cite{ForbiddenScripting}. This can be avoided with delegation, but the most important is having a chosen design early on and sticking to it, whether be it master and servant approach. When it comes to scripting, often simpler is better, instead of having to design overly complicated and intricate systems. Its better to stick on more flexible and creative solutions.
 
 \section{Fuzzy Logic}
 
+Partial truth.
+
 \section{Flocking}
 
-\section{Trees}
-
-\section{Neural Networks?}
+Birbs.
 
 \section{Genetics Algorithm}
+
+Genomes.
 
 \chapter{ML-Agents}
 \label{ch3}
 
+Deep reinforcement learning.
+
+\section{Neural networks}
 
 \chapter{Conclusion}
 \label{ch4}
