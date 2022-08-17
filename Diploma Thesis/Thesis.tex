@@ -518,13 +518,13 @@ But and now this is a big but, although BT algorithm is simple and powerful, its
 
 \section{Scripting, the good and the bad}
 
-Now we're about to talk the most controversial game AI that has existed. From it, it came the best game AI to ever be... and some of the worst. Of course, I am speaking of scripted AI.
+Now we're about to talk the most controversial game AI that has existed. From it, it can come out to be the best game AI to ever be... or some of the worst. It all depends on its implementation.
 
-However, to have a successful scripted AI, one must not fear it. Like any weapon, the soldier must first learn how to use to, it be useful with it. There are coupe of ways to integrate scripting techniques into a game's architecture, but for the most part they compromise to two philosophies. Those rival points are "master" and "servant" ideologies \cite{ForbiddenScripting}, while both have their place, its very useful to consider which role scripts will play in a given game's implementation. 
+However, to have a successful scripted AI, one must not fear it. Like any weapon, the soldier must first learn how to use to, to be useful with it. There are couple of ways to integrate scripting techniques into a game's architecture, but for the most part they compromise to two philosophies. Those rival points are "master" and "servant" ideologies \cite{ForbiddenScripting}, while both have their place, its very useful to consider which role scripts will play in a given game's implementation. 
 
-\subsection{Master and Servant ideologies}
+\subsection{Master and Servant ideology}
 
-To start off, to be successful into making a scripted AI, it is important to understand how important is a working system in the overall architecture of the game. Not just how it interacts with the AI, but in total game systems. Without a good architecture, scripts can't be effective, produce huge amount of bugs, or even stop development.
+To start off, to be successful into making a scripted AI, it is important to understand how important is a working system in the overall architecture of the game. Not just how it interacts with the AI, but in total game systems. Without a good architecture, scripts can't be effective, they produce huge amount of bugs, or even stop development.
 
 So the most viable technique for scripted AI would be the master and servant approach. The master script would take care of the high-level aspects of the game, while the servant script would control the overall activity of the agents, or just create some kind of effects \cite{ForbiddenScripting}.  
 
@@ -542,15 +542,64 @@ Moreover, scripting should be used in combination with other techniques, due to 
 
 \section{Fuzzy Logic}
 
-Partial truth.
+Fuzzy logic is a superset of conventional logic that has been extended to handle the concept of partial-truth values between the boolean dichotomy of true and false \cite{FuzzyAIGames}. It usually has its own components like fuzzy variables, fuzzy rules and fuzzy interface engines.
+
+As well as the previous techniques, fuzzy logic has the goal of a simple design resulting in intelligent agents. Controlling a game character with fuzzy logic can be done easily due to suitable input and output values. 
+
+Fuzzy logic is an extension of \emph{crisp logic} (conventional logic), there is the same as binary logic, the variable can be true or false \cite{FuzzyLogicBasedGameSystem}. In crisp logic, the variables can be from a set of two elements, while in fuzzy logic, the concept has been extended to handle partial-truth values between true and false. 
+
+For example, the weapon range can be divided into melee, ranged or out of range as seen in \ref{pic4}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.53\textwidth]{Images/weapon_range.png}
+\end{center}
+\caption{Weapon range with Fuzzy Logic}
+\label{pic4}
+\end{figure}
+
+Fuzzy logic brings a lot to the table when it come to game AI. It can help in NPC decision making or even weapon selection. With its benefits it can lead to an advanced AI with a pretty simple implementation. It can be even used in combination with FSMs (when transitioning from one state to another) and BTs (when branching out). For example, with conventional logic a car can only brake and accelerate, but with fuzzy logic it can be stated how much should the car brake and accelerate due to the gradual behaviour. 
+
+\subsection{Pitfalls}
+
+As good as fuzzy logic sounds till now, I have to talk about its downsides. Due to its knowledge-based nature, it requires a correct definition of input and output variables, as well as their relationships \cite{FuzzyAIGames}. Another downside, if the system of fuzzy logic is not designed carefully, it can lead to a lot of rules being checked at a given moment and sacrificing its advantage of a low computational cost.
+
+In a video game, there can be many input variables to an agent's behaviour, each with their own number fuzzy sets. Because of this, the fuzzy rules can grow exponentially and it could even lead to combinatorial explosion \cite{CombinatorialBombing}.
 
 \section{Flocking}
 
-Birbs.
+Flocking is a technique used to simulate intelligent movement of groups, the groups are called \emph{boids}. It is mostly used when NPCs need to move in a cohesive unit rather then independently. The genre of games that use this technique the most is RTS (Real-time strategy) games. The name "flocking" comes from flock of birds.
+
+The one who's responsible for the flocking algorithm is Craig W Reynolds with his groundbreaking research \cite{FlocksReynolds}. His implementation is leaderless, is made in way that no boid leads the flock, they all just follow the group - which seems to have a mind of its own.
+
+The flocking behaviour can be simulated by using three principles \cite{FlockingBehaviour}: 
+\begin{itemize}
+    \item Separation - Each boid knows the distances of its neighbors, so with that knowledge it tries to apply an repulsive force in the oppsite direction to maintain distance from them. In a way, it is a collision avoidance within the flock.
+    \item Cohesion - Computes the direction of the average position of the boids and tries to steer all the boids for them to be together as a group.
+    \item Alignment - Keeps track of the average velocities and keeps check of the boids' velocities and tries to keep the average speed.
+\end{itemize}
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Images/separation.png}
+  \caption{Separation}\label{fig:image1}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Images/cohesion.png}
+  \caption{Cohesion}\label{fig:image2}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{Images/alignment.png}
+  \caption{Alignment}\label{fig:image3}
+\endminipage
+\label{pic5}
+\end{figure}
+
+The path of the boids which want to move is calculated by the A* pathfinding algorithm.
 
 \section{Genetics Algorithm}
 
-Genomes.
+A genetic algorithm is a probabilistic algorithm that generates an approximate solution based on Darwin’s Theory of Evolution \cite{GameAIGeneticAlg}. The basic gist of the algorithm is producing new offsprings from an existing population and then selecting the fittest offsprings from that populating for the next generations. This algorithm has been around for several decades so there may exist a lot of variations.
 
 \chapter{ML-Agents}
 \label{ch3}
