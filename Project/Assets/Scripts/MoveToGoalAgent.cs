@@ -17,7 +17,7 @@ namespace Assets.Scripts
                 var playerPosition = new Vector3(Random.Range(-12.6f, -7f), 0f, Random.Range(-6f, 0.8f));
                 var goalPosition = new Vector3(Random.Range(-12.5f, -7f), 0f, Random.Range(-6f, 0.5f));
 
-                if ((playerPosition - goalPosition).sqrMagnitude > 2.5f)
+                if ((playerPosition - goalPosition).sqrMagnitude > 2.5f) // I was so fucking bored
                 {
                     transform.localPosition = playerPosition;
                     _targetTransform.localPosition = goalPosition;

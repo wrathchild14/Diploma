@@ -574,7 +574,7 @@ The one who's responsible for the flocking algorithm is Craig W Reynolds with hi
 
 The flocking behaviour can be simulated by using three principles \cite{FlockingBehaviour}: 
 \begin{itemize}
-    \item Separation - Each boid knows the distances of its neighbors, so with that knowledge it tries to apply an repulsive force in the oppsite direction to maintain distance from them. In a way, it is a collision avoidance within the flock.
+    \item Separation - Each boid knows the distances of its neighbors, so with that knowledge it tries to apply an repulsive force in the opposite direction to maintain distance from them. In a way, it is a collision avoidance within the flock.
     \item Cohesion - Computes the direction of the average position of the boids and tries to steer all the boids for them to be together as a group.
     \item Alignment - Keeps track of the average velocities and keeps check of the boids' velocities and tries to keep the average speed.
 \end{itemize}
@@ -595,7 +595,10 @@ The flocking behaviour can be simulated by using three principles \cite{Flocking
 \label{pic5}
 \end{figure}
 
-The path of the boids which want to move is calculated by the A* pathfinding algorithm.
+The path of the boids which want to move is calculated by the A* pathfinding algorithm \cite{FOEAD2021507}. Its simple purpose is to find the shortest path from point A to point B. Its a well known method to use as a basis for pathfinding problems with its known  simplicty, efficency and modularity.
+
+But, A* algorithm isn't fool proof, in many cases it would need a supplementary algorithm or a tweak to its core mechanics. Also, A* may find a path much quicker than other searches, but it does not ensure that the result will be the shortest path. Research shows that A* will have a correct result only 85\% of the time \cite{FOEAD2021507}. Overall, the traditional algorthm can't keep with the modern requirements of pathfinding, so game developers are needed to tweak and enforce it for adequate results.
+
 
 \section{Genetics Algorithm}
 
@@ -604,7 +607,9 @@ A genetic algorithm is a probabilistic algorithm that generates an approximate s
 \chapter{ML-Agents}
 \label{ch3}
 
-Deep reinforcement learning.
+After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project The Unity Machine Learning Agents Toolkit or ML-Agents Toolkit. It is used for training intelligent agents through reinforcement learning, imitation learning, neuroevolution, or other machine learning methods through a simple-to-use Python API \cite{MLAgents}.
+
+
 
 \section{Neural networks}
 
