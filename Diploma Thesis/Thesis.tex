@@ -395,10 +395,10 @@ As previously stated, expectations have a high influence. Because of the placebo
 \subsection{Selling it}
 The illusion of intelligence work when there is a certain level of quality to it, and that quality is helped by \cite{IllusionOfIntelligece}:
 \begin{itemize}
-    \item The AI should have \textbf{animation and dialog}. These things help it to interact with the world and player, as well as making it more alive and present.
-    \item Although animations help to achieve game AI, it should be done with quality. They should the smooth and human-like, instead of looking like a \textbf{robot}.
-    \item \textbf{Have a reason to exist}, AI characters shouldn't always wait for the player to approach, they should have their own purpose. As well as their own motives, because the game world would be their home and reality and they should have their own states in it.
-    \item The culmination of building a successful AI character would be for it to have its own \textbf{personality}. How the game developer leverages this powerful tool can complete change the feel of the game.
+    \item The AI should have \emph{animation and dialog}. These things help it to interact with the world and player, as well as making it more alive and present.
+    \item Although animations help to achieve game AI, it should be done with quality. They should the smooth and human-like, instead of looking like a \emph{robot}.
+    \item \emph{Have a reason to exist}, AI characters shouldn't always wait for the player to approach, they should have their own purpose. As well as their own motives, because the game world would be their home and reality and they should have their own states in it.
+    \item The culmination of building a successful AI character would be for it to have its own \emph{personality}. How the game developer leverages this powerful tool can complete change the feel of the game.
 \end{itemize}
 
 
@@ -604,14 +604,103 @@ But, A* algorithm isn't fool proof, in many cases it would need a supplementary 
 
 A genetic algorithm is a probabilistic algorithm that generates an approximate solution based on Darwin’s Theory of Evolution \cite{GameAIGeneticAlg}. The basic gist of the algorithm is producing new offsprings from an existing population and then selecting the fittest offsprings from that populating for the next generations. This algorithm has been around for several decades so there may exist a lot of variations.
 
+In this section, we'll take a look into a cetain genetic algorithm, which we need to define some terms for:
+
+\begin{itemize}
+    \item \emph{Gene} - Single parameter of search space
+    \item \emph{Chromosome} - Collection of genes
+    \item \emph{Individual} - Instantiated chromosome
+    \item \emph{Population} - Collection of individuals
+    \item \emph{Fitness} - Evaluation of an individual in our selected problem
+    \item \emph{Crossover} - Process to create a new individual by breeding two
+    \item \emph{Mutation} - Process to randomly change some genes to oppose local optima (solution that is optimal within a neighboring set of candidate solutions \cite{LocalOptimum}) 
+    \item \emph{Generation} - One iteration of the Genetics Algorithm
+\end{itemize}
+
+\clearpage
+
+Now, that we have defined some general terms we need for the algorithm, we can go ahead and get into it:
+
+\begin{verbatim}
+    Generate an initial random population
+    Calculate fitness of every individual of the population
+    Copy the individual over to the next generation
+    Randomly mutate certain genes of individuals in the current generation
+    From the mutated generation, choose pairs of individuals of certain 
+        fitness to crossover
+    If the number of maximum iterations of generation is not reached, 
+        go the second line
+\end{verbatim}
+
+The best for a probabilistic algorithm is to iterate until there is no imporvements, but in the genetic algorithm we need to set up a number of iterations, because it always mutates.
+
+The usage of genetics algorithms is immense, it can robustly and effectively search a poorly search space, when we have scarce knowledge. It is best for non-linear problems. The appeal of this algorithm comes from its elegance and simplicity for its power to discover good solutions for high-dimensional problems \cite{CurrentAIGames}.
+
+And for the downsides, genetics algorithms require high computational and memory power, so it has big drawback when playing a game with it. Game developers mainly manage this by executing the algorithm when the game is not being played. In summary, its an effective algorithm based on evolution and natural selection and its used for learning and optimization.
+
 \chapter{ML-Agents}
 \label{ch3}
 
-After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project The Unity Machine Learning Agents Toolkit or ML-Agents Toolkit. It is used for training intelligent agents through reinforcement learning, imitation learning, neuroevolution, or other machine learning methods through a simple-to-use Python API \cite{MLAgents}.
+\section{Technologies}
+
+To correctly use the ML-Agents toolkit we would need certain type of technologies. If we want to use the ML-Agents toolkit with Unity, we start with the Unity editor and Unity game engine \cite{UnitySoftware}. In the Unity editor, in the Package Manager, we should install "ML Agents".
+
+After, we should have (or install) Python \cite{PythonManual} (I used python 3.9). With python pip we would need the packages pytorch and mlagents - For this step I chose to have a virtual environment, which is beneficial to have the proper versions and have the setting up part more organized.
+
+Now, we are good to go, with the command \texttt{mlagents-learn} and Unity open we could freely proceed into the chapter with ease.
+
+\section{Background}
+
+After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project The Unity Machine Learning Agents Toolkit or ML-Agents Toolkit. It is used for training intelligent agents through reinforcement learning, imitation learning, neuroevolution, or other ML methods through a simple-to-use Python API \cite{MLAgents}.
+
+\subsection{Agents}
+
+The technology of ML-Agents is mostly used for training Agents, which are basically NPCs, we can use variety of methods for the training. But, first we need to explain three entities of the game, which is the environment of the training.
+
+\begin{itemize}
+    \item \emph{Observations} - How the Agent sees the environment, the observations can be numeric and/or visual. Numeric observations can be some kind of attributes taken from the environment (they can be discrete or continuous), for the best results, the agent should have several continuous numerical observations. Visual observations are images generated from the cameras that are attached to our agent. The observations are separate from the environment, so that so that the agent can't get confused with data coming from the whole game/environment.
+    \item \emph{Actions} - What can the agent do, same as the observations, the actions can be discrete or continuous. They can get as complex as the environment allows them to be.
+    \item \emph{Reward signals} - How well the agent is doing, these signals don't have to be sent at every moment. The agent should be rewarded only when he does some action that is good, and punished when it does something bad. It should be noted that the rewarding is how the objective of the agent is communicated, so it should be set up in an optimal way for best results.
+\end{itemize}
+
+\subsection{Architecture}
+
+The ML-Agents toolkit system works with 5 connected high-level components. And those are:
+
+\begin{itemize}
+    \item \emph{Learning environment} - is actually the Unity scene and all the game objects. This scene is used either for training or for testing environments, this is where the abovementioned Unity package ML Agents comes in handy. With it, the agents and their behaviours get defined.
+    \item \emph{Python low-level API} - is interacting and manipulating the learning environment, it lives outside of the learning environment and interacts with it through the External communicator.
+    \item \emph{External communicator} - connect the learning environment with the python low-level API, it actually lives in the learning environment.
+    \item \emph{Python trainers} - contains all the ML algorithms, they are all contained in the python \texttt{mlagents} package.
+    \item \emph{Gym wrapper} - common way in which ML researchers interact with learning environments is with the wrapper from openAI called gym.
+\end{itemize}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Images/learning_environment_basic.png}
+\end{center}
+\caption{Simplified ML-Agents architecture \cite{MLAgents}}
+\label{pic6}
+\end{figure}
 
 
+\clearpage
 
-\section{Neural networks}
+The learning environment in the Unity scene has two components:
+\begin{itemize}
+    \item \emph{Agent} - is linked to Game Object, handles the observations, actions and rewards.
+    \item \emph{Behavior} - defines the attributes and number of actions the agent can take. It can be described as a function that takes the observations and rewards from the agent class and returns the actions. The behaviour can be one of three types:
+    \begin{itemize}
+        \item \emph{Learning} - not defined, about to be trained.
+        \item \emph{Heuristic} - its defined by hard-coded rules, mainly is used for input for controlling the agent.
+        \item \emph{Inference} - is already trained, and contains a already working and trained Neural Network file.
+    \end{itemize}
+    Basically, after a learning behaviour is trained, it becomes an inference behaviour.
+\end{itemize}
+
+\section{Examples and usages}
+
+\subsection{Set up}
 
 \chapter{Conclusion}
 \label{ch4}
