@@ -287,10 +287,10 @@ Za svoja draga družina.
   {\bf ML}      & machine learning                  & strojno učenje \\
   {\bf FSM}     & finite state machine              & končni stroj \\
   {\bf NN}      & neural network                    & nevronska mreža \\
-  {\bf CNN}     & convolutional neural network      & konvolucijska nevronska mreža \\
   {\bf NPC}     & non-player character              & neigralski lik \\
   {\bf CA}      & classification accuracy           & klasifikacijska točnost \\
-  {\bf BF }     & behaviour trees                   & drevesa vedenja \\
+  {\bf BT }     & behaviour trees                   & drevesa vedenja \\
+  {\bf RL }     & reinforcement learning            & učenje s krepitvijo \\
   \dots         & \dots                             & \dots \\
 \end{tabular}
 
@@ -312,9 +312,7 @@ Za svoja draga družina.
 
 %\noindent\textbf{Povzetek:} 
 \noindent 
-V diplomski nalogi bodo predstavljeni različni načini uporabe umetne inteligence v računalniških igrah s poudarkom na orodju, ki deep reinforcement learning.
-Ta diplomska naloga bo obravnavala načine ravnanja z umetno inteligenco v video igrah, kot so: FMS, mehka logika, skriptiranje, zbiranje, drevesa odločanja, vedenjska drevesa, nevronske mreže, genetski algoritmi.
-Raziskoval bom zgoraj omenjene načine, naredil primere in predstavil njihove rezultate.
+V diplomski nalogi bodo predstavljeni različni načini uporabe umetne inteligence v računalniških igrah s poudarkom na orodju, ki uporablja globoko okrepljeno učenje. Poglobili se bomo v zajčjo luknjo, ki je umetna inteligenca iger in poskušali razumeti leta raziskav. Celotne zgodovine umetne inteligence iger ne bi zajeli, vendar bo dovolj da ugotovimo kaj pomeni.
 \bigskip
 
 \noindent\textbf{Ključne besede:} \tkeywords.
@@ -339,8 +337,7 @@ Raziskoval bom zgoraj omenjene načine, naredil primere in predstavil njihove re
 %\noindent\textbf{Abstract:} 
 \noindent 
 The thesis will present different ways of using artificial intelligence in computer games with an emphasis on a tool that uses deep reinforcement learning.
-This thesis will handle ways of handling AI in video games like: FMS, Fuzzy logic, Scripting, Flocking, Decision trees, Behavioural trees, Neural networks, Genetics Algorithm.
-I will research the above aforementioned ways, even make examples and present their results.
+We will go deep into the rabbit hole that is game AI and try to understand years if research. The whole history of game AI would not be covered, but it will be enough to figure out what it means.
 \bigskip
 
 
@@ -362,48 +359,44 @@ I will research the above aforementioned ways, even make examples and present th
 
 \chapter{Introduction}
 
-As soon as the first video game arrived, there was a wish, no, a need to create a more involving experience. So, game developers created game AI to let the player interact with the game on so many levels.
+As soon as the first video game arrived, there was a need to create a more involved player experience. So, game developers created made characters or systems in their game to be controlled by game AI to let the player interact with the game on so many levels. Every year it passes that branch of game development is growing rapidly and hopefully soon to a new levels that we couldn't even think of.
 
-Creating an AI in video games comes with its own problems, in this thesis we will take our time to explain some techniques and their downfalls. We will also take a look into the future of the progression of game AI.
-
-
-In chapter \ref{ch1} we are going to get introduced with the problem and its intricacies. Chapter \ref{ch2} will take a tour through a number of techniques developers created through the times for solving game AI. But, in chapter \ref{ch3} I will present a "newer" experimental techniques and give out my conclusion in chapter \ref{ch4}.
+But, creating an AI in video games comes with its own problems, in this thesis we will take our time to analyze and explain some techniques, and those techniques will be advancing in the order we are showcasing them. At the end we will conclude with possibly more knowledge of game AI than we have now and hopefully we can see a glimpse of the future of this topic that lies ahead.
 
 
 \chapter{Background}
 \label{ch1}
-The question of game AI was present even in the first of games developed. By definition, in video games, AI is used to generate responsive, adaptive or intelligent behaviors primarily in NPCs similar to human-like intelligence \cite{AIwiki}. The ways of approaching it is incredibly vast, in this thesis we will only scratch the surface, but focus on the most interesting ones.
+The question of game AI \cite{AIwiki} was present even in the first of games developed, by definition, in video games, AI is represented similar to human-like intelligence. The ways of approaching it are incredibly vast, in this thesis we will only scratch the surface, but focus on the most interesting ones.
 
 \section{What is AI in games?}
-First, I should start with the term "video game", in definition it is an electronic game that involves interaction with a user interface or input device such as a joystick, controller, keyboard, or motion sensing device to generate visual feedback \cite{VideoGameWiki}. Then, the visual feedback is channeled to a displaying device, which can be observed. 
+First, I should start with the term "video game" \cite{VideoGameWiki}, it is a electronic game that involves a user interface and an input device (controller) to generate visual feedback. Then, the visual feedback is channeled to a displaying device, which can be observed. 
 
-So, now for quite some time, game developers are trying to invent techniques and methods for incorporating intelligence into these video games. But, this AI is a broad term, in video games, it can mean: animation control, steering, flocking, pathfinding, planning, procedural generation, tactical and strategic thinking, learning \cite{FuzzyAIGames}, to name a few. Often game AI can be mistaken for "true AI", which is to display human cognitive skills associated with human thinking, learning and problem-solving.
+So, now for quite some time, game developers are trying to invent techniques and methods for incorporating intelligence into these video games. But, this AI is a broad term, in video games, it can mean: animation control, steering, flocking, pathfinding, planning, procedural generation, tactical and strategic thinking, learning \cite{FuzzyAIGames}, to name a few. Often, game AI can be mistaken for "true AI", which is to display human cognitive skills associated with human thinking, learning and problem-solving, but it most definitely is not.
 
-Game AI adds another piece of the puzzle of defining AI and that is the illusion of intelligence. We would never want in a game an unbeatable ever-learning opponent, we would like a fun and easy experience, which isn't obviously stupid. Game AI in video games exists only to be fun and entertaining, so looking from this point, this is why the game developers are sticking to things that are predictable and working and aren't experimenting a whole lot, because who would want unexpected things happening in a game.
+Game AI adds another piece of the puzzle of defining AI and that is the illusion of intelligence. We would never want in a game an unbeatable ever-learning opponent, we would like a fun and easy experience, which isn't obviously stupid. Game AI in video games exists only to be fun and entertaining, so looking from this point, this is why the game developers are keen on sticking to things that are predictable and working and aren't experimenting a whole lot, because who would want unexpected things happening in a game.
 
 \section{Illusion of intelligence}
-Now that the secret is out, game developers were and are inventing tricks and techniques to make the player believe that games have real intelligence \cite{IllusionOfIntelligece}. And instead of making the goal true intelligence, its the appearance of intelligence.
+Now that the secret is out, game developers were and are inventing tricks and techniques to make the player believe that games have real intelligence \cite{IllusionOfIntelligece}. And now, the main focus is the appearance of intelligence, rather than true intelligence.
 
 \subsection{Why does it work?}
-The true reason why this illusion works is that players want to believe that there are glimmers of real human-like intelligence in their virtual worlds \cite{IllusionOfIntelligece}. Also, with their high expectations the players are easily forgiving.
+One of the reasons why this illusion works is that players want to believe that there are glimmers of real human-like intelligence in their virtual worlds \cite{IllusionOfIntelligece}. Also, the players are easily forgiving with their high expectations.
 
-Another reason why it works is because of anthropomorphism, which is an attribution of human motivation, characteristics, or behavior to inanimate objects, animals, or natural phenomenon, and these can be related to a phenomenon in animation. There is a research that a preschool 91\% of the times picked a character that is not a human being 
- \cite{AnthropomorphicCharacters}.
+Another reason why it works is because of anthropomorphism \cite{AnthropomorphicCharacters}, which is the interpolations of human behaviours to inanimate objects, this can be related to animated characters in video games. There is a research that preschool kids were 91\% likely to pick a character that is not a human being.
 
 As previously stated, expectations have a high influence. Because of the placebo effect, if players are expecting a highly intelligent game, their enjoyment will be higher. This is the same as if people think they are eating a more expensive food or a drink, they are more likely to enjoy it.
 
 \subsection{Selling it}
-The illusion of intelligence work when there is a certain level of quality to it, and that quality is helped by \cite{IllusionOfIntelligece}:
+The illusion of intelligence \cite{IllusionOfIntelligece} works when there is a certain level of quality to it, and that quality is helped by:
 \begin{itemize}
-    \item The AI should have \emph{animation and dialog}. These things help it to interact with the world and player, as well as making it more alive and present.
-    \item Although animations help to achieve game AI, it should be done with quality. They should the smooth and human-like, instead of looking like a \emph{robot}.
-    \item \emph{Have a reason to exist}, AI characters shouldn't always wait for the player to approach, they should have their own purpose. As well as their own motives, because the game world would be their home and reality and they should have their own states in it.
-    \item The culmination of building a successful AI character would be for it to have its own \emph{personality}. How the game developer leverages this powerful tool can complete change the feel of the game.
+    \item \emph{Animation and dialog} - this helps with the interaction with the world and player, as well as making the experience more alive and present.
+    \item Although animations help to achieve game AI, it should be done with quality. They should the smooth and human-like, instead of looking like a - \emph{robot}.
+    \item \emph{Have a reason to exist} - AI characters shouldn't always wait for the player to approach, they should have their own purpose. As well as their own motives, because the game world would be their home and reality and they should have their own states in it.
+    \item The culmination of building a successful AI character would be for it to have its own - \emph{personality}. How the game developer leverages this powerful tool can complete change the feel of the game.
 \end{itemize}
 
 
 \section{Deterministic vs Non-deterministic}
-It is in close connection to game AI that there exists two type of games. In a deterministic game, the course of the game depends only on the players’ decisions, but in a non-deterministic game, there’s some factor of randomness involved \cite{DeepLearningGO}.
+It is in close connection to game AI that there exists two type of games. In a deterministic game, the course of the game depends only on the players’ decisions, but in a non-deterministic game, there’s some factor of randomness involved \cite{DeepLearningGO}. % ?
 
 For example, chess is a deterministic game, the outcome of the game is entirely based on the players' decisions. But, football is non-deterministic, the players can't reliably kick the ball exactly the same every time. In that sense, luck or randomness often makes the game more exciting, however too much randomness removes all influence of the player in game, which is rarely fun.
 
@@ -411,13 +404,13 @@ For example, chess is a deterministic game, the outcome of the game is entirely 
 \chapter{Current AI in games}
 \label{ch2}
 
-So, advanced techniques for game AI have been spotted more often, for examples, there have been usages of Bayesian networks and neural networks for real-time strategy games, as well as evolutionary algorithms \cite{FuzzyAIGames}. But, in those cases the game seems to orbit around that as the main focus of the game itself. In other words, advanced techniques for game AI currently need a game to be build around them. Then, there is the problem of evolutionary algorithms needing a high computational and memory power. Also, the last problem would be their non-determinism, that just brings more problems to the table and game developers are reluctant to ship a game that is not tested enough.
+So, advanced techniques for game AI have been spotted more often, for examples, there have been usages of Bayesian networks and neural networks for real-time strategy games, as well as evolutionary algorithms. But, in those cases the game seems to orbit around that as the main focus of the game itself. In other words, advanced techniques for game AI currently need a game to be build around them. Then, there is the problem of these techniques needing a high computational and memory power. Also, the last problem would be their non-determinism, that just brings more problems to the table and game developers are reluctant to ship a game that is not tested enough.
 
-In this chapter, we will focus more on the current techniques that are widely used, which finely sell the illusion of intelligence. Technologies I will use if I need to present examples are Unity for the game editor and game engine \cite{UnitySoftware}.
+In this chapter, we will focus more on the current techniques that are widely used, which finely sell the illusion of intelligence.
 
 \section{Finite State Machines}
 
-You want to create a side-scrolling platformer, and now you grab a pen and paper and start designing the flowchart. You draw a box for everything the hero can be doing: standing, jumping, ducking and diving. When some kind of input is given, for an example when a button is pressed, you draw an arrow to from that box, label it with the button, and connect it to the box it changes to \cite{GameProgrammingPattersFMS}.
+You want to create a side-scrolling platformer, and now you grab a pen and paper and start designing the flowchart. You draw a box for everything the hero can be doing: standing, jumping, ducking and diving. When some kind of input is given, for an example when a button is pressed, you draw an arrow to from that box, label it with the button, and connect it to the box it changes to.
 
 \begin{figure}[h]
 \begin{center}
@@ -427,8 +420,7 @@ You want to create a side-scrolling platformer, and now you grab a pen and paper
 \label{pic1}
 \end{figure}
 
-Now that we successfully create a FSM, these came out of a computer science branch called automata theory, which includes the famous Turing machine. FSMs are the simplest of that bunch.
-
+Congratulations, we have successfully created a FSM \cite{GameProgrammingPattersFMS}. The idea of it came out of a computer science branch called \emph{automata theory}, which includes the famous Turing machine \cite{TuringMachine}. It should be noted that FSMs are the simplest of that bunch. The rules are simple:
 \begin{itemize}
     \item You have to have fixed set of states the machine can be in
     \item The machine can be in one state at a time
@@ -436,7 +428,7 @@ Now that we successfully create a FSM, these came out of a computer science bran
     \item Each state has a set of transitions, each associated  with an input/event and pointing to a state
 \end{itemize}
 
-So, now that I've introduced FSMs, there is a catch. State machines help you untangle hairy code by forcing a very constrained structure on it. All you have is a fixed set of states, a single current state, and some hardcoded transitions \cite{GameProgrammingPattersFMS}. However, when wanting to create a more complex game AI, you have to work around these problems, I'll close this chapter by presenting some. 
+So, now that I've introduced FSMs, there is a catch. State machines help you untangle hairy code by forcing a very constrained structure on it. All you have is a fixed set of states, a single current state, and some hard coded transitions. However, when wanting to create a more complex game AI, you have to work around these problems, we'll dive deeper into them. 
 
 \subsection{Concurrent State Machines}
 
@@ -458,21 +450,18 @@ class Hero  {
 
 We wouldn't want to duplicate code in all of our states. We could define a state "on ground" that handles ducking and jumping, standing, walking, running would then inherit from that one and add it to its own behaviour.
 
-Turns out this is a structure called hierarchical state machine, a state can have a superstate (making itself a substate). When an event comes in, if the substate doesn’t handle it, it rolls up the chain of superstates. In other words, it works just like overriding inherited methods \cite{GameProgrammingPattersFMS}.
+Turns out this is a structure called \emph{hierarchical state machine}, a state can have a superstate (making itself a sub state). When an event comes in, if the sub state doesn't handle it, it rolls up the chain of superstates. In other words, it works just like overriding inherited methods.
 
 If the current state is on top of the stack, under that is its superstate and so on. So, if you dish out a state-specific behaviour, it starts on top of the stack and walks down until one of the superstates handles it, but if none do, its ignored.
 
 \subsection{Pushdown Automata}
 
-This is an extension to FSM, that uses the concept of stacks. The problem is with basic FSMs is that you don't have history of the previous states. You know of what state you \emph{are} currenly in, but no memory of what state you \emph{were}.
+This is an extension to FSMs, that uses the concept of stacks. The problem is with basic FSMs is that you don't have history of the previous states. You know of what state you \emph{are} currently in, but no memory of what state you \emph{were}.
 
-So, if we had states standing and firing, if we were to transition in the firing state, we couldn't remember to go in our previous state, the standing state. For this problem, the pushdown automata structure is here to help.
-
-In vanilla FSM, you have a singe pointer to the current state, pushdown automata has a stack of them. In a FSM, transitioning into the new state replaces the previous one. Pushdown automata let's you do that, but it gives you two other choices \cite{GameProgrammingPattersFMS}:
-
+In FSMs, only a pointer to the current state exists, pushdown automata has a stack of pointers. In a FSM, transitioning into the new state just replaces the previous pointer. Pushdown automata let's you choose:
 \begin{itemize}
-    \item You can push a new state on the stack, the "current" state is always on top of the stack, so this transitions to the new state, but it leaves the previous state directly under the stack instead of discrading.
-    \item You can pop the "current" state, in doing so, the state that is under it becomes the new "current" state.
+    \item Push a new state on the stack, this transitions to it, but it leaves the previous state directly under instead of discarding.
+    \item Pop the current state, in doing so, the state that is under it becomes the new current state.
 \end{itemize}
 
 \begin{figure}[h]
@@ -487,9 +476,9 @@ In vanilla FSM, you have a singe pointer to the current state, pushdown automata
 
 Even with extensions to FSMs, they are pretty limited. If the aim is complex game AI, the previous chapter only whet our appetite.
 
-Behaviour trees (BTs) are a proven and established technique that game developers regularly use to build their AI. Not only do they give you a solid foundation to build upon, but it also gives you a lot of flexibility to include other techniques in a way that gives you full control over behavior and performance \cite{BehaviourTreeStarterPack}.
+Behaviour trees (BTs) \cite{BehaviourTreeStarterPack} are proven to be a extensive technique which can create a pretty versatile AI. It makes a solid foundation for combining other techniques and to have full control over behaviour and performance.
 
-So, a definiton for a BT would be, it describes a data structure starting from some root node and made up of behaviors, which are individual actions an NPC can perform. Each behavior can in turn have child behaviors, which gives the algorithm its tree-like qualities \cite{BehaviourSelectionAlgorithms}.
+So, to define a BT, it describes a data structure starting from some root node and made up of behaviors, which are individual actions an NPC can perform. Each behavior can in turn have child behaviors, which gives the algorithm its tree-like qualities.
 
 \begin{figure}[h]
 \begin{center}
@@ -499,7 +488,7 @@ So, a definiton for a BT would be, it describes a data structure starting from s
 \label{pic3}
 \end{figure}
 
-Every behaviour has its own condition and an action. The algorithm starts at the root of the tree and at each levels examines the conditions of the behaviours. If a condition matches of a node, it executes the action. None of its siblings will be examined, but its children will. The algorithm is at as it follows:
+Every behaviour has its own condition and an action. The algorithm starts at the root of the tree and at each levels examines the conditions of the behaviours. If a condition matches of a node, it executes the action. None of its siblings will be examined, but its children will. The algorithm is as it follows:
 \begin{verbatim}
     Make root node the current node
     While current node exists
@@ -512,41 +501,40 @@ Every behaviour has its own condition and an action. The algorithm starts at the
     Run all behaviors on the execute list
 \end{verbatim}
 
-The real strenght of BTs is their simplicity \cite{BehaviourSelectionAlgorithms}. Since trees are stateless, the algorithm doesn't have to remember what behaviours were running and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
+The real strength of BTs \cite{BehaviourSelectionAlgorithms} is their simplicity. Since trees are stateless, the algorithm doesn't have to remember what behaviours were running and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
 
 But and now this is a big but, although BT algorithm is simple and powerful, its not always the best choice. The algorithm has to start at the root node every time a new behaviour is chosen, that means the running time is greatly impacted, in comparison to FSMs. Also, it deals with a lot of conditionals. Furthermore, memory is a problem as behaviours can loop with each other, however steps can be taken to deal with this problem.
 
 \section{Scripting, the good and the bad}
 
-Now we're about to talk the most controversial game AI that has existed. From it, it can come out to be the best game AI to ever be... or some of the worst. It all depends on its implementation.
+Now we're about to talk the most controversial game AI that has ever been created. From it, it can come out to be the best game AI to ever be... or some of the worst. It all depends on its implementation.
 
-However, to have a successful scripted AI, one must not fear it. Like any weapon, the soldier must first learn how to use to, to be useful with it. There are couple of ways to integrate scripting techniques into a game's architecture, but for the most part they compromise to two philosophies. Those rival points are "master" and "servant" ideologies \cite{ForbiddenScripting}, while both have their place, its very useful to consider which role scripts will play in a given game's implementation. 
+However, to have a successful scripted AI, one must not fear it. Like any weapon, the soldier must first learn how to use to and master it through trial and error. There are couple of ways to integrate scripting techniques into a game's architecture, but for the most part they compromise to two philosophies, those are the \emph{master and servant} ideologies \cite{ForbiddenScripting}. While both have their place, its very useful to consider which role scripts will play in a given game's implementation. 
 
 \subsection{Master and Servant ideology}
 
-To start off, to be successful into making a scripted AI, it is important to understand how important is a working system in the overall architecture of the game. Not just how it interacts with the AI, but in total game systems. Without a good architecture, scripts can't be effective, they produce huge amount of bugs, or even stop development.
+To start off, to be successful into making a scripted AI, it is important to understand how much the AI depends on the overall foundation of the said game. The game systems and architecture must be thoroughly thought out to have an effective scripted AI. Without it, the AI can produce huge amount of bugs, or even halt/stop development.
 
-So the most viable technique for scripted AI would be the master and servant approach. The master script would take care of the high-level aspects of the game, while the servant script would control the overall activity of the agents, or just create some kind of effects \cite{ForbiddenScripting}.  
+So the most viable technique for scripted AI would be the master and servant approach. In short, the master script would take care of the high-level aspects of the game, while the servant script would control the overall activity of the agents, or just create some kind of effects.  
 
 \begin{itemize}
-    \item Master scripts work best in two scenarios. The first one would be if in game already exists AI, and the scripting would be the "glue" that combines this techniques into a powerful model for agent behaviour. Even in the other scenario when its only the scripting technique, it can produce good results for different decision-making and planning techniques.
-    \item Servant scripts are best effective when design requires a high degree in specificity in agent behaviour. So special case scenarios are created by the developers for each agent and this can have excellent results for ambient or "background" AI.
+    \item \emph{Master scripts} work best in two scenarios. The first one would be if in game already exists some kind of AI, and the scripting would be the glue that combines this techniques into a powerful model for agent behaviour. Even in the other scenario when its only the scripting technique, it can produce good results for different decision-making and planning techniques.
+    \item \emph{Servant scripts} are best effective when design requires a high degree in specificity in agent behaviour. So special case scenarios are created by the developers for each agent and this can have excellent results for ambient or background AI.
 \end{itemize}
 
 Games, would often tip themselves into one side or the other. It it dependant to a lot of circumstances: the experience of the developers, time and budget, the ratio of programmers to designers etc.
 
+There is a stigma justified by negativity of players not enjoying games with scripted AI, which show little depth or variety to their AI. But, with proper coordination between design and technical concerns of the project, scripted AI could become a powerful tool with a lot of depth and players would be grateful.
 
-There is a stigma justified by negativities of players not enjoying games with scripted AI, which show little depth or veriety to their AI. But, with proper coordination between design and technical concerns of the project, scripted AI could become a powerful tool with a lot of depth.
-
-Moreover, scripting should be used in combination with other techniques, due to over-reliance on scripts is why we get the shallow and unwanted AI. On an another page, developers must resist the urge to anticipate everything that a script might need to handle \cite{ForbiddenScripting}. This can be avoided with delegation, but the most important is having a chosen design early on and sticking to it, whether be it master and servant approach. When it comes to scripting, often simpler is better, instead of having to design overly complicated and intricate systems. Its better to stick on more flexible and creative solutions.
+Moreover, scripting should be used in combination with other techniques, due to over-reliance on scripts is why we get the shallow and unwanted AI. On an another page, developers must resist the urge to anticipate everything that a script might need to handle. This can be avoided with delegation, but the most important is having a chosen design early on and sticking to it, whether be it master and servant approach. When it comes to scripting, often simpler is better, instead of having to design overly complicated and intricate systems, its better to stick on more flexible and creative solutions.
 
 \section{Fuzzy Logic}
 
-Fuzzy logic is a superset of conventional logic that has been extended to handle the concept of partial-truth values between the boolean dichotomy of true and false \cite{FuzzyAIGames}. It usually has its own components like fuzzy variables, fuzzy rules and fuzzy interface engines.
+Fuzzy logic \cite{FuzzyAIGames} is a super set of conventional logic that has been extended to handle the concept of partial-truth values between the boolean dichotomy of true and false. It usually has its own components like fuzzy variables, fuzzy rules and fuzzy interface engines.
 
-As well as the previous techniques, fuzzy logic has the goal of a simple design resulting in intelligent agents. Controlling a game character with fuzzy logic can be done easily due to suitable input and output values. 
+As well as the previous techniques, fuzzy logic has the goal of a simple design resulting in intelligent agents. Controlling a game character with fuzzy logic can be done easily due to suitable input and output values.
 
-Fuzzy logic is an extension of \emph{crisp logic} (conventional logic), there is the same as binary logic, the variable can be true or false \cite{FuzzyLogicBasedGameSystem}. In crisp logic, the variables can be from a set of two elements, while in fuzzy logic, the concept has been extended to handle partial-truth values between true and false. 
+Fuzzy logic is an extension of \emph{crisp logic} (conventional logic), there is the same as binary logic, the variable can be true or false. In crisp logic, the variables can be from a set of two elements, while in fuzzy logic \cite{FuzzyLogicBasedGameSystem}, the concept has been extended to handle partial-truth values between true and false. 
 
 For example, the weapon range can be divided into melee, ranged or out of range as seen in \ref{pic4}.
 
@@ -562,7 +550,7 @@ Fuzzy logic brings a lot to the table when it come to game AI. It can help in NP
 
 \subsection{Pitfalls}
 
-As good as fuzzy logic sounds till now, I have to talk about its downsides. Due to its knowledge-based nature, it requires a correct definition of input and output variables, as well as their relationships \cite{FuzzyAIGames}. Another downside, if the system of fuzzy logic is not designed carefully, it can lead to a lot of rules being checked at a given moment and sacrificing its advantage of a low computational cost.
+As good as fuzzy logic sounds till now, I have to talk about its downsides. Due to its knowledge-based nature, it requires a correct definition of input and output variables, as well as their relationships. Another downside, if the system of fuzzy logic is not designed carefully, it can lead to a lot of rules being checked at a given moment and sacrificing its advantage of a low computational cost.
 
 In a video game, there can be many input variables to an agent's behaviour, each with their own number fuzzy sets. Because of this, the fuzzy rules can grow exponentially and it could even lead to combinatorial explosion \cite{CombinatorialBombing}.
 
@@ -574,9 +562,9 @@ The one who's responsible for the flocking algorithm is Craig W Reynolds with hi
 
 The flocking behaviour can be simulated by using three principles \cite{FlockingBehaviour}: 
 \begin{itemize}
-    \item Separation - Each boid knows the distances of its neighbors, so with that knowledge it tries to apply an repulsive force in the opposite direction to maintain distance from them. In a way, it is a collision avoidance within the flock.
-    \item Cohesion - Computes the direction of the average position of the boids and tries to steer all the boids for them to be together as a group.
-    \item Alignment - Keeps track of the average velocities and keeps check of the boids' velocities and tries to keep the average speed.
+    \item \emph{Separation} - Each boid knows the distances of its neighbors, so with that knowledge it tries to apply an repulsive force in the opposite direction to maintain distance from them. In a way, it is a collision avoidance within the flock.
+    \item \emph{Cohesion} - Computes the direction of the average position of the boids and tries to steer all the boids for them to be together as a group.
+    \item \emph{Alignment} - Keeps track of the average velocities and keeps check of the boids' velocities and tries to keep the average speed.
 \end{itemize}
 
 \begin{figure}[!htb]
@@ -597,14 +585,14 @@ The flocking behaviour can be simulated by using three principles \cite{Flocking
 
 The path of the boids which want to move is calculated by the A* pathfinding algorithm \cite{FOEAD2021507}. Its simple purpose is to find the shortest path from point A to point B. Its a well known method to use as a basis for pathfinding problems with its known  simplicty, efficency and modularity.
 
-But, A* algorithm isn't fool proof, in many cases it would need a supplementary algorithm or a tweak to its core mechanics. Also, A* may find a path much quicker than other searches, but it does not ensure that the result will be the shortest path. Research shows that A* will have a correct result only 85\% of the time \cite{FOEAD2021507}. Overall, the traditional algorthm can't keep with the modern requirements of pathfinding, so game developers are needed to tweak and enforce it for adequate results.
+But, A* algorithm isn't fool proof, in many cases it would need a supplementary algorithm or a tweak to its core mechanics. Also, A* may find a path much quicker than other searches, but it does not ensure that the result will be the shortest path. Research shows that A* will have a correct result only 85\% of the time \cite{FOEAD2021507}. Overall, the traditional algorithm can't keep with the modern requirements of pathfinding, so game developers are needed to tweak and enforce it for adequate results.
 
 
 \section{Genetics Algorithm}
 
-A genetic algorithm is a probabilistic algorithm that generates an approximate solution based on Darwin’s Theory of Evolution \cite{GameAIGeneticAlg}. The basic gist of the algorithm is producing new offsprings from an existing population and then selecting the fittest offsprings from that populating for the next generations. This algorithm has been around for several decades so there may exist a lot of variations.
+A genetic algorithm \cite{GameAIGeneticAlg} is a probabilistic algorithm that generates an approximate solution based on Darwin’s Theory of Evolution. The basic gist of the algorithm is producing new off-springs from an existing population and then selecting the fittest off-springs from that populating for the next generations. This algorithm has been around for several decades so there may exist a lot of variations.
 
-In this section, we'll take a look into a cetain genetic algorithm, which we need to define some terms for:
+In this section, we'll take a look into a certain genetic algorithm, which we need to define some terms for:
 
 \begin{itemize}
     \item \emph{Gene} - Single parameter of search space
@@ -616,8 +604,6 @@ In this section, we'll take a look into a cetain genetic algorithm, which we nee
     \item \emph{Mutation} - Process to randomly change some genes to oppose local optima (solution that is optimal within a neighboring set of candidate solutions \cite{LocalOptimum}) 
     \item \emph{Generation} - One iteration of the Genetics Algorithm
 \end{itemize}
-
-\clearpage
 
 Now, that we have defined some general terms we need for the algorithm, we can go ahead and get into it:
 
@@ -632,7 +618,7 @@ Now, that we have defined some general terms we need for the algorithm, we can g
         go the second line
 \end{verbatim}
 
-The best for a probabilistic algorithm is to iterate until there is no imporvements, but in the genetic algorithm we need to set up a number of iterations, because it always mutates.
+The best for a probabilistic algorithm is to iterate until there is no improvements, but in the genetic algorithm we need to set up a number of iterations, because it always mutates.
 
 The usage of genetics algorithms is immense, it can robustly and effectively search a poorly search space, when we have scarce knowledge. It is best for non-linear problems. The appeal of this algorithm comes from its elegance and simplicity for its power to discover good solutions for high-dimensional problems \cite{CurrentAIGames}.
 
@@ -645,7 +631,7 @@ And for the downsides, genetics algorithms require high computational and memory
 
 To correctly use the ML-Agents toolkit we would need certain type of technologies. If we want to use the ML-Agents toolkit with Unity, we start with the Unity editor and Unity game engine \cite{UnitySoftware}. In the Unity editor, in the Package Manager, we should install "ML Agents".
 
-After, we should have (or install) Python \cite{PythonManual} (I used python 3.9). With python pip we would need the packages pytorch and mlagents - For this step I chose to have a virtual environment, which is beneficial to have the proper versions and have the setting up part more organized.
+After, we should have (or install) Python \cite{PythonManual} (I used python 3.9). With python pip we would need the packages pytorch (\texttt{torch}) and \texttt{mlagents} - For this step I chose to have a virtual environment, which is beneficial to have the proper versions and have the setting up part more organized.
 
 Now, we are good to go, with the command \texttt{mlagents-learn} and Unity open we could freely proceed into the chapter with ease.
 
@@ -668,11 +654,11 @@ The technology of ML-Agents is mostly used for training Agents, which are basica
 The ML-Agents toolkit system works with 5 connected high-level components. And those are:
 
 \begin{itemize}
-    \item \emph{Learning environment} - is actually the Unity scene and all the game objects. This scene is used either for training or for testing environments, this is where the abovementioned Unity package ML Agents comes in handy. With it, the agents and their behaviours get defined.
+    \item \emph{Learning environment} - is actually the Unity scene and all the game objects. This scene is used either for training or for testing environments, this is where the above aforementioned Unity package ML Agents comes in handy. With it, the agents and their behaviours get defined.
     \item \emph{Python low-level API} - is interacting and manipulating the learning environment, it lives outside of the learning environment and interacts with it through the External communicator.
     \item \emph{External communicator} - connect the learning environment with the python low-level API, it actually lives in the learning environment.
     \item \emph{Python trainers} - contains all the ML algorithms, they are all contained in the python \texttt{mlagents} package.
-    \item \emph{Gym wrapper} - common way in which ML researchers interact with learning environments is with the wrapper from openAI called gym.
+    \item \emph{Gym wrapper} - common way in which ML researchers interact with learning environments is with the wrapper from openAI called gym \cite{openAIGym}.
 \end{itemize}
 
 \begin{figure}[h]
@@ -698,14 +684,137 @@ The learning environment in the Unity scene has two components:
     Basically, after a learning behaviour is trained, it becomes an inference behaviour.
 \end{itemize}
 
+With that knowledge of the architecture of ML-Agents, we can present how a game would look.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Images/learning_environment_example.png}
+\end{center}
+\caption{Example of how the architecture looks of a simple game}
+\label{pic7}
+\end{figure}
+
+\subsection{Training methods}
+
+Before I jump into the examples, I would like a to showcase a brief overview of the ML algorithms that are a part of ML-Agents.
+
+\subsubsection{Note on rewards signals}
+
+A quick note is that rewards in ML-Agents can be \emph{intrinsic} or \emph{extrinsic}. Rewards that the agent can get from the learning environment are called extrinsic. But, rewards can be also defined outside of the envirnonment, we refer these as intrinsic rewards.
+
+With the toolkit, the reward signals can be tweaked in four ways:
+\begin{itemize}
+    \item \texttt{extrinsic} - represents the rewards in the environment, its on by default
+    \item \texttt{gail} - represents the intrinsic rewards defined by GAIL (we will take a look at it down below)
+    \item \texttt{curiosity} - represents the intrinsic reward that encourages the player to explore, it is defined by a Curiosity module
+    \item \texttt{rnd} - represents the intrinsic reward that encourages the player to explore, it is defined by a Curiosity module
+\end{itemize}
+
+\subsubsection{Deep reinforcement learning}
+
+ML-Agents has implementation of two algorithms Proximal Policy Optimization (PPO) and Soft Actor-Critic (SAC). The default is PPO as it has been proven to be more general purpose and more stable. On the other had SAC, tends to collect sets of experiences and learn from them. So when looking from an efficiency point of view, PPO would require more samples, so from that SAC is the better choice for heavier environments. Also, SAC encourages exploration, as it is an "maximum entropy" algorithm.
+
+The curiosity reward signal, which we mentioned earlier, is managed by the Intrinsic Curiosity Module. Its an implementation in ML-Agents inspired by "Curiosity-driven Exploration by Self-supervised Prediction" \cite{CuriosityExploration}. When we are at this topic, RND, which is \emph{Random Network Distillation} \cite{ExplorationRND} is also a module in ML-Agents that helps out with the agent's exploration.
+
+\subsubsection{Imitation Learning}
+
+Often when training, the agents can have a hard time at the beginning of the training. So, in order to prevent or help that process, it can be demonstrated the wanted behaviour to the agent and it can learn from that, rather than trying and trying. This is called \emph{imitation learning}, even better it can even be combined in conjunction with the already existing reinforcement learning. In doing that, the time for the agent to learn the behaviour drops down drastically.
+
+For the imitation learning, ML-Agents uses two algorithms called Behavioral Cloning (BC) and Generative Adversarial Imitation Learning (GAIL). In order to make the agents learn through demonstrations, GAIL and BC have to be enabled in the proper \texttt{yaml} configuration file.
+
+The demonstrations can be recorded in the Unity editor or build and be saved as assets for later use.
+
+\begin{itemize}
+    \item \emph{GAIL} or \emph{Generative Adversarial Imitation Learning} \cite{GAIL} uses adversarial approach to reward the Agent for using similar actions to the demonstrations. It works well with a limited number of demonstration instructions, also it has a second neural network called the \emph{discriminator} which distinguishes whether an action or an observation is from the demonstration or produced by the agent itself. Note: the GAIL method actually encourages the agent to stay as long as possible because of the \emph{survivor bias} \cite{SurvivorBias} in the learning process. So the best approach is to stick to a low strength GAIL.
+    \item \emph{BC} or \emph{Behavioral Cloning} encourages the agent to strictly follow the demonstrations, it works best when the demonstrations contains every state that the agent can be. For best results, its best to combine GAIL and BC.
+\end{itemize}
+
+So, to conclude this subsection, imitation learning with ML-Agents is really powerful and it should be used in certain ways. BC is best used on its own or as a step before training with GAIL and/or RL. While RL can be used on its own (either wil algorithm PPO or SAC) or combined with BC and/or GAIL. This can lead to some pretty amazing results as we will see in the next section.
+
 \section{Examples and usages}
 
-\subsection{Set up}
+Now, that we know, in essence, the basics of how the toolkit works, I can go ahead and present some examples of using it.
+
+\subsection{Move to goal}
+
+Let's start with an easier example to understand how the technology is used in practise. The goal of this first example will be to train the agent to move to a yellow ball (the goal). The scene will have an agent, goal, walls and would look like the scene in figure \ref{pic8}. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Images/MoveToGoal.png}
+\end{center}
+\caption{Move to goal scene}
+\label{pic8}
+\end{figure}
+
+The first thing we need to do is create an agent script component, which would inherit from the class \texttt{Agent}. Our class would only have to know the position of the goal (it would be a Serialized Field), from the parent class we would need to override the following methods:
+\begin{itemize}
+    \item \texttt{OnEpisodeBegin} - Every time an episode finished this method is called, so the positions of the goal and agent should be reset. Note: If we reset to the same position every time, the model will become over fitted only go to its learnt position (even if we move the goal). In order to avoid this, it should reset to a random position.
+    \item \texttt{CollectObservations} - this method takes a sensor parameter with the class \texttt{VectorSensor}, here the positions of our agent and goal should be added.
+    \item \texttt{OnActionReceived} - its plan to take continuous numeric data for the movement of the x axis and z axis, so in this method through the parameter with the class \texttt{ActionBuffers} we can take the before mentioned data and move our agent.
+    \item \texttt{Heuristic} - this method works only if the agent's behaviour is set to Heurstic only mode and in our case, its used to test the environment if it works properly.
+\end{itemize}
+
+Now we can add the script component to our game object and it should look something like this:
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.35\textwidth]{Images/movetogoalcomponent.png}
+\end{center}
+\caption{Move to goal agent component}
+\label{pic9}
+\end{figure}
+
+To optimize learning, the environment should be put in a prefab and instantiated in a the scene multiple times for better results while learning. When done learning, we can use only one environment.
+
+Now, we should determine when the episode ends and the agent gets a positive reward: when it touches the goal. 
+And, the episode ends and the agents gets a negative reward: when it touches the walls.
+
+From the figure \ref{pic9}, the first noticeable thing is the max step. This has to be environment specific so that the episode resets and that the agent is not motivated to just stay in one place for the best reward. Next this is that the Continuous Actions are set to two as that's how we move our agent (in the two axes). Also we had to add a decision requester and that's nearly it.
+
+The final thing is that we need to execute the commands to train our agent.  The command is \texttt{mlagents-learn MoveToGoal.yaml --run-id=MoveToGoal}. For this example, the configuration file doesn't really matter. Note: we can use the command \texttt{tensorboard --logdir} to see how our model is progressing in our environment (see figure \ref{pic10}).
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Images/tensorboard.png}
+\end{center}
+\caption{Tensorboard of MoveToGoal example}
+\label{pic10}
+\end{figure}
+
+When we see good progress, we can go ahead and stop the learning. The model will be saved in a \texttt{.onnx} (Open Neural Network Exchange Format) file which we can use for a brain (model) later. And that's basically it, we successfully trained our first NN model, we can use that brain for whatever purpose we want.
+
+\subsection{Dungeon escape}
+
+I want to showcase the next example for the power of ML-Agents and what it is capable of. This game is one of the many ML-Agents \cite{MLAgents} examples, it is a simple game where the players need to escape the dungeon by taking the key and unlocking the door, while being guarded by a dragon.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Images/DungeonEscape.png}
+\end{center}
+\caption{Dungeon escape example}
+\label{pic11}
+\end{figure}
+
+What is interesting for this example is that the agent has a ray perception sensor in 3D and its observations are visual, rather than numeric.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.3\textwidth]{Images/AgentDungeonEscape.png}
+\end{center}
+\caption{Ray perception sensor on an agent}
+\label{pic12}
+\end{figure}
+
+This examples takes use of the \texttt{SimpleMultiAgentGroup} and the agents register to it (the agents are our knights in the figure \ref{pic11}). The agents take 6 discrete actions, two for rotation and four for direction movement. They can pick up a key and if they have it they can unlock the door and get a reward. Or if an agent collides with the dragon, both the dragon and the agent die.
+
+\subsection{Pyramids}
 
 \chapter{Conclusion}
 \label{ch4}
 
+It can be easily said that the current and past games rely on the more simple and stable techniques. It is because of that development that players are growing weary of deterministic and plain AI in games. So, as it is a race for better game graphics, now I think there exists a race for a more in-depth game AI with NNs, BTs, fuzzy logic, genetics algorithms etc. 
 
+I think the future takes us step by step towards virtual autonomous characters that are lifelike, intelligent and convey empathy and I only think it is a matter of time before we can reach that. I know that till now I was showcasing techniques that sell the intelligence and not real AI. But, also I know that there is a definite progress in the techniques shown. With creating a well thought out game architecture/system and combining it with new AI techniques, I think that the impossible can become possible.
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Literature}
