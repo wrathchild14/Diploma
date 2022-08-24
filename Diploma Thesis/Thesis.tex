@@ -1,5 +1,4 @@
 \documentclass[a4paper, 12pt]{book}
-
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
 \usepackage[slovene,english]{babel}    % naloži, med drugim, slovenske delilne vzorce
 \usepackage[pdftex]{graphicx}  % omogoča vlaganje slik različnih formatov
@@ -19,6 +18,8 @@
 \usepackage{color}      
 \usepackage{soul} 
 \usepackage[numbers]{natbib}
+
+\usepackage{listings} % For code showing
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	DIPLOMA INFO
@@ -221,17 +222,12 @@ Za objavo in koriščenje rezultatov diplomske naloge je potrebno pisno privolje
 
 \bigskip
 \noindent\textbf{Opis:}\\
-Raziskovanje različnih načinov uporabe umetne inteligence v računalniški igri. Od osnovnih stanj do algoritmov strojnega učenja. Cilj je poskušati primerjati rezultate različnih metod in ugotoviti najboljše.\\
-Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega sistema, kamor ga je vnesel mentor. 
-V nekaj stavkih bo opisal, kaj pričakuje od kandidatovega diplomskega dela. 
-Kaj so cilji, kakšne metode naj uporabi, morda bo zapisal tudi ključno literaturo.
 
 \bigskip
 \noindent\textbf{Title:} \ttitleEn
 
 \bigskip
 \noindent\textbf{Description:}\\
-Researching different ways of how Artificial intelligence is used in a computer game. From basic state machines to machine learning algorithms. The goal is trying to compare results of different methods and figure out the best ones.
 
 
 \vfill
@@ -288,7 +284,6 @@ Za svoja draga družina.
   {\bf FSM}     & finite state machine              & končni stroj \\
   {\bf NN}      & neural network                    & nevronska mreža \\
   {\bf NPC}     & non-player character              & neigralski lik \\
-  {\bf CA}      & classification accuracy           & klasifikacijska točnost \\
   {\bf BT }     & behaviour trees                   & drevesa vedenja \\
   {\bf RL }     & reinforcement learning            & učenje s krepitvijo \\
   \dots         & \dots                             & \dots \\
@@ -337,7 +332,7 @@ V diplomski nalogi bodo predstavljeni različni načini uporabe umetne inteligen
 %\noindent\textbf{Abstract:} 
 \noindent 
 The thesis will present different ways of using artificial intelligence in computer games with an emphasis on a tool that uses deep reinforcement learning.
-We will go deep into the rabbit hole that is game AI and try to understand years if research. The whole history of game AI would not be covered, but it will be enough to figure out what it means.
+We will go deep into the rabbit hole that is game AI and try to understand years of research. The whole history of game AI will not be covered, but it will be enough to figure out what it means.
 \bigskip
 
 
@@ -527,6 +522,17 @@ Games, would often tip themselves into one side or the other. It it dependant to
 There is a stigma justified by negativity of players not enjoying games with scripted AI, which show little depth or variety to their AI. But, with proper coordination between design and technical concerns of the project, scripted AI could become a powerful tool with a lot of depth and players would be grateful.
 
 Moreover, scripting should be used in combination with other techniques, due to over-reliance on scripts is why we get the shallow and unwanted AI. On an another page, developers must resist the urge to anticipate everything that a script might need to handle. This can be avoided with delegation, but the most important is having a chosen design early on and sticking to it, whether be it master and servant approach. When it comes to scripting, often simpler is better, instead of having to design overly complicated and intricate systems, its better to stick on more flexible and creative solutions.
+
+\subsection{Example}
+
+For scripted AI, there is a perfect example - a game that I made not so long ago using the MonoGame framework. % I Should cite it
+The game \cite{KWA} consists of a knight roaming with his dog, but the dog gets scared of some skeletons and now the knight has to defeat skeletons in order to chase and recover his dog.
+
+From this game, I wanted to present the skeleton AI, because is the perfect example for scripted AI. Down below is a mimic of the code, but the functionality is the same. The skeleton has some private attributes that he uses with his scripted AI.
+
+\lstinputlisting[language={[Sharp]C}, basicstyle=\small]{Code/KWADemo.cs}
+
+This can be an example of the servant scripted AI, because there is a lot of skeletons spawned and this script is used on each one of them.
 
 \section{Fuzzy Logic}
 
@@ -815,6 +821,8 @@ This examples takes use of the \texttt{SimpleMultiAgentGroup} and the agents reg
 It can be easily said that the current and past games rely on the more simple and stable techniques. It is because of that development that players are growing weary of deterministic and plain AI in games. So, as it is a race for better game graphics, now I think there exists a race for a more in-depth game AI with NNs, BTs, fuzzy logic, genetics algorithms etc. 
 
 I think the future takes us step by step towards virtual autonomous characters that are lifelike, intelligent and convey empathy and I only think it is a matter of time before we can reach that. I know that till now I was showcasing techniques that sell the intelligence and not real AI. But, also I know that there is a definite progress in the techniques shown. With creating a well thought out game architecture/system and combining it with new AI techniques, I think that the impossible can become possible.
+
+True AI is far from complete, unpredictable
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Literature}
