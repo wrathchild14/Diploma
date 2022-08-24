@@ -526,9 +526,18 @@ Moreover, scripting should be used in combination with other techniques, due to 
 \subsection{Example}
 
 For scripted AI, there is a perfect example - a game that I made not so long ago using the MonoGame framework. % I Should cite it
-The game \cite{KWA} consists of a knight roaming with his dog, but the dog gets scared of some skeletons and now the knight has to defeat skeletons in order to chase and recover his dog.
+The game \cite{KWA} consists of a knight roaming with his dog, but the dog gets scared of some skeletons and now the knight has to defeat skeletons in order to chase and recover his dog, we can see it in figure \ref{KWA}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Images/KWAtown.png}
+\end{center}
+\caption{Picture of the game with the skeleton enemies}
+\label{KWA}
+\end{figure}
 
 From this game, I wanted to present the skeleton AI, because is the perfect example for scripted AI. Down below is a mimic of the code, but the functionality is the same. The skeleton has some private attributes that he uses with his scripted AI.
+
 
 \lstinputlisting[language={[Sharp]C}, basicstyle=\small]{Code/KWADemo.cs}
 
