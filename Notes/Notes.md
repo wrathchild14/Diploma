@@ -35,3 +35,7 @@ dungeonescape is fun.
 pyramids
 soccer
 
+### date: 26.08.2022
+- Create basic FSM - https://www.youtube.com/watch?v=-VkezxxjsSE
+- 
+
