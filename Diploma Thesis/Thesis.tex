@@ -467,6 +467,40 @@ In FSMs, only a pointer to the current state exists, pushdown automata has a sta
 \label{pic2}
 \end{figure}
 
+\subsection{Example}
+
+Best way to present FSMs is to start with a simple, but upgradable example for future extensibility. For this example, I will use the sprites from a game that I created \cite{KWA}, in the figure \ref{KWA}. It will have a basic state machine with states for: \emph{idle} (grounded), \emph{moving} and \emph{jumping} in the figure \ref{StateMachine}.
+
+\begin{figure}[!hb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Images/IdleState.png}
+  \caption{Idle}\label{StateFig:Idle}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Images/MovingState.png}
+  \caption{Moving}\label{StateFig:Moving}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{Images/JumpingState.png}
+  \caption{Jumping}\label{StateFig:Jumping}
+\endminipage
+\label{StateMachine}
+\end{figure}
+
+The \texttt{StateMachine} is meant to be overwritten with our movement script. It has a attribute of \texttt{BaseState} and with methods: 
+\begin{itemize}
+    \item \texttt{Start()} - Sets the current state to the initial state and if there is an initial states, it enters it.
+    \item \texttt{Update()} - If there is a current states, it updates the logic in it.
+    \item \texttt{LateUpdate()} - If there is a current states, it updates the physics in it.
+    \item \texttt{ChangeState(BaseState newState)} - Exists the current state, sets it to the new state and enters the new state.
+    \item \texttt{GetInitialState()} - This is a virtual method so we need to override it in our script.
+    \item \emph{Misc} - GUI method which displays the current state.
+\end{itemize}
+
+The \texttt{BaseState} script serves for all the states our machine can have. It has attributes like a name and a state machine which it reads from. Also, it has virtual methods meant to be overwritten: \texttt{Enter()}, \texttt{UpdateLogic()}, \texttt{UpdatePhysics()} and \texttt{Exit()}.
+
+And thats nearly it, we have set the basis of our state machine, now we just have to implement it for our movement. We create a movement state machine with 3 states: \texttt{IdleState} (which is set to be the initial state), \texttt{MovingState}, \texttt{JumpingState}. We have the basic logic for movement in those states and we just color our sprite every time it enters the said state.
+
 \section{Behaviour Trees}
 
 Even with extensions to FSMs, they are pretty limited. If the aim is complex game AI, the previous chapter only whet our appetite.
@@ -541,7 +575,7 @@ From this game, I wanted to present the skeleton AI, because is the perfect exam
 
 \lstinputlisting[language={[Sharp]C}, basicstyle=\small]{Code/KWADemo.cs}
 
-This can be an example of the servant scripted AI, because there is a lot of skeletons spawned and this script is used on each one of them.
+This can be an example of the servant scripted AI, because there is a lot of skeletons spawned and this script is used on each one of them. The code basically executes only for the lifespan of the skeleton, and while alive, it checks if the player attacks him and tries to go towards him if it has seen him. If the skeleton is close enough, it will attack.
 
 \section{Fuzzy Logic}
 
@@ -602,6 +636,9 @@ The path of the boids which want to move is calculated by the A* pathfinding alg
 
 But, A* algorithm isn't fool proof, in many cases it would need a supplementary algorithm or a tweak to its core mechanics. Also, A* may find a path much quicker than other searches, but it does not ensure that the result will be the shortest path. Research shows that A* will have a correct result only 85\% of the time \cite{FOEAD2021507}. Overall, the traditional algorithm can't keep with the modern requirements of pathfinding, so game developers are needed to tweak and enforce it for adequate results.
 
+\subsection{Example}
+
+Flocking example in Unity.
 
 \section{Genetics Algorithm}
 
