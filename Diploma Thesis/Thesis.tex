@@ -405,7 +405,7 @@ In this chapter, we will focus more on the current techniques that are widely us
 
 \section{Finite State Machines}
 
-You want to create a side-scrolling platformer, and now you grab a pen and paper and start designing the flowchart. You draw a box for everything the hero can be doing: standing, jumping, ducking and diving. When some kind of input is given, for an example when a button is pressed, you draw an arrow to from that box, label it with the button, and connect it to the box it changes to.
+You want to create a side-scrolling platformer, the first thing to do is make a plan. We start off by drawing a box for everything the main character can do: stand, jump, duck, shoot. When the players gives some kind of input, for an example a button is pressed, there is an arrow from  that box with the name of the button labeled and connected to the other box that it changes to.
 
 \begin{figure}[h]
 \begin{center}
@@ -417,13 +417,14 @@ You want to create a side-scrolling platformer, and now you grab a pen and paper
 
 Congratulations, we have successfully created a FSM \cite{GameProgrammingPattersFMS}. The idea of it came out of a computer science branch called \emph{automata theory}, which includes the famous Turing machine \cite{TuringMachine}. It should be noted that FSMs are the simplest of that bunch. The rules are simple:
 \begin{itemize}
-    \item You have to have fixed set of states the machine can be in
-    \item The machine can be in one state at a time
-    \item Sequences of inputs or events are being sent to the machine
-    \item Each state has a set of transitions, each associated  with an input/event and pointing to a state
+    \item The number of states is fixed.
+    \item The current state can be only one.
+    \item Inputs or events can be sent to the machine.
+    \item Each state has a set of transitions, each associated with an input/event and pointing to a state
 \end{itemize}
 
-So, now that I've introduced FSMs, there is a catch. State machines help you untangle hairy code by forcing a very constrained structure on it. All you have is a fixed set of states, a single current state, and some hard coded transitions. However, when wanting to create a more complex game AI, you have to work around these problems, we'll dive deeper into them. 
+So, now that I've introduced FSMs, there is a catch. 
+The reason why state machines work to untangle complicated code is because they force a constrained structure on it - they force a numbered set of states, only one current state and hard coded transitions. However, when wanting to create a more complex game AI, you have to work around these problems, we'll dive deeper into them. 
 
 \subsection{Concurrent State Machines}
 
@@ -443,11 +444,12 @@ class Hero  {
 
 \subsection{Hierarchical State Machines}
 
-We wouldn't want to duplicate code in all of our states. We could define a state "on ground" that handles ducking and jumping, standing, walking, running would then inherit from that one and add it to its own behaviour.
+So, when we don't want to repeat our code in all of our states, we can define one state that handles multiple other states. E.g. we can create a \texttt{OnGround} state that can handle walking, and other states like running can inherit from walking and add it to its behaviour.
 
-Turns out this is a structure called \emph{hierarchical state machine}, a state can have a superstate (making itself a sub state). When an event comes in, if the sub state doesn't handle it, it rolls up the chain of superstates. In other words, it works just like overriding inherited methods.
 
-If the current state is on top of the stack, under that is its superstate and so on. So, if you dish out a state-specific behaviour, it starts on top of the stack and walks down until one of the superstates handles it, but if none do, its ignored.
+This is called \emph{hierarchical state machine} - states can have super-states, that means that if an input/event comes and the current (sub-state) can't handle it, it gets transferred to the chain of super-states. It can be understood like overriding inherited methods.
+
+To clarify, if an input/event starts at a sub-state, it gets passed up the ladder until one handles it - if none do, it is ignored.
 
 \subsection{Pushdown Automata}
 
@@ -501,13 +503,15 @@ The \texttt{BaseState} script serves for all the states our machine can have. It
 
 And thats nearly it, we have set the basis of our state machine, now we just have to implement it for our movement. We create a movement state machine with 3 states: \texttt{IdleState} (which is set to be the initial state), \texttt{MovingState}, \texttt{JumpingState}. We have the basic logic for movement in those states and we just color our sprite every time it enters the said state.
 
+\clearpage
+
 \section{Behaviour Trees}
 
 Even with extensions to FSMs, they are pretty limited. If the aim is complex game AI, the previous chapter only whet our appetite.
 
 Behaviour trees (BTs) \cite{BehaviourTreeStarterPack} are proven to be a extensive technique which can create a pretty versatile AI. It makes a solid foundation for combining other techniques and to have full control over behaviour and performance.
 
-So, to define a BT, it describes a data structure starting from some root node and made up of behaviors, which are individual actions an NPC can perform. Each behavior can in turn have child behaviors, which gives the algorithm its tree-like qualities.
+So, to define a BT, it is an structure that is made up from nodes which have separate behaviours - individual actions which can be performed. In turn, each node has its own child behaviours, which gives the algorithms its tree-shaped structure. In addition, each behaviour has its own condition which lets the algorithm pass to the child branches.
 
 \begin{figure}[h]
 \begin{center}
@@ -530,7 +534,7 @@ Every behaviour has its own condition and an action. The algorithm starts at the
     Run all behaviors on the execute list
 \end{verbatim}
 
-The real strength of BTs \cite{BehaviourSelectionAlgorithms} is their simplicity. Since trees are stateless, the algorithm doesn't have to remember what behaviours were running and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
+The strength of BTs \cite{BehaviourSelectionAlgorithms} is their simplicity. Since trees have no states, the algorithm doesn't have to remember what behaviours were running and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
 
 But and now this is a big but, although BT algorithm is simple and powerful, its not always the best choice. The algorithm has to start at the root node every time a new behaviour is chosen, that means the running time is greatly impacted, in comparison to FSMs. Also, it deals with a lot of conditionals. Furthermore, memory is a problem as behaviours can loop with each other, however steps can be taken to deal with this problem.
 
@@ -538,7 +542,8 @@ But and now this is a big but, although BT algorithm is simple and powerful, its
 
 Now we're about to talk the most controversial game AI that has ever been created. From it, it can come out to be the best game AI to ever be... or some of the worst. It all depends on its implementation.
 
-However, to have a successful scripted AI, one must not fear it. Like any weapon, the soldier must first learn how to use to and master it through trial and error. There are couple of ways to integrate scripting techniques into a game's architecture, but for the most part they compromise to two philosophies, those are the \emph{master and servant} ideologies \cite{ForbiddenScripting}. While both have their place, its very useful to consider which role scripts will play in a given game's implementation. 
+However, to have a successful scripted AI, one must not fear it. Like any weapon, the soldier must first learn how to use to and master it through trial and error. 
+The game's architecture can handle scripting techniques a couple of ways - for the most part, they use the two ideologies \emph{master and servant} \cite{ForbiddenScripting}. While both have their purpose, it is useful to acknowledge which role the scripted AI will play in the game's development.
 
 \subsection{Master and Servant ideology}
 
@@ -611,23 +616,23 @@ The one who's responsible for the flocking algorithm is Craig W Reynolds with hi
 
 The flocking behaviour can be simulated by using three principles \cite{FlockingBehaviour}: 
 \begin{itemize}
-    \item \emph{Separation} - Each boid knows the distances of its neighbors, so with that knowledge it tries to apply an repulsive force in the opposite direction to maintain distance from them. In a way, it is a collision avoidance within the flock.
-    \item \emph{Cohesion} - Computes the direction of the average position of the boids and tries to steer all the boids for them to be together as a group.
     \item \emph{Alignment} - Keeps track of the average velocities and keeps check of the boids' velocities and tries to keep the average speed.
+    \item \emph{Cohesion} - Computes the direction of the average position of the boids and tries to steer all the boids for them to be together as a group.
+    \item \emph{Separation} - Each boid knows the distances of its neighbors, so with that knowledge it tries to apply an repulsive force in the opposite direction to maintain distance from them. In a way, it is a collision avoidance within the flock.
 \end{itemize}
 
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{Images/separation.png}
-  \caption{Separation}\label{fig:image1}
+  \includegraphics[width=\linewidth]{Images/alignment.png}
+  \caption{Alignment}\label{fig:image3}
 \endminipage\hfill
 \minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{Images/cohesion.png}
   \caption{Cohesion}\label{fig:image2}
 \endminipage\hfill
 \minipage{0.32\textwidth}%
-  \includegraphics[width=\linewidth]{Images/alignment.png}
-  \caption{Alignment}\label{fig:image3}
+  \includegraphics[width=\linewidth]{Images/separation.png}
+  \caption{Separation}\label{fig:image1}
 \endminipage
 \label{pic5}
 \end{figure}
@@ -636,9 +641,80 @@ The path of the boids which want to move is calculated by the A* pathfinding alg
 
 But, A* algorithm isn't fool proof, in many cases it would need a supplementary algorithm or a tweak to its core mechanics. Also, A* may find a path much quicker than other searches, but it does not ensure that the result will be the shortest path. Research shows that A* will have a correct result only 85\% of the time \cite{FOEAD2021507}. Overall, the traditional algorithm can't keep with the modern requirements of pathfinding, so game developers are needed to tweak and enforce it for adequate results.
 
+\clearpage
+
 \subsection{Example}
 
-Flocking example in Unity.
+So the example works in a way that it calculates separation, cohesion, alignment in every \texttt{Update()} call. So, that means its a pretty expensive, but for a demonstration, it will do just fine. Most of the time it a has a time complexity of $ \mathcal{O}(n^2) $.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Images/FlockingExample.png}
+\end{center}
+\caption{Flocking example with 200 boids}
+\label{100boids}
+\end{figure}
+
+We can start with 200 boids at first in figure \ref{100boids}, we can see that right away they formed two flocks, but later on disperse. So, we have three methods for calculating alignment, cohesion, separation amount, the rules for the algorithm them are:
+\begin{itemize}
+    \item \emph{Alignment} - The boids face the same direction.
+
+\lstdefinestyle{sharpc}{language=[Sharp]C, basicstyle=\small}
+\lstset{style=sharpc}
+% Alignment code ------
+\begin{lstlisting}
+var velocity = Vector2.zero;
+foreach (var boid in boids)
+{
+    velocity += boid.velocity;
+}
+velocity /= boids.Count();
+var steer = (velocity.normalized * maxSpeed) - velocity;
+return steer;
+\end{lstlisting}
+% Alignment code ------
+
+    The vector is calculated using neighboring units' normalized velocity vector.
+    \item \emph{Cohesion} - The boids move to the center of mass of its neighbours.
+
+% Cohesion code ---------
+\begin{lstlisting}
+var sumPositions = Vector2.zero;
+foreach (var boid in boids)
+{
+    sumPositions += boid.Position;
+}
+var average = sumPositions / boids.Count();
+var direction = average - Position;
+var steer = (velocity.normalized * maxSpeed) - velocity;
+return steer;
+\end{lstlisting}
+% Cohesion code ---------
+
+    The vector is calculated using the difference between the neighbor's position and the unit's position.
+    \item \emph{Separation} - The boids attempt to move away from the neighbours who are too close.
+
+% Separation code ---------
+\begin{lstlisting}
+var direction = Vector2.zero;
+boids = boids.Where(DistanceTo(o) <= neighborhoodRadius / 2);
+foreach (var boid in boids)
+{
+    var difference = Position - boid.Position;
+    direction += difference.normalized / difference.magnitude;
+}
+direction /= boids.Count();
+var steer = (velocity.normalized * maxSpeed) - velocity;
+return steer;
+\end{lstlisting}
+% Separation code ---------
+
+    The vector is the opposite of the cohesion vector.
+\end{itemize}
+
+Then, we get the final acceleration which is calculated as the weighted sum of the results of these three methods \texttt{alignmentSteer * alignment + cohesionSteer * cohesion + separationSteer * separation}.
+
+While this example for flocking \cite{FlocksReynolds} has focused on movements that are similar to fish or herd of birds, the algorithm can be extended to express movement of other animals. The realism can be furthered by tweaking the parameters of the algorithm.
 
 \section{Genetics Algorithm}
 
