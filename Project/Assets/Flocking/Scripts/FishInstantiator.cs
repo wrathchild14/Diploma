@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 
-public class FishInstantiator : MonoBehaviour
+namespace Flocking.Scripts
 {
-    public GameObject fishPrefab;
-
-    [Range(0, 300)]
-    public int number;
-
-    private void Start()
+    public class FishInstantiator : MonoBehaviour
     {
-        for (int i = 0; i < number; i++)
+        public GameObject fishPrefab;
+
+        [Range(0, 300)]
+        public int number;
+
+        private void Start()
         {
-            Instantiate(fishPrefab, Vector3.zero, Quaternion.identity);
+            for (var i = 0; i < number; i++)
+            {
+                Instantiate(fishPrefab, Vector3.zero, Quaternion.identity);
+            }
         }
     }
 }
