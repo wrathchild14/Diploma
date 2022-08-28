@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class BaseState
+namespace FSM.Scripts
 {
-    public string name;
-
-    protected StateMachine stateMachine;
-    
-    public BaseState(string name, StateMachine stateMachine)
+    public class BaseState
     {
-        this.name = name;
-        this.stateMachine = stateMachine;
-    }
+        public readonly string Name;
 
-    public virtual void Enter() {}
-    public virtual void UpdateLogic() {}
-    public virtual void UpdatePhysics() {}
-    public virtual void Exit() {}
+        protected readonly StateMachine StateMachine;
+
+        protected BaseState(string name, StateMachine stateMachine)
+        {
+            Name = name;
+            StateMachine = stateMachine;
+        }
+
+        public virtual void Enter() {}
+        public virtual void UpdateLogic() {}
+        public virtual void UpdatePhysics() {}
+        public virtual void Exit() {}
+    }
 }

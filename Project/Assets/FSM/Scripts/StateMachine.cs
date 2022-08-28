@@ -1,48 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+namespace FSM.Scripts
 {
-    BaseState currentState;
-
-    void Start()
+    public class StateMachine : MonoBehaviour
     {
-        currentState = GetInitialState();
-        if (currentState != null)
-            currentState.Enter();
-    }
+        private BaseState _currentState;
 
-    void Update()
-    {
-        if (currentState != null)
-            currentState.UpdateLogic();
-    }
+        void Start()
+        {
+            _currentState = GetInitialState();
+            if (_currentState != null)
+                _currentState.Enter();
+        }
 
-    void LateUpdate()
-    {
-        if (currentState != null)
-            currentState.UpdatePhysics();
-    }
+        void Update()
+        {
+            if (_currentState != null)
+                _currentState.UpdateLogic();
+        }
 
-    protected virtual BaseState GetInitialState()
-    {
-        return null;
-    }
+        void LateUpdate()
+        {
+            if (_currentState != null)
+                _currentState.UpdatePhysics();
+        }
 
-    public void ChangeState(BaseState newState)
-    {
-        currentState.Exit();
+        protected virtual BaseState GetInitialState()
+        {
+            return null;
+        }
 
-        currentState = newState;
-        newState.Enter();
-    }
+        public void ChangeState(BaseState newState)
+        {
+            _currentState.Exit();
 
-    private void OnGUI()
-    {
-        GUILayout.BeginArea(new Rect(10f, 10f, 200f, 100f));
-        string content = currentState != null ? currentState.name : "(no current state)";
-        GUILayout.Label($"<color='black'><size=40>{content}</size></color>");
-        GUILayout.EndArea();
+            _currentState = newState;
+            newState.Enter();
+        }
+
+        private void OnGUI()
+        {
+            GUILayout.BeginArea(new Rect(10f, 10f, 200f, 100f));
+            var content = _currentState != null ? _currentState.Name : "(no current state)";
+            GUILayout.Label($"<color='black'><size=40>{content}</size></color>");
+            GUILayout.EndArea();
+        }
     }
 }

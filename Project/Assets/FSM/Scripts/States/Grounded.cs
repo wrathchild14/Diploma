@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 
-public class Grounded : BaseState
+namespace FSM.Scripts.States
 {
-    protected MovementSM sm;
-
-    public Grounded(string name, MovementSM stateMachine) : base(name, stateMachine)
+    public class Grounded : BaseState
     {
-        sm = (MovementSM) this.stateMachine;
-    }
+        protected MovementSM sm;
 
-    public override void UpdateLogic()
-    {
-        base.UpdateLogic();
-        if (Input.GetKeyDown(KeyCode.Space))
-            stateMachine.ChangeState(sm.jumpingState);
-    }
+        protected Grounded(string name, MovementSM stateMachine) : base(name, stateMachine)
+        {
+            sm = (MovementSM) this.StateMachine;
+        }
 
+        public override void UpdateLogic()
+        {
+            base.UpdateLogic();
+            if (Input.GetKeyDown(KeyCode.Space))
+                StateMachine.ChangeState(sm.JumpingState);
+        }
+
+    }
 }

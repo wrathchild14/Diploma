@@ -1,32 +1,35 @@
 ﻿using UnityEngine;
 
-public class Moving : Grounded
+namespace FSM.Scripts.States
 {
-    private float _horizontalInput;
-
-    public Moving(MovementSM stateMachine) : base("Moving", stateMachine) {}
-
-    public override void Enter()
+    public class Moving : Grounded
     {
-        base.Enter();
-        sm.spriteRenderer.color = Color.red;
-        _horizontalInput = 0f;
-    }
+        private float _horizontalInput;
 
-    public override void UpdateLogic()
-    {
-        base.UpdateLogic();
-        _horizontalInput = Input.GetAxis("Horizontal");
-        if (Mathf.Abs(_horizontalInput) < Mathf.Epsilon)
-            stateMachine.ChangeState(sm.idleState);
-    }
+        public Moving(MovementSM stateMachine) : base("Moving", stateMachine) {}
 
-    public override void UpdatePhysics()
-    {
-        base.UpdatePhysics();
-        Vector2 vel = sm.rigidbody.velocity;
-        vel.x = _horizontalInput * ((MovementSM)stateMachine).speed;
-        sm.rigidbody.velocity = vel;
-    }
+        public override void Enter()
+        {
+            base.Enter();
+            sm.spriteRenderer.color = Color.red;
+            _horizontalInput = 0f;
+        }
 
+        public override void UpdateLogic()
+        {
+            base.UpdateLogic();
+            _horizontalInput = Input.GetAxis("Horizontal");
+            if (Mathf.Abs(_horizontalInput) < Mathf.Epsilon)
+                StateMachine.ChangeState(sm.IdleState);
+        }
+
+        public override void UpdatePhysics()
+        {
+            base.UpdatePhysics();
+            Vector2 vel = sm.rigidbody.velocity;
+            vel.x = _horizontalInput * ((MovementSM)StateMachine).speed;
+            sm.rigidbody.velocity = vel;
+        }
+
+    }
 }

@@ -1,30 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using FSM.Scripts.States;
 using UnityEngine;
 
-public class MovementSM : StateMachine
+namespace FSM.Scripts
 {
-    public float speed = 4f;
-    public float jumpForce = 14f;
-    public Rigidbody2D rigidbody;
-    public SpriteRenderer spriteRenderer;
-
-    [HideInInspector]
-    public Idle idleState;
-    [HideInInspector]
-    public Moving movingState;
-    [HideInInspector]
-    public Jumping jumpingState;
-
-    private void Awake()
+    public class MovementSM : StateMachine
     {
-        idleState = new Idle(this);
-        movingState = new Moving(this);
-        jumpingState = new Jumping(this);
-    }
+        public float speed = 4f;
+        public float jumpForce = 14f;
+        public new Rigidbody2D rigidbody;
+        public SpriteRenderer spriteRenderer;
 
-    protected override BaseState GetInitialState()
-    {
-        return idleState;
+        [HideInInspector]
+        public Idle IdleState;
+        [HideInInspector]
+        public Moving MovingState;
+        [HideInInspector]
+        public Jumping JumpingState;
+
+        private void Awake()
+        {
+            IdleState = new Idle(this);
+            MovingState = new Moving(this);
+            JumpingState = new Jumping(this);
+        }
+
+        protected override BaseState GetInitialState()
+        {
+            return IdleState;
+        }
     }
 }

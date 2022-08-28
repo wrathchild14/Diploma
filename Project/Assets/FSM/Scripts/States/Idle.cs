@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 
-public class Idle : Grounded
+namespace FSM.Scripts.States
 {
-    private float _horizontalInput;
-
-    public Idle (MovementSM stateMachine) : base("Idle", stateMachine) {}
-
-    public override void Enter()
+    public class Idle : Grounded
     {
-        base.Enter();
-        sm.spriteRenderer.color = Color.white;
-        _horizontalInput = 0f;
-    }
+        private float _horizontalInput;
 
-    public override void UpdateLogic()
-    {
-        base.UpdateLogic();
-        _horizontalInput = Input.GetAxis("Horizontal");
-        if (Mathf.Abs(_horizontalInput) > Mathf.Epsilon)
-            stateMachine.ChangeState(sm.movingState);
-    }
+        public Idle (MovementSM stateMachine) : base("Idle", stateMachine) {}
 
+        public override void Enter()
+        {
+            base.Enter();
+            sm.spriteRenderer.color = Color.white;
+            _horizontalInput = 0f;
+        }
+
+        public override void UpdateLogic()
+        {
+            base.UpdateLogic();
+            _horizontalInput = Input.GetAxis("Horizontal");
+            if (Mathf.Abs(_horizontalInput) > Mathf.Epsilon)
+                StateMachine.ChangeState(sm.MovingState);
+        }
+
+    }
 }
