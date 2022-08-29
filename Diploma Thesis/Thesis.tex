@@ -27,7 +27,7 @@
 % \newcommand{\fixspacing}{\vspace{0pt plus 1filll}\mbox{}}
 
 \newcommand{\ttitle}{Različni pristopi umetne inteligence v video igrah}
-\newcommand{\ttitleEn}{Different Artificial intelligence approaches in video games}
+\newcommand{\ttitleEn}{Different artificial intelligence approaches in video games}
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Jovan Prodanov}
@@ -280,6 +280,7 @@ Za svoja draga družina.
     % {\bf kratica} & {\bf angleško} & {\bf slovensko} \\ \hline
   {\bf Abbreviation} & {\bf English} & {\bf Slovenian} \\ \hline
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  {\bf AI}      & artificial intelligence           & umetna inteligenca \\
   {\bf ML}      & machine learning                  & strojno učenje \\
   {\bf FSM}     & finite state machine              & končni stroj \\
   {\bf NN}      & neural network                    & nevronska mreža \\
@@ -354,9 +355,9 @@ We will go deep into the rabbit hole that is game AI and try to understand years
 
 \chapter{Introduction}
 
-As soon as the first video game arrived, there was a need to create a more involved player experience. So, game developers created made characters or systems in their game to be controlled by game AI to let the player interact with the game on so many levels. Every year it passes that branch of game development is growing rapidly and hopefully soon to a new levels that we couldn't even think of.
+As soon as the first video game arrived, there was a need to create a more involved player experience. So, game developers created made characters or systems in their game to be controlled by game AI to let the player interact with the game on a lot of levels. Every year it passes, that branch of game development is growing rapidly and hopefully soon to a new levels that we couldn't even think of.
 
-But, creating an AI in video games comes with its own problems, in this thesis we will take our time to analyze and explain some techniques, and those techniques will be advancing in the order we are showcasing them. At the end we will conclude with possibly more knowledge of game AI than we have now and hopefully we can see a glimpse of the future of this topic that lies ahead.
+But, creating an AI in video games comes with its own problems, in this thesis we will take our time to analyze and explain some techniques, those techniques will be advancing in the order we are showcasing them. At the end we will conclude with possibly more knowledge of game AI than we have now and hopefully we can see a glimpse of the future of this topic that lies ahead.
 
 
 \chapter{Background}
@@ -364,14 +365,14 @@ But, creating an AI in video games comes with its own problems, in this thesis w
 The question of game AI \cite{AIwiki} was present even in the first of games developed, by definition, in video games, AI is represented similar to human-like intelligence. The ways of approaching it are incredibly vast, in this thesis we will only scratch the surface, but focus on the most interesting ones.
 
 \section{What is AI in games?}
-First, I should start with the term "video game" \cite{VideoGameWiki}, it is a electronic game that involves a user interface and an input device (controller) to generate visual feedback. Then, the visual feedback is channeled to a displaying device, which can be observed. 
+First, I should start with the term \emph{video game} \cite{VideoGameWiki}, it is a electronic game that involves a user interface and an input device (controller) to generate visual feedback. Then, the visual feedback is channeled to a displaying device, which can be observed. 
 
-So, now for quite some time, game developers are trying to invent techniques and methods for incorporating intelligence into these video games. But, this AI is a broad term, in video games, it can mean: animation control, steering, flocking, pathfinding, planning, procedural generation, tactical and strategic thinking, learning \cite{FuzzyAIGames}, to name a few. Often, game AI can be mistaken for "true AI", which is to display human cognitive skills associated with human thinking, learning and problem-solving, but it most definitely is not.
+So, now for quite some time, game developers are trying to invent techniques and methods for incorporating intelligence into these video games. But, this AI is a broad term, in video games, it can mean: animation control, steering, flocking, pathfinding, planning, procedural generation, tactical and strategic thinking, learning \cite{FuzzyAIGames}, to name a few. Often, game AI can be mistaken for \emph{true AI}, which is to display human cognitive skills associated with human thinking, learning and problem-solving, but it most definitely is not.
 
-Game AI adds another piece of the puzzle of defining AI and that is the illusion of intelligence. We would never want in a game an unbeatable ever-learning opponent, we would like a fun and easy experience, which isn't obviously stupid. Game AI in video games exists only to be fun and entertaining, so looking from this point, this is why the game developers are keen on sticking to things that are predictable and working and aren't experimenting a whole lot, because who would want unexpected things happening in a game.
+\emph{Game AI} adds another piece of the puzzle of defining AI and that is the illusion of intelligence. We would never want in a game an unbeatable ever-learning opponent, we would like a fun and easy experience, which isn't obviously stupid. Game AI in video games exists only to be fun and entertaining, so looking from this point, this is why the game developers are keen on sticking to things that are predictable and working and aren't experimenting a whole lot, because who would want unexpected things happening in a game.
 
 \section{Illusion of intelligence}
-Now that the secret is out, game developers were and are inventing tricks and techniques to make the player believe that games have real intelligence \cite{IllusionOfIntelligece}. And now, the main focus is the appearance of intelligence, rather than true intelligence.
+Now that the secret is out, game developers \emph{were} and \emph{are} inventing tricks and techniques to make the player believe that games have real intelligence \cite{IllusionOfIntelligece}. And now, the main focus is the appearance of intelligence, rather than true intelligence.
 
 \subsection{Why does it work?}
 One of the reasons why this illusion works is that players want to believe that there are glimmers of real human-like intelligence in their virtual worlds \cite{IllusionOfIntelligece}. Also, the players are easily forgiving with their high expectations.
@@ -471,7 +472,7 @@ In FSMs, only a pointer to the current state exists, pushdown automata has a sta
 
 \subsection{Example}
 
-Best way to present FSMs is to start with a simple, but upgradable example for future extensibility. For this example, I will use the sprites from a game that I created \cite{KWA}, in the figure \ref{KWA}. It will have a basic state machine with states for: \emph{idle} (grounded), \emph{moving} and \emph{jumping} in the figure \ref{StateMachine}.
+Best way to present FSMs is to start with a simple, but upgradable example for future extensibility. To demonstrate this example I will use the Unity \cite{UnitySoftware} editor and engine, also I will use a sprite from a game that I created \cite{KWA}, in the figure \ref{KWA}. It will have a basic state machine with states for: \emph{idle} (grounded), \emph{moving} and \emph{jumping} in the figure \ref{StateMachine}.
 
 \begin{figure}[!hb]
 \minipage{0.32\textwidth}
@@ -540,10 +541,10 @@ But and now this is a big but, although BT algorithm is simple and powerful, its
 
 \section{Scripting, the good and the bad}
 
-Now we're about to talk the most controversial game AI that has ever been created. From it, it can come out to be the best game AI to ever be... or some of the worst. It all depends on its implementation.
+Now we're about to talk the most controversial game AI that has ever been created. From it, it can come out to be the best game AI to ever be... or some of the worst - it all depends on its implementation.
 
-However, to have a successful scripted AI, one must not fear it. Like any weapon, the soldier must first learn how to use to and master it through trial and error. 
-The game's architecture can handle scripting techniques a couple of ways - for the most part, they use the two ideologies \emph{master and servant} \cite{ForbiddenScripting}. While both have their purpose, it is useful to acknowledge which role the scripted AI will play in the game's development.
+However, to have a successful scripted AI, one must not fear it. Like any weapon, it should be first mastered. 
+The game's architecture can handle scripting techniques a couple of ways - for the most part, two ideologies \emph{master and servant} \cite{ForbiddenScripting} are used. While both have their purpose, it is useful to acknowledge which role the scripted AI will play in the game's development.
 
 \subsection{Master and Servant ideology}
 
@@ -564,7 +565,7 @@ Moreover, scripting should be used in combination with other techniques, due to 
 
 \subsection{Example}
 
-For scripted AI, there is a perfect example - a game that I made not so long ago using the MonoGame framework. % I Should cite it
+For scripted AI, there the perfect example - a game that I made not so long ago using the MonoGame \cite{MonogameDevelopment} framework.
 The game \cite{KWA} consists of a knight roaming with his dog, but the dog gets scared of some skeletons and now the knight has to defeat skeletons in order to chase and recover his dog, we can see it in figure \ref{KWA}.
 
 \begin{figure}[h]
@@ -584,7 +585,7 @@ This can be an example of the servant scripted AI, because there is a lot of ske
 
 \section{Fuzzy Logic}
 
-Fuzzy logic \cite{FuzzyAIGames} is a super set of conventional logic that has been extended to handle the concept of partial-truth values between the boolean dichotomy of true and false. It usually has its own components like fuzzy variables, fuzzy rules and fuzzy interface engines.
+Fuzzy logic \cite{FuzzyAIGames} is a extension to conventional logic that can handle the concept of partial-truth between the boolean dichotomy of \emph{true} and \emph{false}. It usually has its own components like \emph{fuzzy variables, fuzzy rules and fuzzy interface engines}.
 
 As well as the previous techniques, fuzzy logic has the goal of a simple design resulting in intelligent agents. Controlling a game character with fuzzy logic can be done easily due to suitable input and output values.
 
@@ -604,7 +605,7 @@ Fuzzy logic brings a lot to the table when it come to game AI. It can help in NP
 
 \subsection{Pitfalls}
 
-As good as fuzzy logic sounds till now, I have to talk about its downsides. Due to its knowledge-based nature, it requires a correct definition of input and output variables, as well as their relationships. Another downside, if the system of fuzzy logic is not designed carefully, it can lead to a lot of rules being checked at a given moment and sacrificing its advantage of a low computational cost.
+As good as fuzzy logic sounds till now, I have to talk about its downsides. Because of its knowledge-based nature, it requires a correct definition of input and output variables, as well as their relationships. Another downside, if the system of fuzzy logic is not designed carefully, it can lead to a lot of rules being checked at a given moment and sacrificing its advantage of a low computational cost.
 
 In a video game, there can be many input variables to an agent's behaviour, each with their own number fuzzy sets. Because of this, the fuzzy rules can grow exponentially and it could even lead to combinatorial explosion \cite{CombinatorialBombing}.
 
@@ -645,7 +646,7 @@ But, A* algorithm isn't fool proof, in many cases it would need a supplementary 
 
 \subsection{Example}
 
-So the example works in a way that it calculates separation, cohesion, alignment in every \texttt{Update()} call. So, that means its a pretty expensive, but for a demonstration, it will do just fine. Most of the time it a has a time complexity of $ \mathcal{O}(n^2) $.
+Technologies I will use to present the example will be the Unity \cite{UnitySoftware} editor and engine again. So, the example works in a way that it calculates separation, cohesion, alignment in every \texttt{Update()} call. So, that means its a pretty expensive, but for a demonstration, it will do just fine. Most of the time it a has a time complexity of $ \mathcal{O}(n^2) $.
 
 \begin{figure}[h]
 \begin{center}
@@ -657,7 +658,7 @@ So the example works in a way that it calculates separation, cohesion, alignment
 
 We can start with 200 boids at first in figure \ref{100boids}, we can see that right away they formed two flocks, but later on disperse. So, we have three methods for calculating alignment, cohesion, separation amount, the rules for the algorithm them are:
 \begin{itemize}
-    \item \emph{Alignment} - The boids face the same direction.
+    \item \texttt{Alignment()} - boids face the same direction.
 
 \lstdefinestyle{sharpc}{language=[Sharp]C, basicstyle=\small}
 \lstset{style=sharpc}
@@ -675,7 +676,7 @@ return steer;
 % Alignment code ------
 
     The vector is calculated using neighboring units' normalized velocity vector.
-    \item \emph{Cohesion} - The boids move to the center of mass of its neighbours.
+    \item \texttt{Cohesion()} - boids move to the center of mass of its neighbours.
 
 % Cohesion code ---------
 \begin{lstlisting}
@@ -692,7 +693,7 @@ return steer;
 % Cohesion code ---------
 
     The vector is calculated using the difference between the neighbor's position and the unit's position.
-    \item \emph{Separation} - The boids attempt to move away from the neighbours who are too close.
+    \item \texttt{Separation()} - boids attempt to move away from the neighbours who are too close.
 
 % Separation code ---------
 \begin{lstlisting}
@@ -765,7 +766,7 @@ Now, we are good to go, with the command \texttt{mlagents-learn} and Unity open 
 
 \section{Background}
 
-After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project The Unity Machine Learning Agents Toolkit or ML-Agents Toolkit. It is used for training intelligent agents through reinforcement learning, imitation learning, neuroevolution, or other ML methods through a simple-to-use Python API \cite{MLAgents}.
+After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project The Unity Machine Learning Agents Toolkit or ML-Agents Toolkit. It is used for training intelligent agents through \emph{reinforcement learning, imitation learning, neuroevolution}, or other ML methods through a simple-to-use Python API \cite{MLAgents}.
 
 \subsection{Agents}
 
@@ -937,6 +938,28 @@ This examples takes use of the \texttt{SimpleMultiAgentGroup} and the agents reg
 
 \subsection{Pyramids}
 
+This example is similar to the previous one, the agent is the same but we only have one here, see figure \ref{fig:PyramidPicture}. So, the goal here is for the agent to press a button, when it presses the button a pyramid with a green block on top spawns. When it touches the green block, it wins.
+
+\begin{figure}[ht]
+\minipage{0.45\textwidth}
+  \includegraphics[width=\linewidth]{Images/PyramidsExample.png}
+  \caption{Pyramids example}\label{fig:PyramidPicture}
+\endminipage\hfill
+\minipage{0.45\textwidth}
+  \includegraphics[width=\linewidth]{Images/PyramidsRaycast.png}
+  \caption{Raycasts of the agent}\label{fig:PyramidRaycasts}
+\endminipage\hfill
+\label{PyradmidsExample}
+\end{figure}
+
+The agent's observations are ray-casts detecting the environment and the state of the button switch. The ray-casts detect the walls, pyramids, green blocks and the switch, and with a reward of 2 every time the agent touches the green block. It can successfully train to search and find the switch, turn it on and go break down the pyramid with the green block. Also, it should be noted that the agent gets a negative reward $ -1 / MaxStep $ every time.
+
+\section{Final thoughts}
+
+In conclusion to this chapter, I think the tool can come in very handy, but with some limitations. If someone perhaps would have wanted to implement ML-Agents into their video game, they would have to think of a way how to train the NPCs. Because, they clearly can't do it in real-time as training is very expensive for process power and memory. One method that comes to my mind, the player's style of gameplay to be saved, and later on the NPCs to be trained on that set of instructions. That must happen in the background or when the player is offline, so I think that there are limited ways of how one can implement ML-Agents \cite{MLAgents} into their game.
+
+However, I think the technology could work great for experiments and indie games, it has decent results and I could see it being used, but with created models/brains beforehand.
+
 \chapter{Conclusion}
 \label{ch4}
 
@@ -944,7 +967,7 @@ It can be easily said that the current and past games rely on the more simple an
 
 I think the future takes us step by step towards virtual autonomous characters that are lifelike, intelligent and convey empathy and I only think it is a matter of time before we can reach that. I know that till now I was showcasing techniques that sell the intelligence and not real AI. But, also I know that there is a definite progress in the techniques shown. With creating a well thought out game architecture/system and combining it with new AI techniques, I think that the impossible can become possible.
 
-True AI is far from complete, unpredictable
+True game AI is far from complete and unpredictable, maybe there is no place for that in released video games. But, through the curiosity of people experimenting with it, I think the future of true game AI would soon expand into experiments and indie game.
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Literature}
