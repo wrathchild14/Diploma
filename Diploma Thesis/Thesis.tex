@@ -367,7 +367,7 @@ The question of game AI \cite{AIwiki} was present even in the first of games dev
 \section{What is AI in games?}
 First, I should start with the term \emph{video game} \cite{VideoGameWiki}, it is a electronic game that involves a user interface and an input device (controller) to generate visual feedback. Then, the visual feedback is channeled to a displaying device, which can be observed. 
 
-So, now for quite some time, game developers are trying to invent techniques and methods for incorporating intelligence into these video games. But, this AI is a broad term, in video games, it can mean: animation control, steering, flocking, pathfinding, planning, procedural generation, tactical and strategic thinking, learning \cite{FuzzyAIGames}, to name a few. Often, game AI can be mistaken for \emph{true AI}, which is to display human cognitive skills associated with human thinking, learning and problem-solving, but it most definitely is not.
+So, now for quite some time, game developers are trying to invent techniques for incorporating intelligence into these video games. But, this AI is a broad term, in video games, it can mean: animation control, steering, flocking, pathfinding, planning, procedural generation, tactical and strategic thinking, learning \cite{FuzzyAIGames}, to name a few. Often, game AI can be mistaken for \emph{true AI}, which is to display human cognitive skills associated with human thinking, learning and problem-solving, but it most definitely is not.
 
 \emph{Game AI} adds another piece of the puzzle of defining AI and that is the illusion of intelligence. We would never want in a game an unbeatable ever-learning opponent, we would like a fun and easy experience, which isn't obviously stupid. Game AI in video games exists only to be fun and entertaining, so looking from this point, this is why the game developers are keen on sticking to things that are predictable and working and aren't experimenting a whole lot, because who would want unexpected things happening in a game.
 
@@ -392,15 +392,16 @@ The illusion of intelligence \cite{IllusionOfIntelligece} works when there is a 
 
 
 \section{Deterministic vs Non-deterministic}
-It is in close connection to game AI that there exists two type of games. In a deterministic game, the course of the game depends only on the players’ decisions, but in a non-deterministic game, there’s some factor of randomness involved \cite{DeepLearningGO}. % ?
+It is in close connection to game AI that there exists two type of games. 
+For a game to be deterministic \cite{DeepLearningGO}, it means that the game is defined by the players' actions, but for a game to be non-deterministic, it means that there will be a factor of randomness involved.
 
-For example, chess is a deterministic game, the outcome of the game is entirely based on the players' decisions. But, football is non-deterministic, the players can't reliably kick the ball exactly the same every time. In that sense, luck or randomness often makes the game more exciting, however too much randomness removes all influence of the player in game, which is rarely fun.
+A good example for a deterministic game would be the game of chess as the outcome of the game is entirely based on the players' actions. But, football is non-deterministic, the players can't reliably kick the ball exactly the same every time. In that sense, luck or randomness often makes the game more exciting, however too much randomness removes all influence of the player in game, which is rarely fun.
 
 
 \chapter{Current AI in games}
 \label{ch2}
 
-So, advanced techniques for game AI have been spotted more often, for examples, there have been usages of Bayesian networks and neural networks for real-time strategy games, as well as evolutionary algorithms. But, in those cases the game seems to orbit around that as the main focus of the game itself. In other words, advanced techniques for game AI currently need a game to be build around them. Then, there is the problem of these techniques needing a high computational and memory power. Also, the last problem would be their non-determinism, that just brings more problems to the table and game developers are reluctant to ship a game that is not tested enough.
+So, advanced techniques for game AI have been spotted more often, for examples, there have been usages of Bayesian networks and neural networks for real-time strategy games, as well as evolutionary algorithms. But, in those cases the game seems to orbit around that as the main focus of the game itself. In other words, advanced techniques for game AI currently need a game to be build around them. Then, there is the problem of these techniques needing a high computational and memory power. Also, the last problem would be their non-determinism, that just brings more problems to the table and game developers are really reluctant to advance in the development of a game that can't be tested entirely.
 
 In this chapter, we will focus more on the current techniques that are widely used, which finely sell the illusion of intelligence.
 
@@ -522,7 +523,7 @@ So, to define a BT, it is an structure that is made up from nodes which have sep
 \label{pic3}
 \end{figure}
 
-Every behaviour has its own condition and an action. The algorithm starts at the root of the tree and at each levels examines the conditions of the behaviours. If a condition matches of a node, it executes the action. None of its siblings will be examined, but its children will. The algorithm is as it follows:
+Every behaviour has its own condition and an action. The algorithm works in such way, that it starts at the root and then for each level it checks the conditions of the behaviours. If a condition matches of a node, it executes the action. None of its siblings will be examined, but its children will. The algorithm is as it follows:
 \begin{verbatim}
     Make root node the current node
     While current node exists
@@ -535,7 +536,7 @@ Every behaviour has its own condition and an action. The algorithm starts at the
     Run all behaviors on the execute list
 \end{verbatim}
 
-The strength of BTs \cite{BehaviourSelectionAlgorithms} is their simplicity. Since trees have no states, the algorithm doesn't have to remember what behaviours were running and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
+The big plus of BTs \cite{BehaviourSelectionAlgorithms} are their simplicity, since they have no states, their algorithm doesn't need to remember what behaviours were running and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
 
 But and now this is a big but, although BT algorithm is simple and powerful, its not always the best choice. The algorithm has to start at the root node every time a new behaviour is chosen, that means the running time is greatly impacted, in comparison to FSMs. Also, it deals with a lot of conditionals. Furthermore, memory is a problem as behaviours can loop with each other, however steps can be taken to deal with this problem.
 
@@ -675,7 +676,8 @@ return steer;
 \end{lstlisting}
 % Alignment code ------
 
-    The vector is calculated using neighboring units' normalized velocity vector.
+    The amount of steer is calculated with the units' normalized velocity vector.
+    
     \item \texttt{Cohesion()} - boids move to the center of mass of its neighbours.
 
 % Cohesion code ---------
@@ -692,7 +694,7 @@ return steer;
 \end{lstlisting}
 % Cohesion code ---------
 
-    The vector is calculated using the difference between the neighbor's position and the unit's position.
+    The amount of steer is calculated using the difference between the average position and the unit's position.
     \item \texttt{Separation()} - boids attempt to move away from the neighbours who are too close.
 
 % Separation code ---------
@@ -705,12 +707,12 @@ foreach (var boid in boids)
     direction += difference.normalized / difference.magnitude;
 }
 direction /= boids.Count();
-var steer = (velocity.normalized * maxSpeed) - velocity;
+var steer = (direction.normalized * maxSpeed) - velocity;
 return steer;
 \end{lstlisting}
 % Separation code ---------
 
-    The vector is the opposite of the cohesion vector.
+    The amount of steer is calculated with the normalized average direction from all of the neighborhooding boids from a certain radius.
 \end{itemize}
 
 Then, we get the final acceleration which is calculated as the weighted sum of the results of these three methods \texttt{alignmentSteer * alignment + cohesionSteer * cohesion + separationSteer * separation}.
