@@ -181,7 +181,7 @@
     {\autfont \tauthor\par}%
     {\titfont \ttitleEn \par}%
     {\vskip 2em \textsc{Bachelor's Thesis\\[2mm]
-    UNIVERSITY STUDY PROGRAMME UNDERGRADUATE PROGRAMMES COMPUTER AND INFORMATION SCIENCE}\par}%
+    PROFESSIONAL STUDY PROGRAM UNDERGRADUATE PROGRAMMES COMPUTER AND INFORMATION SCIENCE}\par}%
     % Not sure if correct "University"
     \vfill\null%
     {\large \textsc{Mentor}: doc.\ dr.  Aleš Jaklič\par}%
@@ -647,7 +647,7 @@ But, A* algorithm isn't fool proof, in many cases it would need a supplementary 
 
 \subsection{Example}
 
-Technologies I will use to present the example will be the Unity \cite{UnitySoftware} editor and engine again. So, the example works in a way that it calculates separation, cohesion, alignment in every \texttt{Update()} call. So, that means its a pretty expensive, but for a demonstration, it will do just fine. Most of the time it a has a time complexity of $ \mathcal{O}(n^2) $.
+Technologies I will use to present the example will be the Unity \cite{UnitySoftware} editor and engine again. This implementation is based on Craig Reynold's program \cite{FlocksReynolds} to simulate flocking behaviour. So, the example works in a way that each boid steers itself through separation, cohesion, alignment in every \texttt{Update()} call. So, that means its a pretty expensive, but for a demonstration, it will do just fine. Most of the time it a has a time complexity of $ \mathcal{O}(n^2) $.
 
 \begin{figure}[h]
 \begin{center}
@@ -659,7 +659,7 @@ Technologies I will use to present the example will be the Unity \cite{UnitySoft
 
 We can start with 200 boids at first in figure \ref{100boids}, we can see that right away they formed two flocks, but later on disperse. So, we have three methods for calculating alignment, cohesion, separation amount, the rules for the algorithm them are:
 \begin{itemize}
-    \item \texttt{Alignment()} - boids face the same direction.
+    \item \texttt{Alignment()} - takes care of the flock's average velocity.
 
 \lstdefinestyle{sharpc}{language=[Sharp]C, basicstyle=\small}
 \lstset{style=sharpc}
@@ -676,9 +676,7 @@ return steer;
 \end{lstlisting}
 % Alignment code ------
 
-    The amount of steer is calculated with the units' normalized velocity vector.
-    
-    \item \texttt{Cohesion()} - boids move to the center of mass of its neighbours.
+    \item \texttt{Cohesion()} - takes care of the flock's direction - each boid moves to the center of mass of its neighbours.
 
 % Cohesion code ---------
 \begin{lstlisting}
@@ -694,8 +692,7 @@ return steer;
 \end{lstlisting}
 % Cohesion code ---------
 
-    The amount of steer is calculated using the difference between the average position and the unit's position.
-    \item \texttt{Separation()} - boids attempt to move away from the neighbours who are too close.
+    \item \texttt{Separation()} - boids attempt to move away from the neighbours of a certain radius who are too close.
 
 % Separation code ---------
 \begin{lstlisting}
@@ -712,7 +709,6 @@ return steer;
 \end{lstlisting}
 % Separation code ---------
 
-    The amount of steer is calculated with the normalized average direction from all of the neighborhooding boids from a certain radius.
 \end{itemize}
 
 Then, we get the final acceleration which is calculated as the weighted sum of the results of these three methods \texttt{alignmentSteer * alignment + cohesionSteer * cohesion + separationSteer * separation}.
