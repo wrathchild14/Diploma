@@ -6,28 +6,35 @@ namespace Flocking.Scripts
 {
     public class Flocking : MonoBehaviour
     {
-        public Vector3 baseRotation;
+        [SerializeField]
+        private Vector3 baseRotation;
 
         [Range(0, 10)]
-        public float maxSpeed = 1f;
+        [SerializeField]
+        private float maxSpeed = 1f;
 
         [Range(.1f, .5f)]
-        public float maxForce = .03f;
+        [SerializeField]
+        private float maxForce = .03f;
 
         [Range(1, 10)]
-        public float neighborhoodRadius = 3f;
+        [SerializeField]
+        private float neighborhoodRadius = 3f;
 
         [Range(0, 3)]
-        public float separationAmount = 1f;
+        [SerializeField]
+        private float separationAmount = 1f;
 
         [Range(0, 3)]
-        public float cohesionAmount = 1f;
+        [SerializeField]
+        private float cohesionAmount = 1f;
 
         [Range(0, 3)]
-        public float alignmentAmount = 1f;
+        [SerializeField]
+        private float alignmentAmount = 1f;
 
-        public Vector2 acceleration;
-        public Vector2 velocity;
+        private Vector2 _acceleration;
+        public Vector2 velocity; // Public, because we need access to other boids
 
         private Vector2 Position {
             get => gameObject.transform.position;
@@ -36,6 +43,7 @@ namespace Flocking.Scripts
 
         private void Start()
         {
+            // Random angle and velocity to the boid 
             var angle = Random.Range(0, 2 * Mathf.PI);
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle) + baseRotation);
             velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
@@ -47,7 +55,7 @@ namespace Flocking.Scripts
             var boids = boidColliders.Select(o => o.GetComponent<Flocking>()).ToList();
             boids.Remove(this);
 
-            Flock(boids);
+            Flock(boids); // Takes care of the acceleration of the boid (with the rules of flocking)
             UpdateVelocity();
             UpdatePosition();
             UpdateRotation();
@@ -56,16 +64,16 @@ namespace Flocking.Scripts
 
         private void Flock(IEnumerable<Flocking> boids)
         {
-            var alignment = Alignment(boids);
-            var separation = Separation(boids);
-            var cohesion = Cohesion(boids);
+            var alignment = Alignment(boids); // Velocity (average) of the flock
+            var separation = Separation(boids); // Direction away of the flock
+            var cohesion = Cohesion(boids); // Direction towards the average of the flock
 
-            acceleration = alignmentAmount * alignment + cohesionAmount * cohesion + separationAmount * separation;
+            _acceleration = alignmentAmount * alignment + cohesionAmount * cohesion + separationAmount * separation;
         }
 
-        public void UpdateVelocity()
+        private void UpdateVelocity()
         {
-            velocity += acceleration;
+            velocity += _acceleration;
             velocity = LimitMagnitude(velocity, maxSpeed);
         }
 
@@ -119,8 +127,8 @@ namespace Flocking.Scripts
 
             foreach (var boid in boids)
             {
-                var difference = Position - boid.Position;
-                direction += difference.normalized / difference.magnitude;
+                var difference = Position - boid.Position; // Calculate vector pointing away from neighbor
+                direction += difference.normalized / difference.magnitude; // Weight by distance
             }
             direction /= boids.Count();
 
@@ -141,7 +149,7 @@ namespace Flocking.Scripts
             return Vector3.Distance(boid.transform.position, Position);
         }
 
-        private Vector2 LimitMagnitude(Vector2 baseVector, float maxMagnitude)
+        private static Vector2 LimitMagnitude(Vector2 baseVector, float maxMagnitude)
         {
             if (baseVector.sqrMagnitude > maxMagnitude * maxMagnitude)
             {

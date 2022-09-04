@@ -53,7 +53,6 @@ MonoBehaviour:
   separationAmount: 1.2
   cohesionAmount: 1
   alignmentAmount: 1
-  acceleration: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
 --- !u!212 &212898628359471008
 SpriteRenderer:
