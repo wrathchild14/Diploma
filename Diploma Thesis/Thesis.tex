@@ -401,7 +401,6 @@ Z nadaljnjim napredovanjem znanosti se bližamo pravi umetni inteligenci, ki je 
 
 % Daljsi povzetek
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % START
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -673,7 +672,7 @@ Flocking is a technique used to simulate intelligent movement of groups, the gro
 
 The one who's responsible for the flocking algorithm is Craig W Reynolds with his groundbreaking research \cite{FlocksReynolds}. His implementation is leaderless, is made in way that no boid leads the flock, they all just follow the group - which seems to have a mind of its own.
 
-The flocking behaviour can be simulated by using three principles \cite{FlockingBehaviour}: 
+The flocking behaviour can be simulated by using three principles \cite{FlockingBehaviour}, see figures \ref{fig:image3}, \ref{fig:image2}, \ref{fig:image1} \cite{WebsiteBoids}: 
 \begin{itemize}
     \item \emph{Alignment} - Keeps track of the average velocities and keeps check of the boids' velocities and tries to keep the average speed.
     \item \emph{Cohesion} - Computes the direction of the average position of the boids and tries to steer all the boids for them to be together as a group.
@@ -683,20 +682,20 @@ The flocking behaviour can be simulated by using three principles \cite{Flocking
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{Images/alignment.png}
-  \caption{Alignment \cite{WebsiteBoids}}\label{fig:image3}
+  \caption{Alignment}\label{fig:image3}
 \endminipage\hfill
 \minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{Images/cohesion.png}
-  \caption{Cohesion \cite{WebsiteBoids}}\label{fig:image2}
+  \caption{Cohesion}\label{fig:image2}
 \endminipage\hfill
 \minipage{0.32\textwidth}%
   \includegraphics[width=\linewidth]{Images/separation.png}
-  \caption{Separation \cite{WebsiteBoids}}\label{fig:image1}
+  \caption{Separation}\label{fig:image1}
 \endminipage
 \label{pic5}
 \end{figure}
 
-The path of the boids which want to move is calculated by the A* pathfinding algorithm \cite{FOEAD2021507}. Its simple purpose is to find the shortest path from point A to point B. Its a well known method to use as a basis for pathfinding problems with its known  simplicty, efficency and modularity.
+The path of the boids which want to move is calculated by the A* pathfinding algorithm \cite{AStarHart1968}. Its simple purpose is to find the shortest path from point A to point B. Its a well known method to use as a basis for pathfinding problems with its known simplicity, efficiency and modularity.
 
 But, A* algorithm isn't fool proof, in many cases it would need a supplementary algorithm or a tweak to its core mechanics. Also, A* may find a path much quicker than other searches, but it does not ensure that the result will be the shortest path. Research shows that A* will have a correct result only 85\% of the time \cite{FOEAD2021507}. Overall, the traditional algorithm can't keep with the modern requirements of pathfinding, so game developers are needed to tweak and enforce it for adequate results.
 
@@ -821,7 +820,7 @@ Now, we are good to go, with the command \texttt{mlagents-learn} and Unity open 
 
 \section{Background}
 
-After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project the Unity Machine Learning Agents Toolkit or ML-Agents Toolkit \cite{MLAgents}. With a Python \cite{PythonManual} API (Application Programming Interface), it trains intelligent agents through \emph{reinforcement learning, imitation learning, neuroevolution}.
+After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project the Unity Machine Learning Agents Toolkit or ML-Agents Toolkit \cite{MLAgents}. With a Python \cite{PythonManual} API, it trains intelligent agents through \emph{reinforcement learning, imitation learning, neuroevolution}.
 
 \subsection{Agents}
 
@@ -913,7 +912,7 @@ The demonstrations can be recorded in the Unity editor or build and be saved as 
     \item \emph{BC} or \emph{Behavioral Cloning} encourages the agent to strictly follow the demonstrations, it works best when the demonstrations contains every state that the agent can be. For best results, its best to combine GAIL and BC.
 \end{itemize}
 
-So, to conclude this subsection, imitation learning with ML-Agents is really powerful and it should be used in certain ways. BC is best used on its own or as a step before training with GAIL and/or RL. While RL can be used on its own (either wil algorithm PPO or SAC) or combined with BC and/or GAIL. This can lead to some pretty amazing results as we will see in the next section.
+So, to conclude this subsection, imitation learning with ML-Agents is really powerful and it should be used in certain ways. BC is best used on its own or as a step before training with GAIL and/or RL. While RL can be used on its own (either will algorithm PPO or SAC) or combined with BC and/or GAIL. This can lead to some pretty amazing results as we will see in the next section.
 
 \section{Examples and usages}
 
