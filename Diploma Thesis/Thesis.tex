@@ -31,8 +31,8 @@
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Jovan Prodanov}
-\newcommand{\tkeywords}{računalniška igra, umetna inteligenca, računalnik, pristopi}
-\newcommand{\tkeywordsEn}{computer game, artificial intelligence, computer, approaches}
+\newcommand{\tkeywords}{računalniška igra, umetna inteligenca, računalnik, pristopi, usposabljanje}
+\newcommand{\tkeywordsEn}{computer game, artificial intelligence, computer, approaches, training}
 
 \usepackage{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -287,6 +287,9 @@ Za svoja draga družina.
   {\bf NPC}     & non-player character              & neigralski lik \\
   {\bf BT }     & behaviour trees                   & drevesa vedenja \\
   {\bf RL }     & reinforcement learning            & učenje s krepitvijo \\
+  
+  {\bf API }    & Application Programming Interface & aplikacijski programski vmesnik \\
+  
   \dots         & \dots                             & \dots \\
 \end{tabular}
 
@@ -344,6 +347,61 @@ We will go deep into the rabbit hole that is game AI and try to understand years
 \clearemptydoublepage
 
 
+% Daljsi povzetek
+
+\addcontentsline{toc}{chapter}{Daljši povzetek}
+\chapter*{Daljši povzetek}
+
+\noindent\textbf{Naslov:} \ttitle
+\bigskip
+
+\noindent\textbf{Avtor:} \tauthor
+\bigskip
+
+Ko so bile video igre ustvarjene, so ljudje želeli razmišljati o številnih načinih, kako bi jih naredili bolj zanimive - eden od teh načinov je bilo ustvarjanje posebnega zabavnega vedenja v njih. To vedenje je lahko karkoli v igri, ta diplomska naloga se bolj osredotoča na vedenje likov, ki uporabljajo nekakšno umetno inteligenco.
+
+Naš problem umetne inteligence v igrah je od njene filozofije do različnih pristopov, poskušal bom zajeti vse v okviru razuma. Filozofija umetne inteligence iger ni šala, obstajajo načini, ki jo definirajo v video igrah. Prva stvar je, da je umetna inteligenca nepredvidljiva in se vedno uči, zato je v nasprotju s tem, kar bi morale biti video igre. Nasprotniki ali liki v video igrah so narejeni za zabavo in izziv igralca na določeno raven. Če igralec dobi umetno izboljšanega nasprotnika in ga premaga na vseh ravneh, bi se hitro začelo počutiti dolgočasno in nemogoče igrati.
+
+Tako so se skozi leta razvijalci iger trudili in ustvarili napredne tehnike za vse vrste vedenja, da bi bilo igranje video iger zabavno. Ta diplomska naloga bo obravnavala nekaj od številnih tehnik na način, da bomo spoznali, kako delujejo na zabaven in učinkovit način. Prav tako so za nekaj izmed njih izdelani primeri, ki kažejo moč določene tehnike umetne inteligence v igri. Pristopi so sestavljeni iz številnih že videnih, a na koncu je ena eksperimentalna tehnologija, ki mi je bila zelo všeč. Pristopi so:
+
+\begin{enumerate}
+    \item Finite state machines
+        \begin{itemize}
+            \item Pokazali so, da so zelo uporabni v igrah, saj uporabljajo stanja in prehode z veliko razširljivosti. Vendar so za igre  ki imajo vnaprej dober načrt, saj so zelo omejene in za bolj poglobljeno karakterizacijo igre bi bilo potrebno nekaj bolj prilagodljivega.
+        \end{itemize}
+    \item Behaviour/Decision Trees
+        \begin{itemize}
+            \item Sestavljeni so iz vozlišč, ki so vedenja, in pogojev za vsako vozlišče. Kakor obsežni za igro so pokazali, da potrebujejo veliko računske moči.
+        \end{itemize}
+    \item Scripting
+        \begin{itemize}
+            \item Gre za kontroverzno temo, saj so najboljše in najslabše igre nastale iz skriptiranja. Z dobrim načrtom in v kombinaciji z drugo tehnologijo umetne inteligence lahko privede do zelo dobrih rezultatov
+        \end{itemize}
+    \item Fuzzy logic
+        \begin{itemize}
+            \item To je logika, ki lahko vsebuje spremenljivke delne resnice, zato jo je mogoče učinkovito uporabiti v video igrah.
+        \end{itemize}
+    \item Flocking
+        \begin{itemize}
+            \item Je način za simulacijo gibanja čred v videoigri, uporablja nekaj algoritmov za iskanje poti in je zelo učinkovit v strateških igrah.
+        \end{itemize}
+    \item Genetics algorithm
+        \begin{itemize}
+            \item Gre po načelih Darwinove teorije, z mutiranjem in razmnoževanjem generacij dobimo zelo dobre rezultate za umetno inteligenco.
+        \end{itemize}
+    \item Package ML-Agents
+        \begin{itemize}
+            \item Orodje, ki uporablja okrepljeno učenje za usposabljanje agentov, s tem pa ustvari "možgane", ki jih je mogoče uporabiti v likih video igric.
+        \end{itemize}
+\end{enumerate}
+
+Ko dojamemo različne pristope umetne inteligence v video igrah, bomo razumeli njihove omejitve in prednosti. Prav tako bomo razumeli, zakaj se razvijalci iger držijo bolj stabilnih in dobro raziskanih tehnik.
+
+Z nadaljnjim napredovanjem znanosti se bližamo pravi umetni inteligenci, ki je podobna človeški, morda pa bo ta diplomska naloga pokazala da bi si to želeli v igrah če bi jo le temeljito preizkusili in razumeli. Kdo bi želel da se v njegovih igrah zgodijo nepredvidljive stvari?
+
+% Daljsi povzetek
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % START
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -351,7 +409,6 @@ We will go deep into the rabbit hole that is game AI and try to understand years
 \mainmatter
 \setcounter{page}{1}
 \pagestyle{fancy}
-
 
 \chapter{Introduction}
 
@@ -413,7 +470,7 @@ You want to create a side-scrolling platformer, the first thing to do is make a 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Images/state_FSM.png}
 \end{center}
-\caption{Finite State Machine}
+\caption{Finite State Machine \cite{GameProgrammingPattersFMS}}
 \label{pic1}
 \end{figure}
 
@@ -467,7 +524,7 @@ In FSMs, only a pointer to the current state exists, pushdown automata has a sta
 \begin{center}
 \includegraphics[width=0.6\textwidth]{Images/state_pushdown.png}
 \end{center}
-\caption{The Pushdown Automata}
+\caption{The Pushdown Automata \cite{GameProgrammingPattersFMS}}
 \label{pic2}
 \end{figure}
 
@@ -519,11 +576,11 @@ So, to define a BT, it is an structure that is made up from nodes which have sep
 \begin{center}
     \includegraphics[width=0.35\textwidth]{Images/behaviour_tree.png}
 \end{center}
-\caption{Behavior Tree}
+\caption{Behavior Tree \cite{behaviourTreeBlog}}
 \label{pic3}
 \end{figure}
 
-Every behaviour has its own condition and an action. The algorithm works in such way, that it starts at the root and then for each level it checks the conditions of the behaviours. If a condition matches of a node, it executes the action. None of its siblings will be examined, but its children will. The algorithm is as it follows:
+Every behaviour has its own condition and an action. The algorithm works in such way, that it starts at the root and then for each level it checks the conditions of the behaviours. If a condition matches of a node, it executes the action. None of its siblings will be examined, but its children will. The algorithm \cite{BehaviourSelectionAlgorithms} is as it follows:
 \begin{verbatim}
     Make root node the current node
     While current node exists
@@ -536,7 +593,7 @@ Every behaviour has its own condition and an action. The algorithm works in such
     Run all behaviors on the execute list
 \end{verbatim}
 
-The big plus of BTs \cite{BehaviourSelectionAlgorithms} are their simplicity, since they have no states, their algorithm doesn't need to remember what behaviours were running and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
+The big plus of BTs \cite{BehaviourSelectionAlgorithms} are their simplicity, since they have no states, their algorithm doesn't have to know which behaviours were executing and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
 
 But and now this is a big but, although BT algorithm is simple and powerful, its not always the best choice. The algorithm has to start at the root node every time a new behaviour is chosen, that means the running time is greatly impacted, in comparison to FSMs. Also, it deals with a lot of conditionals. Furthermore, memory is a problem as behaviours can loop with each other, however steps can be taken to deal with this problem.
 
@@ -554,15 +611,15 @@ To start off, to be successful into making a scripted AI, it is important to und
 So the most viable technique for scripted AI would be the master and servant approach. In short, the master script would take care of the high-level aspects of the game, while the servant script would control the overall activity of the agents, or just create some kind of effects.  
 
 \begin{itemize}
-    \item \emph{Master scripts} work best in two scenarios. The first one would be if in game already exists some kind of AI, and the scripting would be the glue that combines this techniques into a powerful model for agent behaviour. Even in the other scenario when its only the scripting technique, it can produce good results for different decision-making and planning techniques.
-    \item \emph{Servant scripts} are best effective when design requires a high degree in specificity in agent behaviour. So special case scenarios are created by the developers for each agent and this can have excellent results for ambient or background AI.
+    \item \emph{Master scripts} work best in two scenarios. The first one would be if in game already exists some kind of AI, and then the scripting would just combine them. Even in the other scenario when its only the scripting technique, it can produce good results.
+    \item \emph{Servant scripts} are best when the agent behaviour must be specific. So special case scenarios are created by the developers for each agent and this can have excellent results for ambient or background AI.
 \end{itemize}
 
 Games, would often tip themselves into one side or the other. It it dependant to a lot of circumstances: the experience of the developers, time and budget, the ratio of programmers to designers etc.
 
-There is a stigma justified by negativity of players not enjoying games with scripted AI, which show little depth or variety to their AI. But, with proper coordination between design and technical concerns of the project, scripted AI could become a powerful tool with a lot of depth and players would be grateful.
+There is a stigma justified by negativity of players not enjoying games with scripted AI, which show little depth or variety to their AI. But, with proper design and technical background, scripted AI could become a powerful tool with a lot of depth and players would be grateful.
 
-Moreover, scripting should be used in combination with other techniques, due to over-reliance on scripts is why we get the shallow and unwanted AI. On an another page, developers must resist the urge to anticipate everything that a script might need to handle. This can be avoided with delegation, but the most important is having a chosen design early on and sticking to it, whether be it master and servant approach. When it comes to scripting, often simpler is better, instead of having to design overly complicated and intricate systems, its better to stick on more flexible and creative solutions.
+Moreover, scripting should be used in combination with other techniques, due to over-reliance on scripts is why we get the shallow and unwanted AI. On an another page, developers must not try to anticipate with the script. This can be avoided with delegation, but the most important is having a chosen design early on and sticking to it, whether be it master and servant approach. When it comes to scripting, often simpler is better, instead of having to design overly complicated and intricate systems, its better to stick on more flexible and creative solutions.
 
 \subsection{Example}
 
@@ -598,7 +655,7 @@ For example, the weapon range can be divided into melee, ranged or out of range 
 \begin{center}
 \includegraphics[width=0.53\textwidth]{Images/weapon_range.png}
 \end{center}
-\caption{Weapon range with Fuzzy Logic}
+\caption{Weapon range with Fuzzy Logic \cite{FuzzyAIGames}}
 \label{pic4}
 \end{figure}
 
@@ -626,15 +683,15 @@ The flocking behaviour can be simulated by using three principles \cite{Flocking
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{Images/alignment.png}
-  \caption{Alignment}\label{fig:image3}
+  \caption{Alignment \cite{WebsiteBoids}}\label{fig:image3}
 \endminipage\hfill
 \minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{Images/cohesion.png}
-  \caption{Cohesion}\label{fig:image2}
+  \caption{Cohesion \cite{WebsiteBoids}}\label{fig:image2}
 \endminipage\hfill
 \minipage{0.32\textwidth}%
   \includegraphics[width=\linewidth]{Images/separation.png}
-  \caption{Separation}\label{fig:image1}
+  \caption{Separation \cite{WebsiteBoids}}\label{fig:image1}
 \endminipage
 \label{pic5}
 \end{figure}
@@ -732,7 +789,7 @@ In this section, we'll take a look into a certain genetic algorithm, which we ne
     \item \emph{Generation} - One iteration of the Genetics Algorithm
 \end{itemize}
 
-Now, that we have defined some general terms we need for the algorithm, we can go ahead and get into it:
+Now, that we have defined some general terms we need for the algorithm \cite{GameAIGeneticAlg}, we can go ahead and get into it:
 
 \begin{verbatim}
     Generate an initial random population
@@ -764,14 +821,14 @@ Now, we are good to go, with the command \texttt{mlagents-learn} and Unity open 
 
 \section{Background}
 
-After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project The Unity Machine Learning Agents Toolkit or ML-Agents Toolkit. It is used for training intelligent agents through \emph{reinforcement learning, imitation learning, neuroevolution}, or other ML methods through a simple-to-use Python API \cite{MLAgents}.
+After we've checked out some the key game AI that are used in the industry, I would like to present an open-source project the Unity Machine Learning Agents Toolkit or ML-Agents Toolkit \cite{MLAgents}. With a Python \cite{PythonManual} API (Application Programming Interface), it trains intelligent agents through \emph{reinforcement learning, imitation learning, neuroevolution}.
 
 \subsection{Agents}
 
-The technology of ML-Agents is mostly used for training Agents, which are basically NPCs, we can use variety of methods for the training. But, first we need to explain three entities of the game, which is the environment of the training.
+The technology of ML-Agents is mostly used for training Agents, which are basically NPCs, we can use variety of methods for the training. To start with the usage of ML-Agents we should explain what are:
 
 \begin{itemize}
-    \item \emph{Observations} - How the Agent sees the environment, the observations can be numeric and/or visual. Numeric observations can be some kind of attributes taken from the environment (they can be discrete or continuous), for the best results, the agent should have several continuous numerical observations. Visual observations are images generated from the cameras that are attached to our agent. The observations are separate from the environment, so that so that the agent can't get confused with data coming from the whole game/environment.
+    \item \emph{Observations} - How the Agent sees the environment, they can be numeric and/or visual. Numeric observations can be some kind of attributes taken from the environment (they can be discrete or continuous), for the best results, the agent should have several continuous numerical observations. The observations can even be visual from the cameras that are on the agent. The observations are separate from the environment, so that so that the agent can't get confused with data coming from the whole game/environment.
     \item \emph{Actions} - What can the agent do, same as the observations, the actions can be discrete or continuous. They can get as complex as the environment allows them to be.
     \item \emph{Reward signals} - How well the agent is doing, these signals don't have to be sent at every moment. The agent should be rewarded only when he does some action that is good, and punished when it does something bad. It should be noted that the rewarding is how the objective of the agent is communicated, so it should be set up in an optimal way for best results.
 \end{itemize}
@@ -783,9 +840,9 @@ The ML-Agents toolkit system works with 5 connected high-level components. And t
 \begin{itemize}
     \item \emph{Learning environment} - is actually the Unity scene and all the game objects. This scene is used either for training or for testing environments, this is where the above aforementioned Unity package ML Agents comes in handy. With it, the agents and their behaviours get defined.
     \item \emph{Python low-level API} - is interacting and manipulating the learning environment, it lives outside of the learning environment and interacts with it through the External communicator.
-    \item \emph{External communicator} - connect the learning environment with the python low-level API, it actually lives in the learning environment.
-    \item \emph{Python trainers} - contains all the ML algorithms, they are all contained in the python \texttt{mlagents} package.
-    \item \emph{Gym wrapper} - common way in which ML researchers interact with learning environments is with the wrapper from openAI called gym \cite{openAIGym}.
+    \item \emph{External communicator} - used for the connection of the environment and the Python API.
+    \item \emph{Python trainers} - the place the ML algorithms are stored which is contained by the \texttt{mlagents} package.
+    \item \emph{Gym wrapper} \cite{openAIGym} - the usual technology used for interacting with environments.
 \end{itemize}
 
 \begin{figure}[h]
@@ -802,7 +859,7 @@ The ML-Agents toolkit system works with 5 connected high-level components. And t
 The learning environment in the Unity scene has two components:
 \begin{itemize}
     \item \emph{Agent} - is linked to Game Object, handles the observations, actions and rewards.
-    \item \emph{Behavior} - defines the attributes and number of actions the agent can take. It can be described as a function that takes the observations and rewards from the agent class and returns the actions. The behaviour can be one of three types:
+    \item \emph{Behavior} - defines the attributes and number of actions the agent can take. It is like a method that collects observations and rewards and returns actions. It can be:
     \begin{itemize}
         \item \emph{Learning} - not defined, about to be trained.
         \item \emph{Heuristic} - its defined by hard-coded rules, mainly is used for input for controlling the agent.
@@ -827,7 +884,7 @@ Before I jump into the examples, I would like a to showcase a brief overview of 
 
 \subsubsection{Note on rewards signals}
 
-A quick note is that rewards in ML-Agents can be \emph{intrinsic} or \emph{extrinsic}. Rewards that the agent can get from the learning environment are called extrinsic. But, rewards can be also defined outside of the envirnonment, we refer these as intrinsic rewards.
+A quick note is that rewards in ML-Agents can be \emph{intrinsic} or \emph{extrinsic}. Rewards that the agent can get from the learning environment are called extrinsic. But, rewards can be also defined outside of the environment, we refer these as intrinsic rewards.
 
 With the toolkit, the reward signals can be tweaked in four ways:
 \begin{itemize}
@@ -839,7 +896,7 @@ With the toolkit, the reward signals can be tweaked in four ways:
 
 \subsubsection{Deep reinforcement learning}
 
-ML-Agents has implementation of two algorithms Proximal Policy Optimization (PPO) and Soft Actor-Critic (SAC). The default is PPO as it has been proven to be more general purpose and more stable. On the other had SAC, tends to collect sets of experiences and learn from them. So when looking from an efficiency point of view, PPO would require more samples, so from that SAC is the better choice for heavier environments. Also, SAC encourages exploration, as it is an "maximum entropy" algorithm.
+The package implements two algorithms and they are Proximal Policy Optimization (PPO) and Soft Actor-Critic (SAC). The default is PPO as it has been proven to be more general purpose and more stable. On the other hand, we have had SAC, which tends to collect sets of experiences and learn from them. So when looking from an efficiency point of view, PPO would require more samples, so from that SAC is the better choice for heavier environments. Also, SAC encourages exploration, as it is an "maximum entropy" algorithm.
 
 The curiosity reward signal, which we mentioned earlier, is managed by the Intrinsic Curiosity Module. Its an implementation in ML-Agents inspired by "Curiosity-driven Exploration by Self-supervised Prediction" \cite{CuriosityExploration}. When we are at this topic, RND, which is \emph{Random Network Distillation} \cite{ExplorationRND} is also a module in ML-Agents that helps out with the agent's exploration.
 
@@ -847,7 +904,7 @@ The curiosity reward signal, which we mentioned earlier, is managed by the Intri
 
 Often when training, the agents can have a hard time at the beginning of the training. So, in order to prevent or help that process, it can be demonstrated the wanted behaviour to the agent and it can learn from that, rather than trying and trying. This is called \emph{imitation learning}, even better it can even be combined in conjunction with the already existing reinforcement learning. In doing that, the time for the agent to learn the behaviour drops down drastically.
 
-For the imitation learning, ML-Agents uses two algorithms called Behavioral Cloning (BC) and Generative Adversarial Imitation Learning (GAIL). In order to make the agents learn through demonstrations, GAIL and BC have to be enabled in the proper \texttt{yaml} configuration file.
+For imitation learning, ML-Agents uses Behavioral Cloning and Generative Adversarial Imitation Learning. In order to make the agents learn through demonstrations, GAIL and BC have to be enabled in the proper \texttt{yaml} configuration file.
 
 The demonstrations can be recorded in the Unity editor or build and be saved as assets for later use.
 
