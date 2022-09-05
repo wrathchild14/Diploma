@@ -4,10 +4,12 @@ namespace Flocking.Scripts
 {
     public class FishInstantiator : MonoBehaviour
     {
-        public GameObject fishPrefab;
+        [SerializeField]
+        private GameObject fishPrefab;
 
         [Range(0, 300)]
-        public int number;
+        [SerializeField]
+        private int number;
 
         private void Start()
         {
