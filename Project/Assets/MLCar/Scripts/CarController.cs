@@ -18,10 +18,10 @@ namespace MLCar
         
         private void Update()
         {
-            SetInput(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"));
+            // SetInput(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"));
         }
 
-        private void SetInput(float moveInput, float turnInput)
+        public void SetInput(float moveInput, float turnInput)
         {
             _moveInput = moveInput;
             _turnInput = turnInput;
