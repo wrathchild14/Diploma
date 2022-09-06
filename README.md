@@ -1,3 +1,3 @@
 # Dimploma Thesis
 
-Title: Computer game with different AI approaches
+Title: Different artificial intelligence approaches in video games
