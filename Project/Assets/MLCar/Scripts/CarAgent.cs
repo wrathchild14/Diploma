@@ -26,6 +26,7 @@ namespace MLCar.Scripts
         {
             if (e.CarTransform == transform)
             {
+                Debug.Log("Gave +1 reward for correct checkpoint!");
                 AddReward(1f);
             }
         }
@@ -97,6 +98,25 @@ namespace MLCar.Scripts
             if (collision.gameObject.TryGetComponent<Wall>(out _))
             {
                 AddReward(-0.5f);
+                EndEpisode();
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag($"Wall"))
+            {
+                AddReward(-0.5f);
+                EndEpisode();
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag($"Wall"))
+            {
+                Debug.Log("Staying in wall... -0.1 reward");
+                AddReward(-0.1f);
             }
         }
 
