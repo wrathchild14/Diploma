@@ -35,11 +35,11 @@ namespace MLCar.Scripts
         {
             var nextCheckpointSingleIndex =
                 _nextCheckpointSingleIndexList[
-                    carTransformList.IndexOf(carTransform.parent)]; // Is parent because I have my script at MainBody
+                    carTransformList.IndexOf(carTransform)]; // Is parent because I have my script at MainBody
             if (_checkpointSingleList.IndexOf(checkpointSingle) == nextCheckpointSingleIndex)
             {
                 Debug.Log("Correct checkpoint: " + checkpointSingle.name);
-                _nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform.parent)] =
+                _nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)] =
                     (nextCheckpointSingleIndex + 1) % _checkpointSingleList.Count; // For multiple laps
                 OnCarCorrectCheckpoint?.Invoke(this, new CarCheckpointEventArgs(carTransform));
             }
@@ -62,13 +62,13 @@ namespace MLCar.Scripts
 
         public void ResetCheckpoint(Transform carTransform)
         {
-            _nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform.parent)] = 0;
+            _nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)] = 0;
         }
 
         public CheckpointSingle GetNextCheckpoint(Transform carTransform)
         {
             var checkpoint =
-                _checkpointSingleList[_nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform.parent)]];
+                _checkpointSingleList[_nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)]];
             // Its heavy, but used in observation collection
             return checkpoint;
         }
