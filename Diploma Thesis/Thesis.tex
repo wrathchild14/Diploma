@@ -358,11 +358,12 @@ We will go deep into the rabbit hole that is game AI and try to understand years
 \noindent\textbf{Avtor:} \tauthor
 \bigskip
 
-Ko so bile video igre ustvarjene, so ljudje želeli razmišljati o številnih načinih, kako bi jih naredili bolj zanimive - eden od teh načinov je bilo ustvarjanje posebnega zabavnega vedenja v njih. To vedenje je lahko karkoli v igri, ta diplomska naloga se bolj osredotoča na vedenje likov, ki uporabljajo nekakšno umetno inteligenco.
+Ko so bile video igre ustvarjene, so ljudje razmišljali o številnih načinih, kako bi jih naredili bolj zanimive. Eden od teh načinov je bilo ustvarjanje posebnega zabavnega vedenja v njih. To vedenje je lahko karkoli v igri, ta diplomska naloga pa se bolj osredotoča na vedenje likov, ki uporabljajo nekakšno umetno inteligenco.
 
-Naš problem umetne inteligence v igrah je od njene filozofije do različnih pristopov, poskušal bom zajeti vse v okviru razuma. Filozofija umetne inteligence iger ni šala, obstajajo načini, ki jo definirajo v video igrah. Prva stvar je, da je umetna inteligenca nepredvidljiva in se vedno uči, zato je v nasprotju s tem, kar bi morale biti video igre. Nasprotniki ali liki v video igrah so narejeni za zabavo in izziv igralca na določeno raven. Če igralec dobi umetno izboljšanega nasprotnika in ga premaga na vseh ravneh, bi se hitro začelo počutiti dolgočasno in nemogoče igrati.
+Problem umetne inteligence v igrah je uporaba različnih pristopov, katere bom v tej diplomski nalogi poskušal predstaviti. Umetna inteligenca je nepredvidljiva in se vedno uči, zato je v nasprotju s tem, kar bi morale biti video igre. Nasprotniki ali liki v video igrah so narejeni za zabavo in izziv igralca na določeno raven. Če igralec dobi umetno izboljšanega nasprotnika in ga premaga na vseh ravneh, bi se hitro začeli dolgočasiti in bi bilo nemogoče igrati.
 
-Tako so se skozi leta razvijalci iger trudili in ustvarili napredne tehnike za vse vrste vedenja, da bi bilo igranje video iger zabavno. Ta diplomska naloga bo obravnavala nekaj od številnih tehnik na način, da bomo spoznali, kako delujejo na zabaven in učinkovit način. Prav tako so za nekaj izmed njih izdelani primeri, ki kažejo moč določene tehnike umetne inteligence v igri. Pristopi so sestavljeni iz številnih že videnih, a na koncu je ena eksperimentalna tehnologija, ki mi je bila zelo všeč. Pristopi so:
+Tako so se skozi leta razvijalci iger trudili in ustvarili napredne tehnike za vse vrste vedenja, da bi bilo igranje video iger zabavno. Ta diplomska naloga bo obravnavala nekaj od številnih tehnik umetne inteligence na način, da bomo spoznali, kako delujejo na zabaven in učinkovit način. Prav tako so za nekaj izmed njih izdelani primeri, ki kažejo moč določene tehnike umetne inteligence v igri. Pristopi so sestavljeni iz številnih že videnih, a na koncu je ena eksperimentalna tehnologija, ki mi je bila zelo všeč. Pristopi so:
+
 
 \begin{enumerate}
     \item Finite state machines
@@ -371,7 +372,7 @@ Tako so se skozi leta razvijalci iger trudili in ustvarili napredne tehnike za v
         \end{itemize}
     \item Behaviour/Decision Trees
         \begin{itemize}
-            \item Sestavljeni so iz vozlišč, ki so vedenja, in pogojev za vsako vozlišče. Kakor obsežni za igro so pokazali, da potrebujejo veliko računske moči.
+            \item Sestavljeni so iz vozlišč, ki so vedenja, in pogojev za vsako vozlišče. So zelo učinkoviti v video igrah, vendar se je pokazalo, da zahtevajo veliko računske moči.
         \end{itemize}
     \item Scripting
         \begin{itemize}
@@ -397,7 +398,7 @@ Tako so se skozi leta razvijalci iger trudili in ustvarili napredne tehnike za v
 
 Ko dojamemo različne pristope umetne inteligence v video igrah, bomo razumeli njihove omejitve in prednosti. Prav tako bomo razumeli, zakaj se razvijalci iger držijo bolj stabilnih in dobro raziskanih tehnik.
 
-Z nadaljnjim napredovanjem znanosti se bližamo pravi umetni inteligenci, ki je podobna človeški, morda pa bo ta diplomska naloga pokazala da bi si to želeli v igrah če bi jo le temeljito preizkusili in razumeli. Kdo bi želel da se v njegovih igrah zgodijo nepredvidljive stvari?
+Z nadaljnjim napredovanjem znanosti se bližamo pravi umetni inteligenci, ki je podobna človeški, morda pa bo ta diplomska naloga pokazala da bi si to želeli v igrah če bi jo le temeljito preizkusili in razumeli. Kdo si pa ne bi želel, da se v njegovih igrah zgodijo nepredvidljive stvari?
 
 % Daljsi povzetek
 
@@ -1008,9 +1009,90 @@ This example is similar to the previous one, the agent is the same but we only h
 
 The agent's observations are ray-casts detecting the environment and the state of the button switch. The ray-casts detect the walls, pyramids, green blocks and the switch, and with a reward of 2 every time the agent touches the green block. It can successfully train to search and find the switch, turn it on and go break down the pyramid with the green block. Also, it should be noted that the agent gets a negative reward $ -1 / MaxStep $ every time.
 
+\subsection{ML Car}
+
+So as the saying goes, we saved the best things for last. In this example, we will show the power of the library of ML-Agelts \cite{MLAgents} in self driving cars. The goal here is to create self driving agents which know how to race in a specific track (environment).
+
+First things first, we need to create a car. We start off by modeling a simple car and then creating a script called \texttt{CarController}. All that the script does is use the \texttt{RigidBody} of the model car to simulate movement with a simple method \texttt{SetInput(float moveInput, float turnInput)} - because that's all we need for movement.
+
+Next up, we should create some kind of system for tracking the progress of our car. I created a simple checkpoint system, check figure \ref{CarWithCheckpoints}. The checkpoints keep track of the cars in the scene, and they must be passed in order - this is to create progress of the track. Also, I created much needed events for when passing the correct checkpoint and wrong checkpoint which will come in use later.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Images/CarWithCheckpoints.png}
+\end{center}
+\caption{Model car with checkpoints}
+\label{CarWithCheckpoints}
+\end{figure}
+
+
+\subsubsection{Car agent}
+
+Now that we created the basics of our game, we should go on in the implementation of ML-Agents on our agent. For our actions, our agent uses 2 discrete branches of size 3 for each possible movement - turns: left, straight, right - directions: forward, in place, backward. For observations, the agent gets the directions of the next checkpoint. But that is not all, the agent is equipped with a 3D raycasts, see figure \ref{CarAgent}, which are there  to only spot walls and checkpoints. The configuration of training is also not complicated, we just need to mind the number of steps the agent has to take, which in our case that number needs to be high.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Images/CarAgent.png}
+\end{center}
+\caption{Car Agent}
+\label{CarAgent}
+\end{figure}
+
+\subsubsection{Straight track}
+
+To begin with, I created a simple straight track to test how the agent behaves, see figure \ref{StraighTrack}. When every episode ends, every agent is spawned at the spawn location with a little offset on x and y axis. Also, there are red walls, when the agent touches them it gets a negative reward and the episode restarts. But, when the agent crosses a checkpoint which is not a wrong one in progression order, it gets rewarded.
+
+When the training started, results were almost immediate. With training for a minute or two, it generated a good result (brain), it could finish our simple straight track with ease. Interesting thing is that at the end is an empty space and the agents were searching for checkpoint, which there was none.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Images/StraightTrack.png}
+\end{center}
+\caption{Straight track with 6 agents}
+\label{StraighTrack}
+\end{figure}
+
+\subsubsection{Circle track}
+
+Next up is a circular track, see figure \ref{CircleTrack}. With 10 agents, they trained pretty fast and in no time a brain was produced that can circle around the track indefinitely. Main problem was here setting up the checkpoints in the turns. Now we concluded that the agent can handle only left turns pretty consistently, next up would be something more problematic.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Images/CircleTrack.png}
+\end{center}
+\caption{Circular track}
+\label{CircleTrack}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Sprint track}
+
+For my last example, I decided to create a track to test the turning of the agent, see figure \ref{SprintTrack}. Also, for this example I used Imitation Learning, which was explained above. For that, I created a demonstration of me driving the car through the track for the agent to later use.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Images/SprintTrack.png}
+\end{center}
+\caption{Sprint track}
+\label{SprintTrack}
+\end{figure}
+
+In the configuration, I set the GAIL and BC to the demonstration I previously created and the training started. The agents were struggling in the first turns, but in short time they got the handle of it and managed to train the track and were successful in finishing it.
+
+To conclude, I think this example was pretty amusing and I got good results. For example, see figure \ref{Sprintracing}, we can see that  the agents are having a pretty close race and they can even throw each other off the track because the y all have rigid bodies. The most problematic thing I would say it would be creating a proper learning environment, because a lot of things can go wrong. It is the main reason of my debugging.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Images/SprintRacing.png}
+\end{center}
+\caption{5 agents racing in the sprint track}
+\label{Sprintracing}
+\end{figure}
+
 \section{Final thoughts}
 
-In conclusion to this chapter, I think the tool can come in very handy, but with some limitations. If someone perhaps would have wanted to implement ML-Agents into their video game, they would have to think of a way how to train the NPCs. Because, they clearly can't do it in real-time as training is very expensive for process power and memory. One method that comes to my mind, the player's style of gameplay to be saved, and later on the NPCs to be trained on that set of instructions. That must happen in the background or when the player is offline, so I think that there are limited ways of how one can implement ML-Agents \cite{MLAgents} into their game.
+In conclusion to this chapter, I think the tool can come in very handy, but with some limitations. If someone perhaps would have wanted to implement ML-Agents into their video game, they would have to think of a way how to train the NPCs. Because, they clearly can't do it in real-time as training is very expensive for process power and memory. One method that comes to my mind, the player's style of game play to be saved, and later on the NPCs to be trained on that set of instructions. That must happen in the background or when the player is offline, so I think that there are limited ways of how one can implement ML-Agents \cite{MLAgents} into their game.
 
 However, I think the technology could work great for experiments and indie games, it has decent results and I could see it being used, but with created models/brains beforehand.
 
