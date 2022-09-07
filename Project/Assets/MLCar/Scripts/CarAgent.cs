@@ -107,7 +107,7 @@ namespace MLCar.Scripts
             if (other.CompareTag($"Wall"))
             {
                 AddReward(-0.5f);
-                //EndEpisode();
+                EndEpisode();
             }
         }
 
