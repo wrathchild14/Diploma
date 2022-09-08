@@ -1,0 +1,29 @@
+{
+    "MLCar": {
+        "checkpoints": [
+            {
+                "steps": 85952,
+                "file_path": "results\\MLCar\\MLCar\\MLCar-85952.onnx",
+                "reward": null,
+                "creation_time": 1662495690.3151731,
+                "auxillary_file_paths": [
+                    "results\\MLCar\\MLCar\\MLCar-85952.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 85952,
+            "file_path": "results\\MLCar\\MLCar.onnx",
+            "reward": null,
+            "creation_time": 1662495690.3151731,
+            "auxillary_file_paths": [
+                "results\\MLCar\\MLCar\\MLCar-85952.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

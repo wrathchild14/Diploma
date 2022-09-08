@@ -1,0 +1,38 @@
+{
+    "MLCarHard": {
+        "checkpoints": [
+            {
+                "steps": 499995,
+                "file_path": "results\\MLCarHard\\MLCarHard\\MLCarHard-499995.onnx",
+                "reward": 8.326086956521738,
+                "creation_time": 1662507686.993965,
+                "auxillary_file_paths": [
+                    "results\\MLCarHard\\MLCarHard\\MLCarHard-499995.pt"
+                ]
+            },
+            {
+                "steps": 797232,
+                "file_path": "results\\MLCarHard\\MLCarHard\\MLCarHard-797232.onnx",
+                "reward": 2.625,
+                "creation_time": 1662507909.2822106,
+                "auxillary_file_paths": [
+                    "results\\MLCarHard\\MLCarHard\\MLCarHard-797232.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 797232,
+            "file_path": "results\\MLCarHard\\MLCarHard.onnx",
+            "reward": 2.625,
+            "creation_time": 1662507909.2822106,
+            "auxillary_file_paths": [
+                "results\\MLCarHard\\MLCarHard\\MLCarHard-797232.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
