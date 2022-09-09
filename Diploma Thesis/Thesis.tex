@@ -250,12 +250,12 @@ Zelo sem hvaležen vsem, ki so mi pomagali priti tja, kjer sem.
 % posvetilo, če sama zahvala ne zadošča :-)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\thispagestyle{empty}\mbox{}{\vskip0.20\textheight}\mbox{}\hfill\begin{minipage}{0.55\textwidth}%
-Za svoja draga družina.
-\normalfont\end{minipage}
+% \thispagestyle{empty}\mbox{}{\vskip0.20\textheight}\mbox{}\hfill\begin{minipage}{0.55\textwidth}%
+% Za svoja draga družina.
+% \normalfont\end{minipage}
 
-% prazna stran
-\clearemptydoublepage
+% % prazna stran
+% \clearemptydoublepage
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -282,14 +282,12 @@ Za svoja draga družina.
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
   {\bf AI}      & artificial intelligence           & umetna inteligenca \\
   {\bf ML}      & machine learning                  & strojno učenje \\
-  {\bf FSM}     & finite state machine              & končni stroj \\
+  {\bf FSM}     & finite state machine              & končni avtomat \\
   {\bf NN}      & neural network                    & nevronska mreža \\
   {\bf NPC}     & non-player character              & neigralski lik \\
   {\bf BT }     & behaviour trees                   & drevesa vedenja \\
-  {\bf RL }     & reinforcement learning            & učenje s krepitvijo \\
-  
+  {\bf RL }     & reinforcement learning            & spodbujevano učenje \\
   {\bf API }    & Application Programming Interface & aplikacijski programski vmesnik \\
-  
   \dots         & \dots                             & \dots \\
 \end{tabular}
 
@@ -392,7 +390,7 @@ Tako so se skozi leta razvijalci iger trudili in ustvarili napredne tehnike za v
         \end{itemize}
     \item Package ML-Agents
         \begin{itemize}
-            \item Orodje, ki uporablja okrepljeno učenje za usposabljanje agentov, s tem pa ustvari "možgane", ki jih je mogoče uporabiti v likih video igric.
+            \item Orodje, ki uporablja spodbujevano učenje za usposabljanje agentov, s tem pa ustvari "možgane", ki jih je mogoče uporabiti v likih video igric.
         \end{itemize}
 \end{enumerate}
 
@@ -444,7 +442,7 @@ The illusion of intelligence \cite{IllusionOfIntelligece} works when there is a 
     \item \emph{Animation and dialog} - this helps with the interaction with the world and player, as well as making the experience more alive and present.
     \item Although animations help to achieve game AI, it should be done with quality. They should the smooth and human-like, instead of looking like a - \emph{robot}.
     \item \emph{Have a reason to exist} - AI characters shouldn't always wait for the player to approach, they should have their own purpose. As well as their own motives, because the game world would be their home and reality and they should have their own states in it.
-    \item The culmination of building a successful AI character would be for it to have its own - \emph{personality}. How the game developer leverages this powerful tool can complete change the feel of the game.
+    \item The culmination of building a successful AI character would be for it to have its own - \emph{personality}. How the game developer leverages this powerful tool can completely change the feel of the game.
 \end{itemize}
 
 
@@ -553,7 +551,7 @@ The \texttt{StateMachine} is meant to be overwritten with our movement script. I
     \item \texttt{Start()} - Sets the current state to the initial state and if there is an initial states, it enters it.
     \item \texttt{Update()} - If there is a current states, it updates the logic in it.
     \item \texttt{LateUpdate()} - If there is a current states, it updates the physics in it.
-    \item \texttt{ChangeState(BaseState newState)} - Exists the current state, sets it to the new state and enters the new state.
+    \item \texttt{ChangeState(BaseState newState)} - Exits the current state, sets it to the new state and enters the new state.
     \item \texttt{GetInitialState()} - This is a virtual method so we need to override it in our script.
     \item \emph{Misc} - GUI method which displays the current state.
 \end{itemize}
@@ -566,9 +564,9 @@ And thats nearly it, we have set the basis of our state machine, now we just hav
 
 \section{Behaviour Trees}
 
-Even with extensions to FSMs, they are pretty limited. If the aim is complex game AI, the previous chapter only whet our appetite.
+Even with extensions to FSMs, they are pretty limited. If the aim is complex game AI, the previous chapter only has scratched the surface.
 
-Behaviour trees (BTs) \cite{BehaviourTreeStarterPack} are proven to be a extensive technique which can create a pretty versatile AI. It makes a solid foundation for combining other techniques and to have full control over behaviour and performance.
+Behaviour trees (BTs) \cite{BehaviourTreeStarterPack} are proven to be an extensive technique which can create a pretty versatile AI. It makes a solid foundation for combining other techniques and to have full control over behaviour and performance.
 
 So, to define a BT, it is an structure that is made up from nodes which have separate behaviours - individual actions which can be performed. In turn, each node has its own child behaviours, which gives the algorithms its tree-shaped structure. In addition, each behaviour has its own condition which lets the algorithm pass to the child branches.
 
@@ -593,7 +591,7 @@ Every behaviour has its own condition and an action. The algorithm works in such
     Run all behaviors on the execute list
 \end{verbatim}
 
-The big plus of BTs \cite{BehaviourSelectionAlgorithms} are their simplicity, since they have no states, their algorithm doesn't have to know which behaviours were executing and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionability at any given time.
+The big plus of BTs \cite{BehaviourSelectionAlgorithms} are their simplicity, since they have no states, their algorithm doesn't have to know which behaviours were executing and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionality at any given time.
 
 But and now this is a big but, although BT algorithm is simple and powerful, its not always the best choice. The algorithm has to start at the root node every time a new behaviour is chosen, that means the running time is greatly impacted, in comparison to FSMs. Also, it deals with a lot of conditionals. Furthermore, memory is a problem as behaviours can loop with each other, however steps can be taken to deal with this problem.
 
@@ -615,7 +613,7 @@ So the most viable technique for scripted AI would be the master and servant app
     \item \emph{Servant scripts} are best when the agent behaviour must be specific. So special case scenarios are created by the developers for each agent and this can have excellent results for ambient or background AI.
 \end{itemize}
 
-Games, would often tip themselves into one side or the other. It it dependant to a lot of circumstances: the experience of the developers, time and budget, the ratio of programmers to designers etc.
+Games, would often tip themselves into one side or the other. It is dependant to a lot of circumstances: the experience of the developers, time and budget, the ratio of programmers to designers etc.
 
 There is a stigma justified by negativity of players not enjoying games with scripted AI, which show little depth or variety to their AI. But, with proper design and technical background, scripted AI could become a powerful tool with a lot of depth and players would be grateful.
 
@@ -681,17 +679,17 @@ The flocking behaviour can be simulated by using three principles \cite{Flocking
 \end{itemize}
 
 \begin{figure}[!htb]
-\minipage{0.32\textwidth}
+\minipage{0.27\textwidth}
   \includegraphics[width=\linewidth]{Images/alignment.png}
-  \caption{Alignment}\label{fig:image3}
+  \caption{Alignment \cite{WebsiteBoids}}\label{fig:image3}
 \endminipage\hfill
-\minipage{0.32\textwidth}
+\minipage{0.27\textwidth}
   \includegraphics[width=\linewidth]{Images/cohesion.png}
-  \caption{Cohesion}\label{fig:image2}
+  \caption{Cohesion \cite{WebsiteBoids}}\label{fig:image2}
 \endminipage\hfill
-\minipage{0.32\textwidth}%
+\minipage{0.27\textwidth}%
   \includegraphics[width=\linewidth]{Images/separation.png}
-  \caption{Separation}\label{fig:image1}
+  \caption{Separation \cite{WebsiteBoids}}\label{fig:image1}
 \endminipage
 \label{pic5}
 \end{figure}
@@ -788,6 +786,8 @@ In this section, we'll take a look into a certain genetic algorithm, which we ne
     \item \emph{Mutation} - Process to randomly change some genes to oppose local optima (solution that is optimal within a neighboring set of candidate solutions \cite{LocalOptimum}) 
     \item \emph{Generation} - One iteration of the Genetics Algorithm
 \end{itemize}
+
+\clearpage
 
 Now, that we have defined some general terms we need for the algorithm \cite{GameAIGeneticAlg}, we can go ahead and get into it:
 
@@ -955,7 +955,7 @@ And, the episode ends and the agents gets a negative reward: when it touches the
 
 From the figure \ref{pic9}, the first noticeable thing is the max step. This has to be environment specific so that the episode resets and that the agent is not motivated to just stay in one place for the best reward. Next this is that the Continuous Actions are set to two as that's how we move our agent (in the two axes). Also we had to add a decision requester and that's nearly it.
 
-The final thing is that we need to execute the commands to train our agent.  The command is \texttt{mlagents-learn MoveToGoal.yaml --run-id=MoveToGoal}. For this example, the configuration file doesn't really matter. Note: we can use the command \texttt{tensorboard --logdir} to see how our model is progressing in our environment (see figure \ref{pic10}).
+The final thing is that we need to execute the commands to train our agent with \texttt{mlagents-learn MoveToGoal.yaml --run-id=MoveToGoal}. For this example, the configuration file doesn't really matter. Note: we can use the command \texttt{tensorboard --logdir} to see how our model is progressing in our environment (see figure \ref{pic10}).
 
 \begin{figure}[ht]
 \begin{center}
