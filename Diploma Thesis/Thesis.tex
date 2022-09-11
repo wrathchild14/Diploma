@@ -31,8 +31,8 @@
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Jovan Prodanov}
-\newcommand{\tkeywords}{računalniška igra, umetna inteligenca, računalnik, pristopi, usposabljanje}
-\newcommand{\tkeywordsEn}{computer game, artificial intelligence, computer, approaches, training}
+\newcommand{\tkeywords}{video igra, umetna inteligenca, pristopi, treniranje}
+\newcommand{\tkeywordsEn}{video game, artificial intelligence, approaches, training}
 
 \usepackage{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,7 +86,7 @@
 % define medatata
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \def\Title{\ttitle}
-\def\Author{\tauthor, ales.jaklic@fri.uni-lj.si}
+\def\Author{\tauthor, jp6957@student.uni-lj.si}
 \def\Subject{\ttitleEn}
 \def\Keywords{\tkeywordsEn}
 
@@ -363,6 +363,8 @@ Problem umetne inteligence v igrah je uporaba različnih pristopov, katere bom v
 
 Tako so se skozi leta razvijalci iger trudili in ustvarili napredne tehnike za vse vrste vedenja, da bi bilo igranje video iger zabavno. Ta diplomska naloga bo obravnavala nekaj od številnih tehnik umetne inteligence na način, da bomo spoznali, kako delujejo na zabaven in učinkovit način. Prav tako so za nekaj izmed njih izdelani primeri, ki kažejo moč določene tehnike umetne inteligence v igri. Pristopi so sestavljeni iz številnih že videnih, a na koncu je ena eksperimentalna tehnologija, ki mi je bila zelo všeč. Pristopi so:
 
+\clearpage
+
 
 \begin{enumerate}
     \item Finite state machines
@@ -389,6 +391,7 @@ Tako so se skozi leta razvijalci iger trudili in ustvarili napredne tehnike za v
         \begin{itemize}
             \item Gre po načelih Darwinove teorije, z mutiranjem in razmnoževanjem generacij dobimo zelo dobre rezultate za umetno inteligenco.
         \end{itemize}
+        \clearpage
     \item Package ML-Agents
         \begin{itemize}
             \item Orodje, ki uporablja spodbujevano učenje za usposabljanje agentov, s tem pa ustvari "možgane", ki jih je mogoče uporabiti v likih video igric.
@@ -580,6 +583,7 @@ So, to define a BT, it is an structure that is made up from nodes which have sep
 \end{figure}
 
 Every behaviour has its own condition and an action. The algorithm works in such way, that it starts at the root and then for each level it checks the conditions of the behaviours. If a condition matches of a node, it executes the action. None of its siblings will be examined, but its children will. The algorithm \cite{BehaviourSelectionAlgorithms} is as it follows:
+\clearpage
 \begin{verbatim}
     Make root node the current node
     While current node exists
@@ -594,13 +598,13 @@ Every behaviour has its own condition and an action. The algorithm works in such
 
 The big plus of BTs \cite{BehaviourSelectionAlgorithms} are their simplicity, since they have no states, their algorithm doesn't have to know which behaviours were executing and behaviours can be written without them being aware of each other. Extensibility is also a big plus, it is very easy to add more functionality at any given time.
 
-But and now this is a big but, although BT algorithm is simple and powerful, its not always the best choice. The algorithm has to start at the root node every time a new behaviour is chosen, that means the running time is greatly impacted, in comparison to FSMs. Also, it deals with a lot of conditionals. Furthermore, memory is a problem as behaviours can loop with each other, however steps can be taken to deal with this problem.
+But although BT algorithm is simple and powerful, its not always the best choice. The algorithm has to start at the root node every time a new behaviour is chosen, that means the running time is greatly impacted, in comparison to FSMs. Also, it deals with a lot of conditionals. Furthermore, memory is a problem as behaviours can loop with each other, however steps can be taken to deal with this problem.
 
 \section{Scripting, the good and the bad}
 
 Now we're about to talk the most controversial game AI that has ever been created. From it, it can come out to be the best game AI to ever be or some of the worst - it all depends on its implementation.
 
-However, to have a successful scripted AI, one must not fear it. Like any weapon, it should be first mastered. 
+However, to have a successful scripted AI, one must not fear it. Like any weapon, it should be mastered. 
 The game's architecture can handle scripting techniques a couple of ways - for the most part, two ideologies \emph{master and servant} \cite{ForbiddenScripting} are used. While both have their purpose, it is useful to acknowledge which role the scripted AI will play in the game's development.
 
 \subsection{Master and Servant ideology}
@@ -795,12 +799,12 @@ Now, that we have defined some general terms we need for the algorithm \cite{Gam
 \begin{verbatim}
     Generate an initial random population
     Calculate fitness of every individual of the population
-    Copy the individual over to the next generation
-    Randomly mutate certain genes of individuals in the current generation
-    From the mutated generation, choose pairs of individuals of certain 
-        fitness to crossover
-    If the number of maximum iterations of generation is not reached, 
-        go the second line
+    Copy the individuals with high fitness to next generation
+    Randomly mutate genes of individuals in current generation
+    From the mutated generation, choose pairs of individuals 
+        with certain fitness to crossover
+    If the number of maximum iterations of generation is not 
+        reached, go the second line
 \end{verbatim}
 
 The best for a probabilistic algorithm is to iterate until there is no improvements, but in the genetic algorithm we need to set up a number of iterations, because it always mutates.
@@ -814,7 +818,7 @@ And for the downsides, genetics algorithms require high computational and memory
 
 \section{Technologies}
 
-To correctly use the ML-Agents toolkit we would need certain type of technologies. If we want to use the ML-Agents toolkit with Unity, we start with the Unity editor and Unity game engine \cite{UnitySoftware}. In the Unity editor, in the Package Manager, we should install "ML Agents".
+To correctly use the ML-Agents toolkit we would need certain type of technologies. If we want to use the ML-Agents toolkit with Unity, we should start with the Unity editor and Unity game engine \cite{UnitySoftware}. Then in the Unity Package Manager, we should install "ML Agents".
 
 After, we should have (or install) Python \cite{PythonManual} (I used python 3.9). With python pip we would need the packages pytorch (\texttt{torch}) and \texttt{mlagents} - For this step I chose to have a virtual environment, which is beneficial to have the proper versions and have the setting up part more organized.
 
@@ -829,7 +833,7 @@ After we've checked out some the key game AI that are used in the industry, I wo
 The technology of ML-Agents is mostly used for training Agents, which are basically NPCs, we can use variety of methods for the training. To start with the usage of ML-Agents we should explain what are:
 
 \begin{itemize}
-    \item \emph{Observations} - How the Agent sees the environment, they can be numeric and/or visual. Numeric observations can be some kind of attributes taken from the environment (they can be discrete or continuous), for the best results, the agent should have several continuous numerical observations. The observations can even be visual from the cameras that are on the agent. The observations are separate from the environment, so that the agent can't get confused with data coming from the whole game/environment.
+    \item \emph{Observations} - How the Agent sees the environment, they can be numeric and/or visual. Numeric observations can be some kind of attributes taken from the environment (they can be discrete or continuous), for the best results, the agent should have several continuous numerical observations. The observations can even be visual from the cameras that are on the agent. They are separate from the environment, so that the agent can't get confused with data coming from the whole game/environment.
     \item \emph{Actions} - What can the agent do, same as the observations, the actions can be discrete or continuous. They can get as complex as the environment allows them to be.
     \item \emph{Reward signals} - How well the agent is doing, these signals don't have to be sent at every moment. The agent should be rewarded only when he does some action that is good, and punished when it does something bad. It should be noted that the rewarding is how the objective of the agent is communicated, so it should be set up in an optimal way for best results.
 \end{itemize}
@@ -940,7 +944,7 @@ The first thing we need to do is create an agent script component, which would i
     \item \texttt{Heuristic} - this method works only if the agent's behaviour is set to Heurstic only mode and in our case, its used to test the environment if it works properly.
 \end{itemize}
 
-Now we can add the script component to our game object and it should look something like this:
+Now we can add the script component to our game object and it should look something like the figure \ref{pic9}.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.35\textwidth]{Images/movetogoalcomponent.png}
@@ -954,9 +958,9 @@ To optimize learning, the environment should be put in a prefab and instantiated
 Now, we should determine when the episode ends and the agent gets a positive reward: when it touches the goal. 
 And, the episode ends and the agents gets a negative reward: when it touches the walls.
 
-From the figure \ref{pic9}, the first noticeable thing is the max step. This has to be environment specific so that the episode resets and that the agent is not motivated to just stay in one place for the best reward. Next this is that the Continuous Actions are set to two as that's how we move our agent (in the two axes). Also we had to add a decision requester and that's nearly it.
+From the figure \ref{pic9}, the first noticeable thing is the max step. It is how many steps the episode can take before ending. It is environment specific so that the episode resets and that the agent is not motivated to just stay in one place for the best reward results. Next this is that the Continuous Actions are set to two as that's how we move our agent (in the two axes). Also we had to add a decision requester and that's nearly it.
 
-The final thing is that we need to execute the commands to train our agent with \texttt{mlagents-learn MoveToGoal.yaml --run-id=MoveToGoal}. For this example, the configuration file doesn't really matter. Note: we can use the command \texttt{tensorboard --logdir} to see how our model is progressing in our environment (see figure \ref{pic10}).
+The final thing is that we need to execute the commands to train our agent with \texttt{mlagents-learn MoveToGoal.yaml --run-id=MoveToGoal}. For this example, the configuration file doesn't really have to change - default parameters should work neatly. Note: we can use the command \texttt{tensorboard --logdir} to see how our model is progressing in our environment (see figure \ref{pic10}).
 
 \begin{figure}[ht]
 \begin{center}
@@ -980,7 +984,7 @@ I want to showcase the next example for the power of ML-Agents and what it is ca
 \label{pic11}
 \end{figure}
 
-What is interesting for this example is that the agent has a ray perception sensor in 3D and its observations are visual, rather than numeric.
+What is interesting for this example is that the agent uses a 3D ray perception sensor (see figure \ref{pic12}) and its observations are visual, rather than numeric.
 
 \begin{figure}[h]
 \begin{center}
@@ -1008,7 +1012,7 @@ This example is similar to the previous one, the agent is the same but we only h
 \label{PyradmidsExample}
 \end{figure}
 
-The agent's observations are ray-casts detecting the environment and the state of the button switch. The ray-casts detect the walls, pyramids, green blocks and the switch, and with a reward of 2 every time the agent touches the green block. It can successfully train to search and find the switch, turn it on and go break down the pyramid with the green block. Also, it should be noted that the agent gets a negative reward $ -1 / MaxStep $ every time.
+The agent's observations are ray-casts detecting the environment and the state of the button switch. The ray-casts detect the walls, pyramids, green blocks and the switch, and with a reward of 2 every time the agent touches the green block. It can successfully train to search and find the switch, turn it on and go break down the pyramid with the green block. Also, it should be noted that the agent gets a negative reward $ -1 / MaxStep $ on every step so the evnironment can show urgency to it.
 
 \subsection{ML Car}
 
@@ -1029,7 +1033,7 @@ Next up, we should create some kind of system for tracking the progress of our c
 
 \subsubsection{Car agent}
 
-Now that we created the basics of our game, we should go on in the implementation of ML-Agents on our agent. For our actions, our agent uses 2 discrete branches of size 3 for each possible movement - turns: left, straight, right - directions: forward, in place, backward. For observations, the agent gets the directions of the next checkpoint. But that is not all, the agent is equipped with a 3D raycasts, see figure \ref{CarAgent}, which are there  to only spot walls and checkpoints. The configuration of training is also not complicated, we just need to mind the number of steps the agent has to take, which in our case that number needs to be high.
+Now that we created the basics of our game, we should go on in the implementation of ML-Agents on our agent. For our actions, our agent uses 2 discrete branches of size 3 for each possible movement - turns: left, straight, right - directions: forward, in place, backward. For observations, the agent gets the directions of the next checkpoint. But that is not all, the agent is equipped with a 3D raycasts, see figure \ref{CarAgent}, which are there  to only spot walls and checkpoints. The configuration of training is also not complicated, we just need to mind the number of steps the agent has to take in an episode, which in our case that number needs to be high.
 
 \begin{figure}[h]
 \begin{center}
